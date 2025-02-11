@@ -8,7 +8,8 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
-
+@Getter
+@Setter
 public class StudentManager {
 
     private Map<String, StudentDto> studentTable = new HashMap<>();

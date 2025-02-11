@@ -13,7 +13,10 @@ public class StudentOutputImp implements StudentOutput {
         this.searchStudent = searchStudent;
         this.sortedStudent = sortedStudent;
         this.studentInput = studentInput;
+
     }
 
-    
+
+
+
 }
