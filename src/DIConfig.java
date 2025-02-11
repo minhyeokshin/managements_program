@@ -1,3 +1,5 @@
+import controller.StudentOutput;
+import controller.StudentOutputImp;
 import repository.StudentManager;
 import service.*;
 
@@ -16,5 +18,9 @@ public class DIConfig {
 
     public StudentInput getStudentInput(){
         return new StudentInputImp(getStudentIO());
+    }
+
+    public StudentOutput getStudentOutput(){
+        return new StudentOutputImp(getSearchStudent(),getSortStudent(),getStudentInput());
     }
 }

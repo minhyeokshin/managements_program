@@ -18,4 +18,5 @@ public class StudentDto {
     private int total;
     private double average;
     private String grade;
+
 }

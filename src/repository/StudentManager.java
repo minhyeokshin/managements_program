@@ -10,6 +10,7 @@ import java.util.Map;
 
 
 public class StudentManager {
+
     private Map<String, StudentDto> studentTable = new HashMap<>();
 
     private static StudentManager studentManagerSingleton = new StudentManager();
