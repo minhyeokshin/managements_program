@@ -1,4 +1,5 @@
 import dto.StudentDto;
+import repository.StudentDBIOUseFileIO;
 import service.SearchStudent;
 
 import java.util.HashMap;
@@ -10,15 +11,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("zz");
 
-        DIConfig diConfig = new DIConfig();
-        SearchStudent searchStudent = diConfig.getSearchStudent();
+        Map<String, StudentDto> testmap = new HashMap<>();
+        testmap.put("123",new StudentDto("123", "123", 1, 1, 1, 1, 123, 123,"a"));
+        testmap.put("133",new StudentDto("123", "123", 1, 1, 1, 1, 123, 123,"a"));
+        testmap.put("163",new StudentDto("123", "123", 1, 1, 1, 1, 123, 123,"a"));
 
-        Map<String,StudentDto> test = new HashMap<>();
-        StudentDto studentDto = new StudentDto("123","123",123,123
-        ,123,123,123,123.0,"32");
-        test.put(studentDto.getStudentNumber(),studentDto);
+        StudentDBIOUseFileIO studentDBIOUseFileIO = new StudentDBIOUseFileIO();
+        studentDBIOUseFileIO.fileInput(testmap);
 
-        diConfig.getStudentIO().setStudentTable(test);
-        System.out.println(searchStudent.search("123"));
+        studentDBIOUseFileIO.fileOutput().entrySet().stream().forEach(System.out::println);
     }
 }
