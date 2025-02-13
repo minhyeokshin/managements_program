@@ -12,10 +12,12 @@ public class StudentIOImp implements StudentIO{
         this.studentManager = studentManager;
     }
 
+
+    @Override
     public Map<String, StudentDto> getStudentTable() {
         return studentManager.getStudentTable();
     }
-
+    @Override
     public void setStudentTable(Map<String, StudentDto> studentTable) {
         studentManager.setStudentTable(studentTable);
     }

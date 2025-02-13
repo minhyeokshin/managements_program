@@ -12,11 +12,11 @@ import java.util.Map;
 @Setter
 public class StudentManager {
 
-    private Map<String, StudentDto> studentTable = new HashMap<>();
+    private StudentManager(){};
+
+    private Map<String, StudentDto> studentTable = new HashMap<>(); // 캐싱데이터
 
     private static StudentManager studentManagerSingleton = new StudentManager();
-
-    private StudentManager(){};
 
     public static StudentManager getInstance(){ // 싱글톤 패턴 getInstance
         return studentManagerSingleton;
