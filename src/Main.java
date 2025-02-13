@@ -1,4 +1,5 @@
 import dto.StudentDto;
+import repository.StudentDBIOUseFileIO;
 import service.SearchStudent;
 import service.SortedStudent;
 import service.StudentIO;
@@ -39,8 +40,6 @@ public class Main {
         System.out.println("총점 기준 오름 차순");
         sortedStudent.printSortedByTotal();     // 총점 기준 오름 차순
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
-
-
 
     }
 }

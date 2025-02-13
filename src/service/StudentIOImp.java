@@ -21,4 +21,9 @@ public class StudentIOImp implements StudentIO{
     public void setStudentTable(Map<String, StudentDto> studentTable) {
         studentManager.setStudentTable(studentTable);
     }
+
+    @Override
+    public void updateStudentTable(StudentDto studentDto) {
+        studentManager.getStudentTable().put(studentDto.getStudentNumber(), studentDto);
+    }
 }
