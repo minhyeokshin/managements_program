@@ -71,7 +71,7 @@ public class SortedStudentImp implements SortedStudent {
             throw new Exception("학생 데이터가 존재 하지 않습니다.");
         }
         if (studentTable.isEmpty()){
-            throw new Exception("");
+            throw new Exception("정렬할 학생 값이 없습니다.");
         }
         return studentTable;
     }
