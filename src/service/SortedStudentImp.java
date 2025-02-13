@@ -18,12 +18,18 @@ public class SortedStudentImp implements SortedStudent {
 
     @Override // 총점 점수 기준 정렬
     public void printSortedByTotal() {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable(); // 캐싱 데이터 불러옴
-        List<StudentDto> studentList = new ArrayList<>(studentTable.values()); // DTO들만  list로 담음
+        Map<String, StudentDto> studentTable = null; // 캐싱 데이터 불러옴
+        try {
+            studentTable = printVerify();
+            List<StudentDto> studentList = new ArrayList<>(studentTable.values()); // DTO들만  list로 담음
 
-        studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed());
+            studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed());
 
-        studentList.forEach(System.out::println);
+            studentList.forEach(System.out::println);
+        } catch (Exception e) {
+            System.out.println("총점 기준 정렬 중 오류 발생: " + e.getMessage());
+        }
+
 
     }
 
@@ -64,7 +70,7 @@ public class SortedStudentImp implements SortedStudent {
 
         studentList.forEach(System.out::println); //테스트 뿌리기
     }
-
+    @Override
     public Map<String, StudentDto> printVerify() throws Exception {
         Map<String, StudentDto> studentTable = studentIO.getStudentTable();
         if (studentTable == null){
