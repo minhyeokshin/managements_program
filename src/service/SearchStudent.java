@@ -6,28 +6,30 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface SearchStudent {
-    //studentNumber 기준검색 O
+    StudentDto search(String sno);
+
+    //studentNumber 기준검색
     StudentDto searchBySno(String studentNumber);
 
-    //전체 학생 검색 O
+    //전체 학생 검색
     Map<String, StudentDto> searchAll();
 
     //특정 등급 학생 검색
     List<StudentDto> searchByGrade(String grade);
 
     //과목별 최저,최고 점수 학생 검색 로직
-
-    StudentDto searchMaxLogic(Function<StudentDto,Integer> function);
-    StudentDto searchMinLogic(Function<StudentDto,Integer> function);
+    List<StudentDto> searchMaxLogic(Function<StudentDto,Integer> function);
+    List<StudentDto> searchMinLogic(Function<StudentDto,Integer> function);
 
     //과목별 최저,최고 점수 학생 검색 기능
-    Map<String, StudentDto> MinTotalMap();
-    Map<String, StudentDto> MaxTotalMap();
+    Map<String, List<StudentDto>> MinTotalMap(String subject);
+    Map<String, List<StudentDto>> MaxTotalMap(String subject);
+
 
     //범위 검색 로직
-    StudentDto searchRangeLogic(Function<StudentDto,Integer> function);
+    List<StudentDto> searchRangeLogic(Function<StudentDto,Integer> function,double min , double max);
     //범위 검색 기능
-    Map<String, StudentDto> SearchRange();
+    Map<String, List<StudentDto>> SearchRange(String subject,double min,double max);
 
     //재시험 대상 필터링(F등급 필터링(60점이하))
     List<StudentDto> searchByReTest ();

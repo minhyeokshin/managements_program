@@ -1,6 +1,7 @@
 package controller;
 
 import dto.StudentDto;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import service.SearchStudent;
@@ -151,8 +152,10 @@ public class StudentOutputImp implements StudentOutput {
             case "3":
                 System.out.println("최고점수를 검색할 과목을 입력하세요.");
                 String subject = input.nextLine();
-                Map<String, StudentDto> maxTotalMap = searchStudent.MaxTotalMap();
-                maxTotalMap.get(subject);
+                Map<String, List<StudentDto>> maxTotalMap = searchStudent.MaxTotalMap(subject);
+
+                System.out.println();
+                //maxTotalMap.get(subject);
 
                 break;
             case "4":
