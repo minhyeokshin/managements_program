@@ -16,14 +16,14 @@ public class SortedStudentImp implements SortedStudent {
         this.studentIO = studentIO;
     }
 
-    @Override // 총점 점수 기준 정렬
+    @Override // 총점 점수 기준 정렬 후 이름으로 다시 정렬
     public void printSortedByTotal() {
-        Map<String, StudentDto> studentTable = null; // 캐싱 데이터 불러옴
+        Map<String, StudentDto> studentTable = null; 
         try {
             studentTable = printVerify();
             List<StudentDto> studentList = new ArrayList<>(studentTable.values()); // DTO들만  list로 담음
 
-            studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed());
+            studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed().thenComparing(StudentDto::getName));
 
             studentList.forEach(System.out::println);
         } catch (Exception e) {
@@ -33,46 +33,64 @@ public class SortedStudentImp implements SortedStudent {
 
     }
 
-    @Override //평균 점수 기준 정렬
+    @Override //평균 점수 기준 정렬후 학번으로 다시 정렬
     public void printSortedByAverage() {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable();
-        List<StudentDto> studentList = new ArrayList<>(studentTable.values());
-
-        studentList.sort(Comparator.comparingDouble(StudentDto::getAverage).reversed());
-
+        Map<String, StudentDto> studentTable = null;
+        try {
+            studentTable = printVerify();
+            List<StudentDto> studentList = new ArrayList<>(studentTable.values());
+            studentList.sort(Comparator.comparingDouble(StudentDto::getAverage).reversed().thenComparing(StudentDto::getStudentNumber));
+        } catch (Exception e) {
+            System.out.println("평점 기준 정렬 중 오류 발생: " + e.getMessage());
+        }
+        
     }
 
-    @Override // 학생 이름 기준 정렬
+    @Override // 학생 이름 기준 정렬 후 학번으로 정렬
     public void printSortedByName() {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable();
-        List<StudentDto> studentList = new ArrayList<>(studentTable.values());
+        Map<String, StudentDto> studentTable = null;
+        try {
+            studentTable = printVerify();
+            List<StudentDto> studentList = new ArrayList<>(studentTable.values());
 
-        studentList.sort(Comparator.comparing(StudentDto::getName));
+            studentList.sort(Comparator.comparing(StudentDto::getName).thenComparing(StudentDto::getStudentNumber));
+        } catch (Exception e) {
+            System.out.println("학생 이름 정렬 중 오류 발생: " + e.getMessage());
+        }
+    
 
-        studentList.forEach(System.out::println);
     }
 
-    @Override  // 학번 기준 정렬
+    @Override  // 학번 기준 정렬 후 이름 기준 다시 정렬
     public void printSortedBySnoNumber() {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable();
-        List<StudentDto> studentList = new ArrayList<>(studentTable.values());
-
-        studentList.sort(Comparator.comparing(StudentDto::getStudentNumber));
-
-        studentList.forEach(System.out::println);
+        Map<String, StudentDto> studentTable = null;
+        try {
+            studentTable = printVerify();
+            List<StudentDto> studentList = new ArrayList<>(studentTable.values());
+            studentList.sort(Comparator.comparing(StudentDto::getStudentNumber).thenComparing(StudentDto::getName));
+        } catch (Exception e) {
+            System.out.println("학번 기준 정렬 중 오류 발생: " + e.getMessage());
+        }
     }
 
-    @Override
+    @Override // 학점 기준 정렬 후 이름 기준 다시 정렬
     public void printSortedByGrade() {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable();
-        List<StudentDto> studentList = new ArrayList<>(studentTable.values());
-        studentList.sort(Comparator.comparing(StudentDto::getGrade).thenComparing(StudentDto::getName));
+        Map<String, StudentDto> studentTable = null;
+        try {
+            studentTable = printVerify();
+            List<StudentDto> studentList = new ArrayList<>(studentTable.values());
+            studentList.sort(Comparator.comparing(StudentDto::getGrade).thenComparing(StudentDto::getName));
+        } catch (Exception e) {
+            System.out.println("학점 기준 정렬 중 오류 발생: " + e.getMessage());
+            
+        }
 
-        studentList.forEach(System.out::println); //테스트 뿌리기
     }
+    
+    
     @Override
     public Map<String, StudentDto> printVerify() throws Exception {
-        Map<String, StudentDto> studentTable = studentIO.getStudentTable();
+        Map<String, StudentDto> studentTable = studentIO.getStudentTable(); // 캐싱 데이터 불러옴
         if (studentTable == null){
             throw new Exception("학생 데이터가 존재 하지 않습니다.");
         }
