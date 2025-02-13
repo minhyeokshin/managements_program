@@ -4,7 +4,9 @@ package dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
+@Builder
+@Setter
+@Getter
 public class StudentDto {
     private String studentNumber;
     private String name;
@@ -102,16 +104,16 @@ public class StudentDto {
 
     @Override
     public String toString() {
-        return "StudentDto{" +
-                "studentNumber='" + studentNumber + '\'' +
-                ", name='" + name + '\'' +
-                ", korean=" + korean +
-                ", english=" + english +
-                ", math=" + math +
-                ", science=" + science +
-                ", total=" + total +
-                ", average=" + average +
-                ", grade='" + grade + '\'' +
-                '}';
+        return "학생 정보[" +
+                "학번: '" + studentNumber + '\'' +
+                ", 이름: '" + name + '\'' +
+                ", 국어: " + korean +
+                ", 영어: " + english +
+                ", 수학: " + math +
+                ", 과학: " + science +
+                ", 총점: " + total +
+                ", 평균: " + average +
+                ", 등급: " + grade + '\'' +
+                ']';
     }
 }
