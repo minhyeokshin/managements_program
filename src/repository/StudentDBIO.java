@@ -1,7 +1,11 @@
 package repository;
 
+import dto.StudentDto;
+
+import java.util.Map;
+
 public interface StudentDBIO {
-    void fileInput();
-    void fileOutput(String fileValue);
+    void fileInput(Map<String, StudentDto> studentTable);
+    Map<String, StudentDto> fileOutput();
 }
 

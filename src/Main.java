@@ -1,39 +1,36 @@
 import controller.StudentOutputImp;
 import dto.StudentDto;
+import repository.StudentDBIOUseFileIO;
 import service.SearchStudent;
+import service.SortedStudent;
+import service.StudentIO;
 
 import java.util.HashMap;
 import java.util.Map;
-import service.SortedStudent;
 import service.StudentInput;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        System.out.println("zz");
 
         DIConfig diConfig = new DIConfig();
-        SearchStudent searchStudent = diConfig.getSearchStudent();
+        SortedStudent sortedStudent = diConfig.getSortStudent();
+        StudentIO studentIO = diConfig.getStudentIO();
+        Map<String,StudentDto> testData = new HashMap<>();
 
-        Map<String,StudentDto> test = new HashMap<>();
-        StudentDto studentDto = new StudentDto("201912780","김병곤",100,23
-        ,43,12,13,12.0,"32");
-        StudentDto studentDto1 = new StudentDto("23","이정섭",13,12
-                ,13,13,13,13.0,"32");
-        StudentDto studentDto2 = new StudentDto("53","신민혁",13,12
-                ,13,13,23,13.0,"32");
-        StudentDto studentDto3 = new StudentDto("623","서민성",13,123
-                ,12,13,23,13.0,"32");
-        test.put(studentDto.getStudentNumber(),studentDto);
-        test.put(studentDto1.getStudentNumber(),studentDto1);
-        test.put(studentDto2.getStudentNumber(),studentDto2);
-        test.put(studentDto3.getStudentNumber(),studentDto3);
+        testData.put("20231001", new StudentDto("20231001", "김병곤", 90, 80, 85, 95, 350, 87.5, "A"));
+        testData.put("20231002", new StudentDto("20231002", "최문규", 70, 75, 80, 85, 310, 77.5, "B"));
+        testData.put("20231003", new StudentDto("20231003", "이정섭", 85, 90, 95, 100, 370, 92.5, "A+"));
+        testData.put("20231004", new StudentDto("20231004", "이동휘", 60, 65, 70, 75, 270, 67.5, "C"));
+        testData.put("20231005", new StudentDto("20231005", "고은아", 50, 55, 60, 65, 230, 57.5, "D"));
 
-        diConfig.getStudentIO().setStudentTable(test);
+        studentIO.setStudentTable(testData);
+
+        diConfig.getStudentIO().setStudentTable(testData);
         //System.out.println(searchStudent.search("123"));
 
-        SortedStudent sortedStudent = diConfig.getSortStudent();
+        SearchStudent searchStudent = diConfig.getSearchStudent();
         StudentInput studentInput = diConfig.getStudentInput();
 
         StudentOutputImp test1 = new StudentOutputImp(searchStudent, sortedStudent, studentInput);

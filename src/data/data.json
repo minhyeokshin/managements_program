@@ -1,0 +1,35 @@
+{
+  "133" : {
+    "studentNumber" : "123",
+    "name" : "123",
+    "korean" : 1,
+    "english" : 1,
+    "math" : 1,
+    "science" : 1,
+    "total" : 123,
+    "average" : 123.0,
+    "grade" : "a"
+  },
+  "123" : {
+    "studentNumber" : "123",
+    "name" : "123",
+    "korean" : 1,
+    "english" : 1,
+    "math" : 1,
+    "science" : 1,
+    "total" : 123,
+    "average" : 123.0,
+    "grade" : "a"
+  },
+  "163" : {
+    "studentNumber" : "123",
+    "name" : "123",
+    "korean" : 1,
+    "english" : 1,
+    "math" : 1,
+    "science" : 1,
+    "total" : 123,
+    "average" : 123.0,
+    "grade" : "a"
+  }
+}

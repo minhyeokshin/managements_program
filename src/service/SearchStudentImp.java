@@ -38,12 +38,12 @@ public class SearchStudentImp implements SearchStudent {
     }
 
     @Override
-    public List<StudentDto> searchMaxLogic(Function<StudentDto, Integer> function) {
+    public StudentDto searchMaxLogic(Function<StudentDto, Integer> function) {
         return null;
     }
 
     @Override
-    public List<StudentDto> searchMinLogic(Function<StudentDto, Integer> function) {
+    public StudentDto searchMinLogic(Function<StudentDto, Integer> function) {
         return null;
     }
 
