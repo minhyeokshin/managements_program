@@ -40,8 +40,13 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("=".repeat(35));
         System.out.println("1. 전체 학생 검색\t 2. 학번 검색");
         System.out.println("3. 과목별 최고 점수 검색\t 4. 과목별 최저 점수 검색");
-        System.out.println("5. 재시험 대상 학생 검색");
+        System.out.println("5. 점수 범위 검색\t6. 등급 검색");
+        System.out.println("7. 재시험 대상 학생 검색");
         System.out.println("1-5번 번호 중 1개를 입력하세요.");
+    }
+
+    public void sortMenu() {
+
     }
 
     /*
@@ -58,6 +63,7 @@ public class StudentOutputImp implements StudentOutput {
     public void studentInfoInput() {
         String studentNameRegex = "^[a-z]{3,20}$";
         String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
+        String studentNumber = studentInput.initStudentNumberCounter();
 
         String name = getUserInput("이름", studentNameRegex);
         int korean = Integer.parseInt(getUserInput("국어 점수", studentScoreRegex));
@@ -73,14 +79,9 @@ public class StudentOutputImp implements StudentOutput {
                 .science(science)
                 .build();
 
-        //StudentInput에 studentDto 던지기
+        //putinput(createDto(studentDto))
 
 
-
-        /*a b c d
-        .bulder.asd
-
-        searchStudent(StudentDto)*/
     }
     //throw new IllegalArgumentException("다시 !");
     private String getUserInput(String di, String studentNumberRegex) {
@@ -152,15 +153,77 @@ public class StudentOutputImp implements StudentOutput {
             case "3":
                 System.out.println("최고점수를 검색할 과목을 입력하세요.");
                 String subject = input.nextLine();
-                Map<String, List<StudentDto>> maxTotalMap = searchStudent.MaxTotalMap(subject);
+                List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
 
                 System.out.println();
-                //maxTotalMap.get(subject);
 
                 break;
             case "4":
+                System.out.println("최저점수를 검색할 과목을 입력하세요.");
+                String subject1 = input.nextLine();
+                List<StudentDto> scoreList1 = searchStudent.MinTotalMap(subject1);
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList1) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
+
+                System.out.println();
                 break;
+
             case "5":
+                System.out.println("검색할 과목을 입력하세요.");
+                String subject2 = input.nextLine();
+                System.out.println("값 2개 입력해 ");
+                System.out.println("최저 점수: ");
+                double min = input.nextInt();
+                System.out.println("최고 점수: ");
+                double max = input.nextInt();
+
+                List<StudentDto> scoreList2 = searchStudent.SearchRange(subject2, min, max);
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList2) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
+
+                System.out.println();
+                break;
+                /*
+                "5. 점수 범위 검색\t6. 등급 검색");
+        System.out.println("7. 재시험 대상 학생 검색");
+                 */
+            case "6":
+                System.out.println("검색할 등급을 입력하세요.");
+                String grade = input.nextLine();
+
+                List<StudentDto> scoreList3 = searchStudent.searchByGrade(grade);
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList3) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
+
+                System.out.println();
+                break;
+
+            case "7":
+                System.out.println("재시험 대상을 검색합니다.");
+
+
+                List<StudentDto> scoreList4 = searchStudent.searchByReTest();
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList4) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
+
+                System.out.println();
                 break;
         }
     }

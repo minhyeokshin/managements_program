@@ -29,8 +29,6 @@ public class SortedStudentImp implements SortedStudent {
         } catch (Exception e) {
             System.out.println("총점 기준 정렬 중 오류 발생: " + e.getMessage());
         }
-
-
     }
 
     @Override //평균 점수 기준 정렬후 학번으로 다시 정렬

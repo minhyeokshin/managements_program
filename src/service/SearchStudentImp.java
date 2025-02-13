@@ -1,14 +1,10 @@
 package service;
 
 import dto.StudentDto;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.OptionalInt;
+
+import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class SearchStudentImp implements SearchStudent {
     StudentIO studentIO;
@@ -55,10 +51,6 @@ public class SearchStudentImp implements SearchStudent {
                 .collect(Collectors.toList());
     }
 
-
-
-
-
     //최고 점수 검색 로직
     @Override
     public List<StudentDto> searchMaxLogic(Function<StudentDto,Integer> function) {
@@ -77,7 +69,7 @@ public class SearchStudentImp implements SearchStudent {
 
     //최고 점수 검색 기능
     @Override
-    public Map<String, List<StudentDto>> MaxTotalMap(String subject) {
+    public List<StudentDto> MaxTotalMap(String subject) {
         Map<String, Function<StudentDto, Integer>> map = new HashMap<>();
         map.put("총점", StudentDto::getTotal);
         map.put("영어", StudentDto::getEnglish);
@@ -87,15 +79,10 @@ public class SearchStudentImp implements SearchStudent {
 
         if (!map.containsKey(subject)) {
             System.out.println("올바른 과목명을 입력하세요.");
-            return Collections.emptyMap();}
-
-        List<StudentDto> students = searchMaxLogic(map.get(subject));
-
-        return students.isEmpty()
-                ? Collections.emptyMap()
-                : Collections.singletonMap(subject,students);
+            return Collections.emptyList();
+        }
+        return searchMaxLogic(map.get(subject));
     }
-
 
     //최저 점수 검색 로직
     @Override
@@ -103,8 +90,6 @@ public class SearchStudentImp implements SearchStudent {
         OptionalInt minscore = studentIO.getStudentTable().values().stream()
                 .mapToInt(function::apply)
                 .min();
-
-        //List<StudentDto> list = studentIO.getStudentTable().
 
         return minscore.isPresent() ?
 
@@ -117,7 +102,7 @@ public class SearchStudentImp implements SearchStudent {
 
     //최저 점수 검색 기능
     @Override
-    public Map<String, List<StudentDto>> MinTotalMap(String subject) {
+    public List<StudentDto> MinTotalMap(String subject) {
         Map<String, Function<StudentDto, Integer>> map = new HashMap<>();
         map.put("총점", StudentDto::getTotal);
         map.put("영어", StudentDto::getEnglish);
@@ -127,19 +112,14 @@ public class SearchStudentImp implements SearchStudent {
 
         if (!map.containsKey(subject)) {
             System.out.println("올바른 과목명을 입력하세요.");
-            return Collections.emptyMap();}
-
-        List<StudentDto> students = searchMinLogic(map.get(subject));
-
-        return students.isEmpty()
-                ? Collections.emptyMap()
-                : Collections.singletonMap(subject,students);
+            return Collections.emptyList();
+        }
+        return searchMinLogic(map.get(subject));
     }
 
-
-    //범위 검색 로직
     @Override
-    public List<StudentDto> searchRangeLogic(Function<StudentDto,Integer> function,double min , double max) {
+    public List<StudentDto> searchRangeLogic(Function<StudentDto, Integer> function, double min, double max) {
+
         return studentIO.getStudentTable().values().stream()
                 .filter(student -> {
                     int score= function.apply(student);
@@ -148,8 +128,9 @@ public class SearchStudentImp implements SearchStudent {
                 .collect(Collectors.toList());
     }
 
+    //범위 대상 출력
     @Override
-    public Map<String, List<StudentDto>> SearchRange(String subject,double min,double max){
+    public List<StudentDto> SearchRange(String subject,double min,double max){
         Map<String,Function<StudentDto,Integer>> map = new HashMap<>();
         map.put("총점",StudentDto::getTotal);
         map.put("영어",StudentDto::getEnglish);
@@ -157,23 +138,22 @@ public class SearchStudentImp implements SearchStudent {
         map.put("국어",StudentDto::getKorean);
         map.put("과학",StudentDto::getScience);
 
-        if(map.containsKey(subject)){
-            List<StudentDto> students = searchRangeLogic(map.get(subject),min,max);
-            return Collections.singletonMap(subject,students);
-        }
-        else {
+        if (!map.containsKey(subject)) {
             System.out.println("올바른 과목명을 입력하세요.");
-            return Collections.emptyMap();
+            return Collections.emptyList();
         }
+        return searchRangeLogic(map.get(subject),min,max);
     }
+
 
     //재시험 대상 학생 필터링
     //60점이하(F등급)
     @Override
-    public List<StudentDto> searchByReTest (){
+    public List<StudentDto> searchByReTest(){
         return studentIO.getStudentTable().values().stream()
                 .filter(student -> student.getGrade() != null &&
                         student.getGrade().equalsIgnoreCase("F"))
                 .collect(Collectors.toList());
     }
+
 }

@@ -1,6 +1,7 @@
 package service;
 
 import dto.StudentDto;
+
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -22,15 +23,17 @@ public interface SearchStudent {
     List<StudentDto> searchMinLogic(Function<StudentDto,Integer> function);
 
     //과목별 최저,최고 점수 학생 검색 기능
-    Map<String, List<StudentDto>> MinTotalMap(String subject);
-    Map<String, List<StudentDto>> MaxTotalMap(String subject);
+    List<StudentDto> MaxTotalMap(String subject);
+    List<StudentDto> MinTotalMap(String subject);
 
 
     //범위 검색 로직
     List<StudentDto> searchRangeLogic(Function<StudentDto,Integer> function,double min , double max);
     //범위 검색 기능
-    Map<String, List<StudentDto>> SearchRange(String subject,double min,double max);
+    List<StudentDto> SearchRange(String subject,double min,double max);
 
     //재시험 대상 필터링(F등급 필터링(60점이하))
     List<StudentDto> searchByReTest ();
+
+
 }
