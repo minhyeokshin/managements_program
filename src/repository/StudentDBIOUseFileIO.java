@@ -2,6 +2,7 @@ package repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import dto.StudentDto;
 import java.io.File;
 import java.io.IOException;
@@ -28,18 +29,22 @@ public class StudentDBIOUseFileIO implements StudentDBIO{
     }
 
     @Override
-    public Map<String, StudentDto> fileOutput() {
+    public Map<String, StudentDto> fileOutput(){
         //파일 존재 확인
         if (!file.exists()) {
             logger.warning("파일 접근 불가");
         }
         try {
-            Map<String,StudentDto> fileMap = objectMapper.readValue(file, Map.class);
+            Map<String, StudentDto> fileMap = objectMapper.readValue(file, Map.class);
             logger.info("파일 데이터 읽어옴");
             return fileMap; // JSON 파일에서 Map으로 변환
+        } catch (MismatchedInputException em) {
+            logger.warning("파일이 비어있거나 json 형식이 아닙니다. " + em.getMessage());
+            return null; //비어있으면 널 반환
         } catch (IOException e) {
             logger.warning("파일 출력 중 오류 발생: " + e.getMessage());
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); // 기타 오류
         }
     }
 }
+
