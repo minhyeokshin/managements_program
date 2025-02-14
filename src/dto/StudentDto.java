@@ -31,4 +31,7 @@ public class StudentDto {
         this.average = average;
         this.grade = grade;
     }
+
+    public StudentDto() {
+    }
 }
