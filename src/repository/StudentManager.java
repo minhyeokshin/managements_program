@@ -32,15 +32,6 @@ public class StudentManager {
     //
     public void setStudentTable(Map<String, StudentDto> studentTable) {
         this.studentTable = studentTable;
-        try {
-            studentDBIO.fileInput(this.studentTable);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public void initialize(){
-        this.studentTable = studentDBIO.fileOutput();
-    }
-
-}

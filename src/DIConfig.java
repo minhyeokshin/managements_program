@@ -9,13 +9,9 @@ public class DIConfig {
 
 
     public StudentIOImp getStudentIO(){
-        setDbioAtManager();
-        return new StudentIOImp(StudentManager.getInstance());
+        return new StudentIOImp(StudentManager.getInstance(),new StudentDBIOUseFileIO());
     }
 
-    public void setDbioAtManager(){
-        StudentManager.setStudentDBIO(new StudentDBIOUseFileIO());
-    }
     public SearchStudent getSearchStudent(){
         return new SearchStudentImp(getStudentIO());
     }

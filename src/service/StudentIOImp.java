@@ -8,9 +8,11 @@ import java.util.Map;
 
 public class StudentIOImp implements StudentIO{
     StudentManager studentManager;
+    StudentDBIO studentDBIO;
 
-    public StudentIOImp(StudentManager studentManager) {
+    public StudentIOImp(StudentManager studentManager, StudentDBIO studentDBIO) {
         this.studentManager = studentManager;
+        this.studentDBIO = studentDBIO;
     }
 
 
@@ -21,6 +23,7 @@ public class StudentIOImp implements StudentIO{
     @Override
     public void setStudentTable(Map<String, StudentDto> studentTable) {
         studentManager.setStudentTable(studentTable);
+        studentDBIO.fileInput(studentTable);
     }
 
     @Override
@@ -30,6 +33,6 @@ public class StudentIOImp implements StudentIO{
 
     @Override
     public void initialize() {
-        studentManager.initialize();
+        studentManager.setStudentTable(studentDBIO.fileOutput());
     }
 }
