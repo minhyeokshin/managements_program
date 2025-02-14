@@ -19,6 +19,7 @@ public class StudentOutputImp implements StudentOutput {
         this.sortedStudent = sortedStudent;
         this.studentInput = studentInput;
     }
+
     @Override
     public void welcome() {
         System.out.println("=".repeat(35));
@@ -76,7 +77,7 @@ public class StudentOutputImp implements StudentOutput {
     public void studentInfoInput() {
         String studentNameRegex = "^[a-z]{3,20}$";
         String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
-        String studentNumber = studentInput.initStudentNumberCounter();
+
 
         String name = getUserInput("이름", studentNameRegex);
         int korean = Integer.parseInt(getUserInput("국어 점수", studentScoreRegex));
@@ -99,6 +100,28 @@ public class StudentOutputImp implements StudentOutput {
 
     }
 
+
+
+    //throw new IllegalArgumentException("다시 !");
+    String getUserInput(String info, String regex) {
+        String studentInfo;
+        System.out.print(info + ": ");
+        studentInfo = StudentOutputImp.input.next();
+        //제대로 입력하면 return
+        if (studentInfo.matches(regex)) {
+            return studentInfo;
+        } else { //제대로 입력할때까지 반복
+            while (true) {
+                System.out.print(info + ": ");
+                studentInfo = StudentOutputImp.input.next();
+                if (studentInfo.matches(regex)) {
+                    break;
+                }
+            }
+        }
+        return studentInfo;
+    }
+
     @Override
     public void studentInfoSearch() {
         Scanner in = new Scanner(System.in);
@@ -115,13 +138,16 @@ public class StudentOutputImp implements StudentOutput {
                 System.out.println("학번을 입력해 주세요.");
                 String studentNumber;
                 StudentDto dto;
-                while(true) {
+                while (true) {
                     try {
                         studentNumber = in.nextLine();
                         dto = searchStudent.searchBySno(studentNumber);
-                        if(dto==null) throw new IllegalArgumentException();
-                        else break;
-                    }catch (IllegalArgumentException e) {
+                        if (dto == null) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            break;
+                        }
+                    } catch (IllegalArgumentException e) {
                         System.out.println("학번 다시 입력하세요!");
                     }
                 }
@@ -139,13 +165,16 @@ public class StudentOutputImp implements StudentOutput {
                 System.out.println("최고점수를 검색할 과목을 입력하세요.");
                 String subject;
                 List<StudentDto> scoreList;
-                while(true) {
+                while (true) {
                     try {
                         subject = input.nextLine();
                         scoreList = searchStudent.MaxTotalMap(subject);
-                        if(scoreList.isEmpty()) throw new IllegalArgumentException();
-                        else break;
-                    } catch(IllegalArgumentException e) {
+                        if (scoreList.isEmpty()) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            break;
+                        }
+                    } catch (IllegalArgumentException e) {
                         System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
                     }
                 }
@@ -158,19 +187,21 @@ public class StudentOutputImp implements StudentOutput {
                 }
 
                 System.out.println();
-
                 break;
             case "4":
                 System.out.println("최저점수를 검색할 과목을 입력하세요.");
                 String subject2;
                 List<StudentDto> scoreList2;
-                while(true) {
+                while (true) {
                     try {
                         subject2 = input.nextLine();
                         scoreList2 = searchStudent.MaxTotalMap(subject2);
-                        if(scoreList2.isEmpty()) throw new IllegalArgumentException();
-                        else break;
-                    } catch(IllegalArgumentException e) {
+                        if (scoreList2.isEmpty()) {
+                            throw new IllegalArgumentException();
+                        } else {
+                            break;
+                        }
+                    } catch (IllegalArgumentException e) {
                         System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
                     }
                 }
@@ -227,7 +258,6 @@ public class StudentOutputImp implements StudentOutput {
 
                 System.out.println();
 
-
                 break;
         }
     }
@@ -246,27 +276,27 @@ public class StudentOutputImp implements StudentOutput {
         String number = in.nextLine();
         switch (number) {
             case "1":
-                sortedStudent.printSortedByTotal();
+                sortedStudent.SortedByTotal();
                 totalStudentInfo();
                 break;
 
             case "2":
-                sortedStudent.printSortedByAverage();
+                sortedStudent.SortedByAverage();
                 totalStudentInfo();
                 break;
 
             case "3":
-                sortedStudent.printSortedByName();
+                sortedStudent.SortedByName();
                 totalStudentInfo();
                 break;
 
             case "4":
-                sortedStudent.printSortedBySnoNumber();
+                sortedStudent.SortedBySnoNumber();
                 totalStudentInfo();
                 break;
 
             case "5":
-                sortedStudent.printSortedByGrade();
+                sortedStudent.SortedByGrade();
                 totalStudentInfo();
                 break;
         }
@@ -303,25 +333,7 @@ public class StudentOutputImp implements StudentOutput {
                         x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
                         x.getValue().getGrade()));
     }
-    //throw new IllegalArgumentException("다시 !");
-    String getUserInput(String info, String regex) {
-        String studentInfo;
-        System.out.print(info + ": ");
-        studentInfo = StudentOutputImp.input.next();
-        //제대로 입력하면 return
-        if (studentInfo.matches(regex)) {
-            return studentInfo;
-        } else { //제대로 입력할때까지 반복
-            while (true) {
-                System.out.print(info + ": ");
-                studentInfo = StudentOutputImp.input.next();
-                if (studentInfo.matches(regex)) {
-                    break;
-                }
-            }
-        }
-        return studentInfo;
-    }
+
 
     @Override
     public void initialize() {

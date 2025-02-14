@@ -61,12 +61,13 @@ public class StudentInputImp implements StudentInput {
                 .build();
     }
 
-    // map(학번,DTO) put
     @Override
     public void putStudentTable(StudentDto studentDto) {
         String studentNumber = initStudentNumberCounter();
-        studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
+       studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
+        studentIO.setStudentTable(studentIO.getStudentTable());
     }
+    // map(학번,DTO) put
 
     //Total 계산 (korean + english + math + science)
     @Override
