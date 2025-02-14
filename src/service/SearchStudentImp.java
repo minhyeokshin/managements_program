@@ -19,7 +19,7 @@ public class SearchStudentImp implements SearchStudent {
     }
 
 
-    //studentNumber 기준검색
+    //studentNumber 기준검색   (학번검색)
     @Override
     public StudentDto searchBySno(String studentNumber) {
         return studentIO.getStudentTable().values().stream()

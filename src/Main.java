@@ -33,25 +33,26 @@ public class Main {
         SearchStudent searchStudent = diConfig.getSearchStudent();
         StudentInput studentInput = diConfig.getStudentInput();
 
-        StudentOutputImp test1 = new StudentOutputImp(searchStudent, sortedStudent, studentInput);
+        StudentOutputImp test = new StudentOutputImp(searchStudent, sortedStudent, studentInput);
         while(true) {
-            test1.welcome();
-            test1.toTalMenu();
-            String number = test1.numberInput();
+            test.welcome();
+            test.toTalMenu();
+            String number = test.numberInput();
             switch (number) {
                 case "1":
-                    test1.studentInfoInput();
+                    test.studentInfoInput();
                     break;
                 case "2":
-                    test1.studentInfoSearch();
+                    test.studentInfoSearch();
                     break;
                 case "3":
-                    test1.studentInfoSort();
+                    test.studentInfoSort();
                     break;
                 case "4":
-                    test1.studentExit();
+                    test.studentExit();
                     break;
             }
+            if(number.equals("4")) break;
         }
 
     }

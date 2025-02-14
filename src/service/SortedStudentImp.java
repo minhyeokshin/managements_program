@@ -17,7 +17,7 @@ public class SortedStudentImp implements SortedStudent {
     }
 
     @Override // 총점 점수 기준 정렬 후 이름으로 다시 정렬
-    public void printSortedByTotal() {
+    public List<StudentDto> printSortedByTotal() {
         Map<String, StudentDto> studentTable = null; 
         try {
             studentTable = printVerify();
@@ -25,23 +25,25 @@ public class SortedStudentImp implements SortedStudent {
 
             studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed().thenComparing(StudentDto::getName));
 
-            studentList.forEach(System.out::println);
+            return studentList;
         } catch (Exception e) {
             System.out.println("총점 기준 정렬 중 오류 발생: " + e.getMessage());
         }
+        return null;
     }
 
     @Override //평균 점수 기준 정렬후 학번으로 다시 정렬
-    public void printSortedByAverage() {
+    public List<StudentDto> printSortedByAverage() {
         Map<String, StudentDto> studentTable = null;
         try {
             studentTable = printVerify();
             List<StudentDto> studentList = new ArrayList<>(studentTable.values());
             studentList.sort(Comparator.comparingDouble(StudentDto::getAverage).reversed().thenComparing(StudentDto::getStudentNumber));
+            return studentList;
         } catch (Exception e) {
             System.out.println("평점 기준 정렬 중 오류 발생: " + e.getMessage());
         }
-        
+        return null;
     }
 
     @Override // 학생 이름 기준 정렬 후 학번으로 정렬
