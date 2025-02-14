@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 import service.SearchStudent;
 import service.SortedStudent;
-import service.StudentIO;
 import service.StudentInput;
 
 public class StudentOutputImp implements StudentOutput {
@@ -123,20 +122,23 @@ public class StudentOutputImp implements StudentOutput {
         switch (number) {
             case "1": //전체 학생 정보 출력
                 System.out.println("전체 학생 정보를 출력합니다.");
-                Map<String, StudentDto> map = searchStudent.searchAll();
-                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
-                        "총점", "평균", "등급");
-                map.entrySet().stream().forEach(
-                        x -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n", x.getValue().getName(),
-                                x.getValue().getStudentNumber(), x.getValue().getKorean(), x.getValue().getEnglish(),
-                                x.getValue().getMath(),
-                                x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
-                                x.getValue().getGrade()));
+                totalStudentInfo();
                 break;
             case "2": //학번 검색
                 System.out.println("학번을 입력해 주세요.");
-                String studentNumber = input.nextLine();
-                StudentDto dto = searchStudent.searchBySno(studentNumber);
+                String studentNumber;
+                StudentDto dto;
+                while(true) {
+                    try {
+                        studentNumber = input.nextLine();
+                        dto = searchStudent.searchBySno(studentNumber);
+                        if(dto==null) throw new IllegalArgumentException();
+                        else break;
+                    }catch (IllegalArgumentException e) {
+                        System.out.println("학번 다시 입력하세요!");
+                    }
+                }
+
                 System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
                         "총점", "평균", "등급");
                 System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto.getName(),
@@ -148,27 +150,67 @@ public class StudentOutputImp implements StudentOutput {
                 break;
             case "3":
                 System.out.println("최고점수를 검색할 과목을 입력하세요.");
-                searchProcess();
+                String subject;
+                List<StudentDto> scoreList;
+                while(true) {
+                    try {
+                        subject = input.nextLine();
+                        scoreList = searchStudent.MaxTotalMap(subject);
+                        if(scoreList.isEmpty()) throw new IllegalArgumentException();
+                        else break;
+                    } catch(IllegalArgumentException e) {
+                        System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
+                    }
+                }
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                        "총점", "평균", "등급");
+                for (StudentDto dto1 : scoreList) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto1.getName(),
+                            dto1.getStudentNumber(), dto1.getKorean(), dto1.getEnglish(), dto1.getMath(),
+                            dto1.getScience(), dto1.getTotal(), dto1.getAverage(), dto1.getGrade());
+                }
+
+                System.out.println();
 
                 break;
             case "4":
                 System.out.println("최저점수를 검색할 과목을 입력하세요.");
-                searchProcess();
+                String subject2;
+                List<StudentDto> scoreList2;
+                while(true) {
+                    try {
+                        subject2 = input.nextLine();
+                        scoreList2 = searchStudent.MaxTotalMap(subject2);
+                        if(scoreList2.isEmpty()) throw new IllegalArgumentException();
+                        else break;
+                    } catch(IllegalArgumentException e) {
+                        System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
+                    }
+                }
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                        "총점", "평균", "등급");
+                for (StudentDto dto2 : scoreList2) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),
+                            dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
+                            dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
+                }
+
+                System.out.println();
                 break;
 
             case "5":
                 System.out.println("검색할 과목을 입력하세요.");
-                String subject2 = input.nextLine();
-                System.out.println("값 2개 입력해 ");
+                String subject5 = input.nextLine();
+                System.out.println("값 2개 입력해하숍 ");
                 System.out.println("최저 점수: ");
                 double min = input.nextInt();
                 System.out.println("최고 점수: ");
                 double max = input.nextInt();
 
-                List<StudentDto> scoreList2 = searchStudent.SearchRange(subject2, min, max);
+                List<StudentDto> scoreList5 = searchStudent.SearchRange(subject5, min, max);
                 System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
                         "총점", "평균", "등급");
-                for (StudentDto dto2 : scoreList2) {
+                for (StudentDto dto2 : scoreList5) {
                     System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto2.getName(),
                             dto2.getStudentNumber(), dto2.getKorean(), dto2.getEnglish(), dto2.getMath(),
                             dto2.getScience(), dto2.getTotal(), dto2.getAverage(), dto2.getGrade());
@@ -187,18 +229,42 @@ public class StudentOutputImp implements StudentOutput {
 
             case "7":
                 System.out.println("재시험 대상을 검색합니다.");
-                searchProcess();
+                List<StudentDto> list = searchStudent.searchByReTest();
+                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                        "총점", "평균", "등급");
+                for (StudentDto dto1 : list) {
+                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto1.getName(),
+                            dto1.getStudentNumber(), dto1.getKorean(), dto1.getEnglish(), dto1.getMath(),
+                            dto1.getScience(), dto1.getTotal(), dto1.getAverage(), dto1.getGrade());
+                }
+
+                System.out.println();
+
+
                 break;
         }
     }
 
+    private void totalStudentInfo() {
+        Map<String, StudentDto> map = searchStudent.searchAll();
+        System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                "총점", "평균", "등급");
+        map.entrySet().stream().forEach(
+                x -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n", x.getValue().getName(),
+                        x.getValue().getStudentNumber(), x.getValue().getKorean(), x.getValue().getEnglish(),
+                        x.getValue().getMath(),
+                        x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
+                        x.getValue().getGrade()));
+    }
+
+    /*
+
+     */
+
     //리스트 받은 Search Method
     private void searchProcess() {
         String subject = input.nextLine();
-
         List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
-
-        Map<String, StudentDto> map = searchStudent.searchAll();
         System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
                 "총점", "평균", "등급");
         for (StudentDto dto : scoreList) {
@@ -213,42 +279,36 @@ public class StudentOutputImp implements StudentOutput {
     public void studentInfoSort() {
         sortMenu();
         Scanner in = new Scanner(System.in);
+        //StudentIO의 map을 가져온다!
+        Map<String, StudentDto> map;
+
         String number = in.nextLine();
         switch (number) {
             case "1":
-                List<StudentDto> list = sortedStudent.printSortedByTotal();
-                System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
-                        "총점", "평균", "등급");
-                for (StudentDto dto : list) {
-                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto.getName(),
-                            dto.getStudentNumber(), dto.getKorean(), dto.getEnglish(), dto.getMath(),
-                            dto.getScience(), dto.getTotal(), dto.getAverage(), dto.getGrade());
-                }
+                sortedStudent.printSortedByTotal();
+                totalStudentInfo();
                 break;
+
             case "2":
-                List<StudentDto> list1 = sortedStudent.printSortedByAverage();
-                for (StudentDto dto : list1) {
-                    System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto.getName(),
-                            dto.getStudentNumber(), dto.getKorean(), dto.getEnglish(), dto.getMath(),
-                            dto.getScience(), dto.getTotal(), dto.getAverage(), dto.getGrade());
-                }
+                sortedStudent.printSortedByAverage();
+                totalStudentInfo();
                 break;
 
             case "3":
                 sortedStudent.printSortedByName();
+                totalStudentInfo();
                 break;
 
             case "4":
                 sortedStudent.printSortedBySnoNumber();
+                totalStudentInfo();
                 break;
 
             case "5":
                 sortedStudent.printSortedByGrade();
+                totalStudentInfo();
                 break;
-
         }
-
-
     }
 
     public void studentExit() {

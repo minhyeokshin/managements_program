@@ -78,7 +78,6 @@ public class SearchStudentImp implements SearchStudent {
         map.put("과학", StudentDto::getScience);
 
         if (!map.containsKey(subject)) {
-            System.out.println("올바른 과목명을 입력하세요.");
             return Collections.emptyList();
         }
         return searchMaxLogic(map.get(subject));
@@ -111,7 +110,6 @@ public class SearchStudentImp implements SearchStudent {
         map.put("과학", StudentDto::getScience);
 
         if (!map.containsKey(subject)) {
-            System.out.println("올바른 과목명을 입력하세요.");
             return Collections.emptyList();
         }
         return searchMinLogic(map.get(subject));
@@ -139,7 +137,6 @@ public class SearchStudentImp implements SearchStudent {
         map.put("과학",StudentDto::getScience);
 
         if (!map.containsKey(subject)) {
-            System.out.println("올바른 과목명을 입력하세요.");
             return Collections.emptyList();
         }
         return searchRangeLogic(map.get(subject),min,max);
