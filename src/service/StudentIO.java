@@ -10,4 +10,5 @@ public interface StudentIO {
 
     void setStudentTable(Map<String, StudentDto> studentTable);
     void updateStudentTable(StudentDto studentDto);
+    void initialize();
 }

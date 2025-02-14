@@ -19,6 +19,7 @@ public class StudentOutputImp implements StudentOutput {
         this.sortedStudent = sortedStudent;
         this.studentInput = studentInput;
     }
+    @Override
     public void welcome() {
         System.out.println("=".repeat(35));
         System.out.println("\twelcome to Student System");
@@ -26,6 +27,7 @@ public class StudentOutputImp implements StudentOutput {
 
     }
 
+    @Override
     public void toTalMenu() {
         System.out.println("\t\t\t  Menu");
         System.out.println("=".repeat(35));
@@ -34,6 +36,7 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("1-4번 번호 중 1개를 입력하세요.");
     }
 
+    @Override
     public void searchMenu() {
         System.out.println("=".repeat(35));
         System.out.println("\t\t\t 2. Search");
@@ -45,6 +48,7 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("1-5번 번호 중 1개를 입력하세요.");
     }
 
+    @Override
     public void sortMenu() {
         System.out.println("=".repeat(35));
         System.out.println("\t\t\t 3. Sort");
@@ -59,6 +63,7 @@ public class StudentOutputImp implements StudentOutput {
     /*
         menu에서 1-4번 중 번호 선택
      */
+    @Override
     public String numberInput() {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
@@ -67,6 +72,7 @@ public class StudentOutputImp implements StudentOutput {
     /*
         학생 정보 입력 -> StudentDto 객체
      */
+    @Override
     public void studentInfoInput() {
         String studentNameRegex = "^[a-z]{3,20}$";
         String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
@@ -93,32 +99,13 @@ public class StudentOutputImp implements StudentOutput {
 
     }
 
-    //throw new IllegalArgumentException("다시 !");
-    private String getUserInput(String info, String regex) {
-        String studentInfo;
-        System.out.print(info + ": ");
-        studentInfo = input.next();
-        //제대로 입력하면 return
-        if (studentInfo.matches(regex)) {
-            return studentInfo;
-        } else { //제대로 입력할때까지 반복
-            while (true) {
-                System.out.print(info + ": ");
-                studentInfo = input.next();
-                if (studentInfo.matches(regex)) {
-                    break;
-                }
-            }
-        }
-        return studentInfo;
-    }
-
+    @Override
     public void studentInfoSearch() {
-
+        Scanner in = new Scanner(System.in);
         System.out.println("학생 정보를 검색합니다.");
         searchMenu();
 
-        String number = input.nextLine();
+        String number = in.nextLine();
         switch (number) {
             case "1": //전체 학생 정보 출력
                 System.out.println("전체 학생 정보를 출력합니다.");
@@ -130,7 +117,7 @@ public class StudentOutputImp implements StudentOutput {
                 StudentDto dto;
                 while(true) {
                     try {
-                        studentNumber = input.nextLine();
+                        studentNumber = in.nextLine();
                         dto = searchStudent.searchBySno(studentNumber);
                         if(dto==null) throw new IllegalArgumentException();
                         else break;
@@ -245,37 +232,11 @@ public class StudentOutputImp implements StudentOutput {
         }
     }
 
-    private void totalStudentInfo() {
-        Map<String, StudentDto> map = searchStudent.searchAll();
-        System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
-                "총점", "평균", "등급");
-        map.entrySet().stream().forEach(
-                x -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n", x.getValue().getName(),
-                        x.getValue().getStudentNumber(), x.getValue().getKorean(), x.getValue().getEnglish(),
-                        x.getValue().getMath(),
-                        x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
-                        x.getValue().getGrade()));
-    }
-
     /*
 
      */
 
-    //리스트 받은 Search Method
-    private void searchProcess() {
-        String subject = input.nextLine();
-        List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
-        System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
-                "총점", "평균", "등급");
-        for (StudentDto dto : scoreList) {
-            System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto.getName(),
-                    dto.getStudentNumber(), dto.getKorean(), dto.getEnglish(), dto.getMath(),
-                    dto.getScience(), dto.getTotal(), dto.getAverage(), dto.getGrade());
-        }
-
-        System.out.println();
-    }
-
+    @Override
     public void studentInfoSort() {
         sortMenu();
         Scanner in = new Scanner(System.in);
@@ -311,8 +272,59 @@ public class StudentOutputImp implements StudentOutput {
         }
     }
 
+    @Override
     public void studentExit() {
         System.out.println("종료합니다.");
     }
 
+    //리스트 받은 Search Method
+    void searchProcess() {
+        String subject = StudentOutputImp.input.nextLine();
+        List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
+        System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                "총점", "평균", "등급");
+        for (StudentDto dto : scoreList) {
+            System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", dto.getName(),
+                    dto.getStudentNumber(), dto.getKorean(), dto.getEnglish(), dto.getMath(),
+                    dto.getScience(), dto.getTotal(), dto.getAverage(), dto.getGrade());
+        }
+
+        System.out.println();
+    }
+
+    void totalStudentInfo() {
+        Map<String, StudentDto> map = searchStudent.searchAll();
+        System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+                "총점", "평균", "등급");
+        map.entrySet().stream().forEach(
+                x -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n", x.getValue().getName(),
+                        x.getValue().getStudentNumber(), x.getValue().getKorean(), x.getValue().getEnglish(),
+                        x.getValue().getMath(),
+                        x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
+                        x.getValue().getGrade()));
+    }
+    //throw new IllegalArgumentException("다시 !");
+    String getUserInput(String info, String regex) {
+        String studentInfo;
+        System.out.print(info + ": ");
+        studentInfo = StudentOutputImp.input.next();
+        //제대로 입력하면 return
+        if (studentInfo.matches(regex)) {
+            return studentInfo;
+        } else { //제대로 입력할때까지 반복
+            while (true) {
+                System.out.print(info + ": ");
+                studentInfo = StudentOutputImp.input.next();
+                if (studentInfo.matches(regex)) {
+                    break;
+                }
+            }
+        }
+        return studentInfo;
+    }
+
+    @Override
+    public void initialize() {
+        searchStudent.initialize();
+    }
 }

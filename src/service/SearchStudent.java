@@ -35,5 +35,7 @@ public interface SearchStudent {
     //재시험 대상 필터링(F등급 필터링(60점이하))
     List<StudentDto> searchByReTest ();
 
+    public void initialize();
+
 
 }

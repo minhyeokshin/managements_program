@@ -153,4 +153,8 @@ public class SearchStudentImp implements SearchStudent {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void initialize() {
+        studentIO.initialize();
+    }
 }
