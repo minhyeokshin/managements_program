@@ -21,17 +21,14 @@ public class SortedStudentImp implements SortedStudent {
             List<StudentDto> studentList = new ArrayList<>(studentTable.values()); // DTO들만  list로 담음
 
             studentList.sort(Comparator.comparingInt(StudentDto::getTotal).reversed().thenComparing(StudentDto::getName));
-            Map<String, StudentDto> sortedStudentTable = new HashMap<>();
+            Map<String, StudentDto> sortedStudentTable = new LinkedHashMap<>();
             for (StudentDto studentDto : studentList) {
-                sortedStudentTable.put(studentDto.getName(), studentDto);
+                sortedStudentTable.put(studentDto.getStudentNumber(), studentDto);
             }
             studentIO.setStudentTable(sortedStudentTable);
-            System.out.println("asdasd");
         } catch (Exception e) {
             System.out.println("총점 기준 정렬 중 오류 발생: " + e.getMessage());
         }
-
-
     }
 
     @Override //평균 점수 기준 정렬후 학번으로 다시 정렬
@@ -41,9 +38,9 @@ public class SortedStudentImp implements SortedStudent {
             studentTable = Verify();
             List<StudentDto> studentList = new ArrayList<>(studentTable.values());
             studentList.sort(Comparator.comparingDouble(StudentDto::getAverage).reversed().thenComparing(StudentDto::getStudentNumber));
-            Map<String, StudentDto> sortedStudentTable = new HashMap<>();
+            Map<String, StudentDto> sortedStudentTable = new LinkedHashMap<>();
             for (StudentDto studentDto : studentList) {
-                sortedStudentTable.put(studentDto.getName(), studentDto);
+                sortedStudentTable.put(studentDto.getStudentNumber(), studentDto);
             }
             studentIO.setStudentTable(sortedStudentTable);
         } catch (Exception e) {
@@ -60,9 +57,9 @@ public class SortedStudentImp implements SortedStudent {
             List<StudentDto> studentList = new ArrayList<>(studentTable.values());
 
             studentList.sort(Comparator.comparing(StudentDto::getName).thenComparing(StudentDto::getStudentNumber));
-            Map<String, StudentDto> sortedStudentTable = new HashMap<>();
+            Map<String, StudentDto> sortedStudentTable = new LinkedHashMap<>();
             for (StudentDto studentDto : studentList) {
-                sortedStudentTable.put(studentDto.getName(), studentDto);
+                sortedStudentTable.put(studentDto.getStudentNumber(), studentDto);
             }
             studentIO.setStudentTable(sortedStudentTable);
 
@@ -80,9 +77,9 @@ public class SortedStudentImp implements SortedStudent {
             studentTable = Verify();
             List<StudentDto> studentList = new ArrayList<>(studentTable.values());
             studentList.sort(Comparator.comparing(StudentDto::getStudentNumber).thenComparing(StudentDto::getName));
-            Map<String, StudentDto> sortedStudentTable = new HashMap<>();
+            Map<String, StudentDto> sortedStudentTable = new LinkedHashMap<>();
             for (StudentDto studentDto : studentList) {
-                sortedStudentTable.put(studentDto.getName(), studentDto);
+                sortedStudentTable.put(studentDto.getStudentNumber(), studentDto);
             }
             studentIO.setStudentTable(sortedStudentTable);
         } catch (Exception e) {
@@ -97,9 +94,9 @@ public class SortedStudentImp implements SortedStudent {
             studentTable = Verify();
             List<StudentDto> studentList = new ArrayList<>(studentTable.values());
             studentList.sort(Comparator.comparing(StudentDto::getGrade).thenComparing(StudentDto::getName));
-            Map<String, StudentDto> sortedStudentTable = new HashMap<>();
+            Map<String, StudentDto> sortedStudentTable = new LinkedHashMap<>();
             for (StudentDto studentDto : studentList) {
-                sortedStudentTable.put(studentDto.getName(), studentDto);
+                sortedStudentTable.put(studentDto.getStudentNumber(), studentDto);
             }
             studentIO.setStudentTable(sortedStudentTable);
         } catch (Exception e) {

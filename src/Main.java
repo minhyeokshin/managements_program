@@ -43,7 +43,6 @@ public class Main {
 
         while(true) {
             test.welcome();
-            test.toTalMenu();
             String number = test.numberInput();
             switch (number) {
                 case "1":

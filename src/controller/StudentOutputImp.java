@@ -19,15 +19,20 @@ public class StudentOutputImp implements StudentOutput {
         this.sortedStudent = sortedStudent;
         this.studentInput = studentInput;
     }
-
+    /*
+        Welcome to the Student System 출력문
+     */
     @Override
     public void welcome() {
         System.out.println("=".repeat(35));
-        System.out.println("\twelcome to Student System");
+        System.out.println("\tWelcome to the Student System");
         System.out.println("=".repeat(35));
-
+        toTalMenu();
     }
 
+    /*
+        학생정보 입력, 검색, 정렬, 종료 메뉴
+     */
     @Override
     public void toTalMenu() {
         System.out.println("\t\t\t  Menu");
@@ -37,6 +42,9 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("1-4번 번호 중 1개를 입력하세요.");
     }
 
+    /*
+        학생정보 검색에 필요한 메뉴
+     */
     @Override
     public void searchMenu() {
         System.out.println("=".repeat(35));
@@ -323,6 +331,7 @@ public class StudentOutputImp implements StudentOutput {
     }
 
     void totalStudentInfo() {
+        System.out.println("=".repeat(35));
         Map<String, StudentDto> map = searchStudent.searchAll();
         System.out.printf("%-4s %-9s %-3s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
                 "총점", "평균", "등급");

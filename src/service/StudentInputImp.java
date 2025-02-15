@@ -29,6 +29,18 @@ public class StudentInputImp implements StudentInput {
         }
         studentNumberCounter++;
         return String.valueOf(studentNumberCounter);
+
+        /*Map<String, StudentDto> studentDtoMap = studentIO.getStudentTable();
+        if(studentNumberCounter == 0) {
+            List<String> list = studentDtoMap.keySet().stream().toList();
+            studentNumberCounter = list.stream()
+                    .filter(x -> x.matches("\\d+"))  // 숫자로만 이루어진 문자열 필터링
+                    .mapToInt(Integer::parseInt)
+                    .max()
+                    .orElse(20250000);
+        }
+        studentNumberCounter++;
+        return String.valueOf(studentNumberCounter);*/
     }
 
 //    //중복정보 검사 (학생이름 + 국어 + 영어 + 수학 + 과학)
@@ -64,7 +76,7 @@ public class StudentInputImp implements StudentInput {
     @Override
     public void putStudentTable(StudentDto studentDto) {
         String studentNumber = initStudentNumberCounter();
-       studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
+        studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
         studentIO.setStudentTable(studentIO.getStudentTable());
     }
     // map(학번,DTO) put

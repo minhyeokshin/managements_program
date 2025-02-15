@@ -1,46 +1,68 @@
 {
-  "qweqr" : {
-    "studentNumber" : "20250004",
-    "name" : "qweqr",
-    "korean" : 23,
-    "english" : 34,
-    "math" : 45,
-    "science" : 56,
-    "total" : 158,
-    "average" : 39.5,
-    "grade" : "F"
-  },
-  "qwert" : {
+  "20250002" : {
     "studentNumber" : "20250002",
-    "name" : "qwert",
-    "korean" : 23,
-    "english" : 34,
-    "math" : 32,
-    "science" : 34,
-    "total" : 123,
-    "average" : 30.75,
-    "grade" : "F"
-  },
-  "trewq" : {
-    "studentNumber" : "20250005",
-    "name" : "trewq",
-    "korean" : 23,
-    "english" : 34,
-    "math" : 1,
-    "science" : 1,
-    "total" : 59,
-    "average" : 14.75,
-    "grade" : "F"
-  },
-  "aaaa" : {
-    "studentNumber" : "20250003",
     "name" : "aaaa",
-    "korean" : 1,
-    "english" : 1,
-    "math" : 1,
-    "science" : 1,
-    "total" : 4,
-    "average" : 1.0,
+    "korean" : 100,
+    "english" : 100,
+    "math" : 100,
+    "science" : 100,
+    "total" : 400,
+    "average" : 100.0,
+    "grade" : "A"
+  },
+  "20250006" : {
+    "studentNumber" : "20250006",
+    "name" : "kkkk",
+    "korean" : 100,
+    "english" : 100,
+    "math" : 100,
+    "science" : 100,
+    "total" : 400,
+    "average" : 100.0,
+    "grade" : "A"
+  },
+  "20250005" : {
+    "studentNumber" : "20250005",
+    "name" : "tttt",
+    "korean" : 80,
+    "english" : 80,
+    "math" : 80,
+    "science" : 80,
+    "total" : 320,
+    "average" : 80.0,
+    "grade" : "B"
+  },
+  "20250004" : {
+    "studentNumber" : "20250004",
+    "name" : "cccc",
+    "korean" : 70,
+    "english" : 70,
+    "math" : 70,
+    "science" : 70,
+    "total" : 280,
+    "average" : 70.0,
+    "grade" : "C"
+  },
+  "20250001" : {
+    "studentNumber" : "20250001",
+    "name" : "bbbb",
+    "korean" : 40,
+    "english" : 50,
+    "math" : 60,
+    "science" : 70,
+    "total" : 220,
+    "average" : 55.0,
+    "grade" : "F"
+  },
+  "20250003" : {
+    "studentNumber" : "20250003",
+    "name" : "bbbb",
+    "korean" : 50,
+    "english" : 50,
+    "math" : 60,
+    "science" : 60,
+    "total" : 220,
+    "average" : 55.0,
     "grade" : "F"
   }
 }
