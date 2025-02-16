@@ -9,7 +9,7 @@ import service.SortedStudent;
 import service.StudentInput;
 
 public class StudentOutputImp implements StudentOutput {
-    private static final String subjectRegex = "^(국어|수학|사회|과학)$";
+    private static final String subjectRegex = "^(국어|수학|영어|과학)$";
     private static final String studentNameRegex = "^[가-힣]{2,4}$";
     private static final String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
     private static final String gradeRegex = "[A-F]";
@@ -208,7 +208,7 @@ public class StudentOutputImp implements StudentOutput {
                         while (true) {
                             String subject = input.nextLine();
                             if (!subject.matches(subjectRegex)) {
-                                System.out.println("[국어|수학|사회|과학] 중 하나를 입력하세요.");
+                                System.out.println("[국어|수학|영어|과학] 중 하나를 입력하세요.");
                                 continue; // 잘못된 입력이면 다시 입력 받음
                             }
 

@@ -19,7 +19,9 @@ public class SearchStudentImp implements SearchStudent {
     }
 
 
-    //studentNumber 기준검색   (학번검색)
+    /**
+     * studentNumber 기준검색
+     */
     @Override
     public StudentDto searchBySno(String studentNumber) {
         return studentIO.getStudentTable().values().stream()
@@ -30,7 +32,9 @@ public class SearchStudentImp implements SearchStudent {
                 .orElse(null);
     }
 
-    //전체 학생 검색
+    /**
+     * 전체 학생 검색
+     */
     @Override
     public Map<String, StudentDto> searchAll() {
         if (studentIO.getStudentTable() != null)
@@ -39,7 +43,9 @@ public class SearchStudentImp implements SearchStudent {
             return Collections.emptyMap();
     }
 
-    //특정 등급 학생 검색
+    /**
+     * 특정 등급 학생 검색
+     */
     @Override
     public List<StudentDto> searchByGrade(String grade) {
         if (studentIO.getStudentTable() == null)
@@ -51,7 +57,9 @@ public class SearchStudentImp implements SearchStudent {
                 .collect(Collectors.toList());
     }
 
-    //최고 점수 검색 로직
+    /**
+     * 과목별 최저 점수 학생 검색 로직
+     */
     @Override
     public List<StudentDto> searchMaxLogic(Function<StudentDto,Integer> function) {
         OptionalInt maxscore = studentIO.getStudentTable().values().stream()
@@ -67,7 +75,9 @@ public class SearchStudentImp implements SearchStudent {
                 : Collections.emptyList();
     }
 
-    //최고 점수 검색 기능
+    /**
+     * 과목별 최저 점수 학생 검색 기능
+     */
     @Override
     public List<StudentDto> MaxTotalMap(String subject) {
         Map<String, Function<StudentDto, Integer>> map = new HashMap<>();
@@ -83,7 +93,9 @@ public class SearchStudentImp implements SearchStudent {
         return searchMaxLogic(map.get(subject));
     }
 
-    //최저 점수 검색 로직
+    /**
+     * 과목별 최저 점수 학생 검색 로직
+     */
     @Override
     public List<StudentDto> searchMinLogic(Function<StudentDto,Integer> function) {
         OptionalInt minscore = studentIO.getStudentTable().values().stream()
@@ -99,7 +111,9 @@ public class SearchStudentImp implements SearchStudent {
                 : Collections.emptyList();
     }
 
-    //최저 점수 검색 기능
+    /**
+     * 과목별 최저 점수 학생 검색 기능
+     */
     @Override
     public List<StudentDto> MinTotalMap(String subject) {
         Map<String, Function<StudentDto, Integer>> map = new HashMap<>();
@@ -115,6 +129,9 @@ public class SearchStudentImp implements SearchStudent {
         return searchMinLogic(map.get(subject));
     }
 
+    /**
+     * 범위 검색 로직
+     */
     @Override
     public List<StudentDto> searchRangeLogic(Function<StudentDto, Integer> function, double min, double max) {
 
@@ -126,7 +143,9 @@ public class SearchStudentImp implements SearchStudent {
                 .collect(Collectors.toList());
     }
 
-    //범위 대상 출력
+    /**
+     * 범위 검색 기능
+     */
     @Override
     public List<StudentDto> SearchRange(String subject,double min,double max){
         Map<String,Function<StudentDto,Integer>> map = new HashMap<>();
@@ -143,8 +162,10 @@ public class SearchStudentImp implements SearchStudent {
     }
 
 
-    //재시험 대상 학생 필터링
-    //60점이하(F등급)
+    /**
+     * 재시험 대상 검색
+     * F등급 필터링
+     */
     @Override
     public List<StudentDto> searchByReTest(){
         return studentIO.getStudentTable().values().stream()
