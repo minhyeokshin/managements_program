@@ -2,12 +2,10 @@ package service;
 
 
 import dto.StudentDto;
-import repository.StudentManager;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
+
+
 
 public class StudentInputImp implements StudentInput {
     //studentNumber,name,korean,english,math,science,total,average,grade

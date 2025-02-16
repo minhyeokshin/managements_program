@@ -8,6 +8,9 @@ import service.SearchStudent;
 import service.SortedStudent;
 import service.StudentInput;
 
+/**
+ * Controller
+ */
 public class StudentOutputImp implements StudentOutput {
     private static final String subjectRegex = "^(국어|수학|사회|과학)$";
     private static final String studentNameRegex = "^[가-힣]{2,4}$";
@@ -26,8 +29,8 @@ public class StudentOutputImp implements StudentOutput {
         this.studentInput = studentInput;
     }
 
-    /*
-        Welcome to the Student System 출력문
+    /**
+     * welcome 메뉴 출력문
      */
     @Override
     public void welcome() {
@@ -37,8 +40,8 @@ public class StudentOutputImp implements StudentOutput {
         toTalMenu();
     }
 
-    /*
-        학생정보 입력, 검색, 정렬, 종료 메뉴
+    /**
+     * 대분류 메뉴
      */
     @Override
     public void toTalMenu() {
@@ -49,8 +52,8 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("1-4번 번호 중 1개를 입력하세요.");
     }
 
-    /*
-        학생정보 검색에 필요한 메뉴
+    /**
+     * 2번 검색 메뉴(학생 정보 검색)
      */
     @Override
     public void searchMenu() {
@@ -64,6 +67,9 @@ public class StudentOutputImp implements StudentOutput {
         System.out.println("1-7번 번호 중 1개를 입력하세요.");
     }
 
+    /**
+     * 3번 정렬 메뉴(학생 정보 정렬)
+     */
     @Override
     public void sortMenu() {
         System.out.println("=".repeat(35));
@@ -76,8 +82,9 @@ public class StudentOutputImp implements StudentOutput {
     }
 
 
-    /*
-        menu에서 1-4번 중 번호 선택
+    /**
+     * 번호 입력
+     * @return number
      */
     @Override
     public String numberInput() {
@@ -86,14 +93,13 @@ public class StudentOutputImp implements StudentOutput {
             String number = input.nextLine();
             if (number.matches(menuNumberRegex)) {
                 return number;
-            } else {
-                System.out.println("[(1-4)번 번호를 입력해주세요.]");
             }
+            System.out.println("[(1-4)번 번호를 입력해주세요.]");
         }
     }
 
-    /*
-        학생 정보 입력 -> StudentDto 객체
+    /**
+     * 학생 정보 입력
      */
     @Override
     public void studentInfoInput() {
@@ -114,22 +120,24 @@ public class StudentOutputImp implements StudentOutput {
         studentInput.putStudentTable(studentDto);
     }
 
-    /*
-        학생 정보 입력 값 반환
+    /**
+     * 학생 정보 입력 반환
+     * @param info
+     * @param regex
+     * @return 입력
      */
     String getUserInput(String info, String regex) {
-        String studentInfo;
         while (true) {
             System.out.print(info + ": ");
-            studentInfo = StudentOutputImp.input.next();
+            String studentInfo = StudentOutputImp.input.next();
             if (studentInfo.matches(regex)) {
                 return studentInfo;
             }
         }
     }
 
-    /*
-        Search
+    /**
+     * 학생 정보 검색
      */
     @Override
     public void studentInfoSearch() {
@@ -241,6 +249,7 @@ public class StudentOutputImp implements StudentOutput {
                             break;
                         }
                         break;
+
                     case "6": //등급 검색
                         System.out.println("검색할 등급을 입력하세요.");
                         while (true) {
@@ -252,6 +261,7 @@ public class StudentOutputImp implements StudentOutput {
                             System.out.println("[A,B,C,D,E,F] 중 한 개의 등급을 입력하세요.");
                         }
                         break;
+
                     case "7": //재시험
                         System.out.println("재시험 대상을 검색합니다.[F등급]");
                         printStudentList(searchStudent.searchByReTest());
@@ -267,8 +277,9 @@ public class StudentOutputImp implements StudentOutput {
         }
     }
 
-    /*
-        Student 리스트 출력
+    /**
+     *  학생 리스트 출력
+     * @param searchList
      */
     public void printStudentList(List<StudentDto> searchList) {
         studentInfo();
@@ -282,6 +293,9 @@ public class StudentOutputImp implements StudentOutput {
 
      */
 
+    /**
+     * 학생 정보 정렬
+     */
     @Override
     public void studentInfoSort() {
         Scanner input = new Scanner(System.in);
@@ -314,31 +328,38 @@ public class StudentOutputImp implements StudentOutput {
                 break;
         }
     }
-
+    /**
+     * 4번 메뉴 (종료)
+     */
     @Override
     public void studentExit() {
         System.out.println("종료합니다.");
     }
 
 
+    /**
+     * 학생 전체 정보 출력
+     */
     void totalStudentInfo() {
         System.out.println("=".repeat(35));
         Map<String, StudentDto> map = searchStudent.searchAll();
         studentInfo();
-        map.entrySet().stream().forEach(
-                x -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n", x.getValue().getName(),
-                        x.getValue().getStudentNumber(), x.getValue().getKorean(), x.getValue().getEnglish(),
-                        x.getValue().getMath(),
-                        x.getValue().getScience(), x.getValue().getTotal(), x.getValue().getAverage(),
-                        x.getValue().getGrade()));
+        map.forEach((key, value) -> System.out.printf("%-4s %-9s %-5s %-4s %-4s %-5s %-4s %-5s %-3s\n",
+                value.getName(), value.getStudentNumber(), value.getKorean(),
+                value.getEnglish(), value.getMath(), value.getScience(),
+                value.getTotal(), value.getAverage(), value.getGrade()));
     }
 
+    /**
+     *  안내 정보 출력
+     */
     void studentInfo() {
-        System.out.printf("%-5s %-7s %-4s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
-                "총점", "평균", "등급");
+        System.out.printf("%-5s %-7s %-4s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학", "총점", "평균", "등급");
     }
 
-
+    /**
+     * StudentIO 초기화
+     */
     @Override
     public void initialize() {
         searchStudent.initialize();
