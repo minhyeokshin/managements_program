@@ -1,101 +1,13 @@
 {
-  "20250008" : {
-    "studentNumber" : "20250008",
-    "name" : "아아아",
-    "korean" : 0,
-    "english" : 0,
-    "math" : 0,
-    "science" : 0,
-    "total" : 0,
-    "average" : 0.0,
-    "grade" : "F"
-  },
-  "20250007" : {
-    "studentNumber" : "20250007",
-    "name" : "안녕하세",
-    "korean" : 20,
-    "english" : 20,
-    "math" : 20,
-    "science" : 20,
-    "total" : 80,
-    "average" : 20.0,
-    "grade" : "F"
-  },
-  "20250009" : {
-    "studentNumber" : "20250009",
-    "name" : "지이지",
-    "korean" : 20,
-    "english" : 20,
-    "math" : 20,
-    "science" : 20,
-    "total" : 80,
-    "average" : 20.0,
-    "grade" : "F"
-  },
-  "20250002" : {
-    "studentNumber" : "20250002",
-    "name" : "기기기",
-    "korean" : 30,
-    "english" : 40,
-    "math" : 50,
-    "science" : 60,
-    "total" : 180,
-    "average" : 45.0,
-    "grade" : "F"
-  },
   "20250001" : {
     "studentNumber" : "20250001",
-    "name" : "최문규",
-    "korean" : 50,
-    "english" : 60,
-    "math" : 70,
-    "science" : 80,
-    "total" : 260,
-    "average" : 65.0,
-    "grade" : "D"
-  },
-  "20250004" : {
-    "studentNumber" : "20250004",
-    "name" : "나나나나",
-    "korean" : 50,
-    "english" : 60,
-    "math" : 60,
-    "science" : 50,
-    "total" : 220,
-    "average" : 55.0,
-    "grade" : "F"
-  },
-  "20250003" : {
-    "studentNumber" : "20250003",
-    "name" : "나나나",
-    "korean" : 30,
-    "english" : 50,
-    "math" : 60,
-    "science" : 30,
-    "total" : 170,
-    "average" : 42.5,
-    "grade" : "F"
-  },
-  "20250006" : {
-    "studentNumber" : "20250006",
-    "name" : "하하하",
+    "name" : "아무개",
     "korean" : 20,
-    "english" : 2,
-    "math" : 2,
-    "science" : 2,
-    "total" : 26,
-    "average" : 6.5,
-    "grade" : "F"
-  },
-  "20250005" : {
-    "studentNumber" : "20250005",
-    "name" : "니니니",
-    "korean" : 3,
-    "english" : 3,
-    "math" : 3,
-    "science" : 3,
-    "total" : 12,
-    "average" : 3.0,
+    "english" : 30,
+    "math" : 40,
+    "science" : 50,
+    "total" : 140,
+    "average" : 35.0,
     "grade" : "F"
   }
 }

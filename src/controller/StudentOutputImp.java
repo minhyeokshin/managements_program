@@ -133,6 +133,7 @@ public class StudentOutputImp implements StudentOutput {
      */
     @Override
     public void studentInfoSearch() {
+        Scanner input = new Scanner(System.in);
         System.out.println("학생 정보를 검색합니다.");
         searchMenu();
         String regex = "[1-7]";
@@ -283,6 +284,7 @@ public class StudentOutputImp implements StudentOutput {
 
     @Override
     public void studentInfoSort() {
+        Scanner input = new Scanner(System.in);
         sortMenu();
         String number = input.nextLine();
         switch (number) {
@@ -332,7 +334,7 @@ public class StudentOutputImp implements StudentOutput {
     }
 
     void studentInfo() {
-        System.out.printf("%-3s %-7s %-4s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
+        System.out.printf("%-5s %-7s %-4s %-3s %-3s %-3s %-3s %-3s %-3s\n", "이름", "학번", "국어", "영어", "수학", "과학",
                 "총점", "평균", "등급");
     }
 
