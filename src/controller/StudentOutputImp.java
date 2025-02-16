@@ -102,7 +102,7 @@ public class StudentOutputImp implements StudentOutput {
      */
     @Override
     public void studentInfoInput() {
-        String studentNameRegex = "^[a-z]{3,20}$";
+        String studentNameRegex = "^[가-힣]{2,4}$";
         String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
 
         String name = getUserInput("이름을 입력하세요", studentNameRegex);

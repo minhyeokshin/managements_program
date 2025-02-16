@@ -16,16 +16,9 @@ import service.StudentInput;
 public class Main {
     public static void main(String[] args) {
 
-
         DIConfig diConfig = new DIConfig();
         StudentOutput test = diConfig.getStudentOutput();
         test.initialize();
-/*
-
-        StudentDBIO studentDBIO = new StudentDBIOUseFileIO();
-        studentDBIO.fileOutput().entrySet().forEach(x -> System.out.println(x.getValue()));
-*/
-
 
         while(true) {
             test.welcome();
