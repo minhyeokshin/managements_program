@@ -9,6 +9,12 @@ import service.SortedStudent;
 import service.StudentInput;
 
 public class StudentOutputImp implements StudentOutput {
+    private static final String subjectRegex = "^(국어|수학|사회|과학)$";
+    private static final String studentNameRegex = "^[가-힣]{2,4}$";
+    private static final String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
+    private static final String gradeRegex = "[A-F]";
+    private static final String menuNumberRegex = "[1-4]";
+
     static Scanner input = new Scanner(System.in);
     SearchStudent searchStudent;
     SortedStudent sortedStudent;
@@ -76,25 +82,14 @@ public class StudentOutputImp implements StudentOutput {
     @Override
     public String numberInput() {
         Scanner input = new Scanner(System.in);
-        String regex = "[1-4]";
         while (true) {
             String number = input.nextLine();
-            if (number.matches(regex)) {
+            if (number.matches(menuNumberRegex)) {
                 return number;
+            } else {
+                System.out.println("[(1-4)번 번호를 입력해주세요.]");
             }
-            System.out.println("[(1-4)번 번호를 입력해주세요.]");
         }
-        /*while (true) {
-            try {
-                String number = input.nextLine();
-                if (number.matches(regex)) {
-                    return number;
-                }
-                throw new IllegalArgumentException("[(1-4)번호를 다시 입력해주세요.]");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }*/
     }
 
     /*
@@ -102,9 +97,6 @@ public class StudentOutputImp implements StudentOutput {
      */
     @Override
     public void studentInfoInput() {
-        String studentNameRegex = "^[가-힣]{2,4}$";
-        String studentScoreRegex = "(^[0-9]$)|(^[1-9][0-9]$)|(^[1][0][0]$)";
-
         String name = getUserInput("이름을 입력하세요", studentNameRegex);
         int korean = Integer.parseInt(getUserInput("국어 점수를 입력하세요", studentScoreRegex));
         int english = Integer.parseInt(getUserInput("영어 점수를 입력하세요", studentScoreRegex));
@@ -173,33 +165,43 @@ public class StudentOutputImp implements StudentOutput {
                         System.out.println("최고점수를 검색할 과목을 입력하세요.");
                         while (true) {
                             String subject = input.nextLine();
-                            List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
-                            if (scoreList.isEmpty()) {
-                                System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
-                            } else {
-                                printStudentList(scoreList);
+                            if (subject.matches(subjectRegex)) {
+                                List<StudentDto> scoreList = searchStudent.MaxTotalMap(subject);
+                                if (scoreList.isEmpty()) {
+                                    System.out.println("학생 정보가 존재하지 않습니다.");
+                                    System.out.println("핵생 정보를 먼저 입력해 주세요.");
+                                } else {
+                                    printStudentList(scoreList);
+                                }
                                 break;
+                            } else {
+                                System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
                             }
                         }
+
                         break;
                     case "4": //최저점수
                         System.out.println("최저점수를 검색할 과목을 입력하세요.");
                         while (true) {
-                            String subject1 = input.nextLine();
-                            List<StudentDto> scoreList = searchStudent.MinTotalMap(subject1);
-                            if (scoreList.isEmpty()) {
-                                System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
-                            } else {
-                                printStudentList(scoreList);
+                            String subject = input.nextLine();
+                            if (subject.matches(subjectRegex)) {
+                                List<StudentDto> scoreList = searchStudent.MinTotalMap(subject);
+                                if (scoreList.isEmpty()) {
+                                    System.out.println("학생 정보가 존재하지 않습니다.");
+                                    System.out.println("핵생 정보를 먼저 입력해 주세요.");
+                                } else {
+                                    printStudentList(scoreList);
+                                }
                                 break;
+                            } else {
+                                System.out.println("올바른 과목명을 입력해주세요. [국어, 영어, 수학, 과학]");
                             }
                         }
+
                         break;
 
                     case "5": // 점수 범위 검색
                         System.out.println("검색할 과목을 입력하세요.");
-                        String subjectRegex = "^(국어|수학|사회|과학)$";
-                        String studentScoreRegex = "^(100|[1-9]?[0-9])$"; // 0~100만 허용하는 정규식
                         int scoreMin, scoreMax;
 
                         while (true) {
@@ -237,11 +239,8 @@ public class StudentOutputImp implements StudentOutput {
                                     Math.max(scoreMax, scoreMin)));
                             break;
                         }
-
                         break;
-
                     case "6": //등급 검색
-                        String gradeRegex = "[A-F]";
                         System.out.println("검색할 등급을 입력하세요.");
                         while (true) {
                             String grade = input.nextLine();
