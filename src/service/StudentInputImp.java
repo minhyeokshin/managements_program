@@ -2,11 +2,16 @@ package service;
 
 
 import dto.StudentDto;
+import repository.StudentManager;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
-
-
+/**
+ * 학생정보를 테이블에 입력하기 위한 클래스
+ */
 public class StudentInputImp implements StudentInput {
     //studentNumber,name,korean,english,math,science,total,average,grade
 
@@ -17,7 +22,11 @@ public class StudentInputImp implements StudentInput {
         this.studentIO = studentIO;
     }
 
-    //학번(studentNumberCounter 생성)
+    /**
+     * 학번을 생성하는 메서드
+     * 테이블에 저장된 가장 큰 학번을 찾아서 그 다음 학번을 생성
+     * @return 생성한 학번 반환
+     */
     private String initStudentNumberCounter() {
         Map<String, StudentDto> studentDtoMap = studentIO.getStudentTable();
         if(studentNumberCounter == 0) {
@@ -31,7 +40,12 @@ public class StudentInputImp implements StudentInput {
         return String.valueOf(studentNumberCounter);
     }
 
-    //Builder
+    /**
+     * 완벽한 학생정보 DTO를 생성하기 위한 메서드
+     * @param studentDto 학생정보 DTO
+     * @param studentNumber 학번
+     * @return builder를 통한 완벽한 학생정보 객체 반환
+     */
     private StudentDto createPerfectDto(StudentDto studentDto, String studentNumber){
         return StudentDto.builder()
                 .studentNumber(studentNumber)
@@ -46,25 +60,40 @@ public class StudentInputImp implements StudentInput {
                 .build();
     }
 
+    /**
+     * 학생정보를 테이블에 입력하는 메서드
+     * @param studentDto 학생정보 DTO
+     */
     @Override
-    // map(학번,DTO) put
     public void putStudentTable(StudentDto studentDto) {
         String studentNumber = initStudentNumberCounter();
         studentIO.getStudentTable().put(studentNumber, createPerfectDto(studentDto, studentNumber));
         studentIO.setStudentTable(studentIO.getStudentTable());
     }
 
-    //Total 계산 (korean + english + math + science)
+    /**
+     * 총점을 계산하는 메서드
+     * @param studentDto 학생정보 DTO
+     * @return 계산한 총점을 반환
+     */
     private int calcTotal(StudentDto studentDto) {
         return studentDto.getKorean() + studentDto.getEnglish() + studentDto.getMath() + studentDto.getScience();
     }
 
-    //Average 계산
+    /**
+     * 평균을 계산하는 메서드
+     * @param studentDto 학생정보 DTO
+     * @return 계산한 평균값을 반환
+     */
     private double calcAverage(StudentDto studentDto) {
         return calcTotal(studentDto) / 4.0;
     }
 
-    //Grade 계산
+    /**
+     * 평균점수를 바탕으로 학점을 정하는 메서드
+     * @param average 평균 점수
+     * @return 측정한 학점을 반환
+     */
     private String calcGrade(double average) {
         switch ((int) (average / 10)) {
             case 10, 9: return "A";
