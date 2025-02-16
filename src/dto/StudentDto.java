@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 학생 정보 dto
+ */
 @ToString
 @Builder
 @Setter
