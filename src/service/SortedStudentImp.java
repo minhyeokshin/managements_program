@@ -12,8 +12,10 @@ public class SortedStudentImp implements SortedStudent {
     public SortedStudentImp(StudentIO studentIO) {
         this.studentIO = studentIO;
     }
-
-    @Override // 총점 점수 기준 정렬 후 이름으로 다시 정렬
+    /**
+     * 총점 기준으로 학생을 정렬 (총점이 높은 순, 이름 오름차순)
+     */
+    @Override
     public void SortedByTotal() {
         Map<String, StudentDto> studentTable = null;
         try {
@@ -30,8 +32,10 @@ public class SortedStudentImp implements SortedStudent {
             System.out.println("총점 기준 정렬 중 오류 발생: " + e.getMessage());
         }
     }
-
-    @Override //평균 점수 기준 정렬후 학번으로 다시 정렬
+    /**
+     * 평균 점수 기준으로 학생을 정렬 (평균이 높은 순, 학번 오름차순)
+     */
+    @Override
     public void SortedByAverage() {
         Map<String, StudentDto> studentTable = null;
         try {
@@ -48,8 +52,10 @@ public class SortedStudentImp implements SortedStudent {
         }
 
     }
-
-    @Override // 학생 이름 기준 정렬 후 학번으로 정렬
+    /**
+     * 학생 이름 기준으로 정렬 (이름 오름차순, 학번 오름차순)
+     */
+    @Override
     public void SortedByName() {
         Map<String, StudentDto> studentTable = null;
         try {
@@ -69,8 +75,10 @@ public class SortedStudentImp implements SortedStudent {
 
 
     }
-
-    @Override  // 학번 기준 정렬 후 이름 기준 다시 정렬
+    /**
+     * 학번 기준으로 정렬 (학번 오름차순, 이름 오름차순)
+     */
+    @Override
     public void SortedBySnoNumber()  {
         Map<String, StudentDto> studentTable = null;
         try {
@@ -87,7 +95,10 @@ public class SortedStudentImp implements SortedStudent {
         }
     }
 
-    @Override // 학점 기준 정렬 후 이름 기준 다시 정렬
+    /**
+     * 학점 기준으로 정렬 (학점 오름차순, 이름 오름차순)
+     */
+    @Override
     public void SortedByGrade() {
         Map<String, StudentDto> studentTable = null;
         try {
@@ -106,8 +117,11 @@ public class SortedStudentImp implements SortedStudent {
 
     }
 
-
-    @Override
+    /**
+     * 학생 정보가 존재하는지 확인
+     * @return 학생 데이터 테이블
+     * @throws Exception 학생 데이터가 없을 경우 예외 발생
+     */
     public Map<String, StudentDto> Verify() throws Exception {
         Map<String, StudentDto> studentTable = studentIO.getStudentTable(); // 캐싱 데이터 불러옴
         if (studentTable == null){
