@@ -8,21 +8,21 @@ import dto.StudentDto;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
+/**
+ * 파일을 사용하는 DBIO 클래스
+ */
 public class StudentDBIOUseFileIO implements StudentDBIO {
     private ObjectMapper objectMapper = new ObjectMapper();
     private static final Logger logger = Logger.getLogger(StudentDBIOUseFileIO.class.getName());
     File file = new File("src/data/data.json");
 
-
-
-
+    /**
+     * 파일 입력 구현체.  json 형태로 통신
+     * @param studentTable 기본키와 학생 DTO 를 밸류값으로 가지는 map 자료구조
+     */
     @Override
     public void fileInput(Map<String, StudentDto> studentTable) {
         try {
@@ -35,6 +35,10 @@ public class StudentDBIOUseFileIO implements StudentDBIO {
         }
     }
 
+    /**
+     * 파일 출력 구현체 json 형태로 통신
+     * @return 키값으로 스튜던트 넘버, 밸류값으로 학생dTo로 구성된 해쉬맵을 반환하는 메소드
+     */
     @Override
     public HashMap<String, StudentDto> fileOutput() {
         // 파일 존재 확인
@@ -59,5 +63,4 @@ public class StudentDBIOUseFileIO implements StudentDBIO {
             throw new RuntimeException(e); // 기타 오류
         }
     }
-
 }
