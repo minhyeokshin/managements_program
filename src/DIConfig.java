@@ -1,9 +1,8 @@
-import controller.StudentOutput;
-import controller.StudentOutputImp;
-import repository.StudentDBIO;
-import repository.StudentDBIOUseFileIO;
-import repository.StudentManager;
-import service.*;
+import student.controller.StudentOutput;
+import student.controller.StudentOutputImp;
+import student.repository.StudentDBIOUseFileIO;
+import student.repository.StudentManager;
+import student.service.*;
 
 /**
  * 전체 프로젝트 의존관계 주입 클래스

@@ -1,0 +1,35 @@
+{
+  "20250003" : {
+    "studentNumber" : "20250003",
+    "name" : "자바왕",
+    "korean" : 65,
+    "english" : 76,
+    "math" : 65,
+    "science" : 65,
+    "total" : 271,
+    "average" : 67.75,
+    "grade" : "D"
+  },
+  "20250002" : {
+    "studentNumber" : "20250002",
+    "name" : "프링글스",
+    "korean" : 23,
+    "english" : 43,
+    "math" : 43,
+    "science" : 43,
+    "total" : 152,
+    "average" : 38.0,
+    "grade" : "F"
+  },
+  "20250001" : {
+    "studentNumber" : "20250001",
+    "name" : "아무개",
+    "korean" : 20,
+    "english" : 30,
+    "math" : 40,
+    "science" : 50,
+    "total" : 140,
+    "average" : 35.0,
+    "grade" : "F"
+  }
+}

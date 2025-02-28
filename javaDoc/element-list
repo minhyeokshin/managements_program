@@ -1,5 +1,5 @@
 unnamed package
-controller
-dto
-repository
-service
+student.controller
+student.dto
+student.repository
+student.service

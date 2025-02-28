@@ -1,4 +1,4 @@
-import controller.StudentOutput;
+import student.controller.StudentOutput;
 public class Main {
     public static void main(String[] args) {
 
