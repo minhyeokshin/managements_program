@@ -10,7 +10,9 @@ public class ObjectIo { // 싱글톤
     public static ObjectIo getInstance(){
       return objectIo;
     };
-//    public static Connection getConnection(){
-//        return connection// 구현;
-//    }
+
+
+    public static Connection getConnection(){
+        return connection;// 구현;
+    }
 }

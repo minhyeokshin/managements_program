@@ -2,9 +2,7 @@ package employee.controller;
 
 import employee.dto.EmployeeDto;
 
-import java.util.List;
-
-public interface EmployeeReadRepo {
+public interface EmployeeReadCont {
     EmployeeDto ReadOne(Integer eno);
     boolean ReadAll();
 
