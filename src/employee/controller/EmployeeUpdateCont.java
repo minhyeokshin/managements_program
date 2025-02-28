@@ -2,6 +2,6 @@ package employee.controller;
 
 import employee.dto.EmployeeDto;
 
-public interface EmployeeUpdateRepo {
+public interface EmployeeUpdateCont {
     EmployeeDto update (Integer eno);
 }
