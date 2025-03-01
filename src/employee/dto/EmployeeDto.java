@@ -10,7 +10,7 @@ public class EmployeeDto {
     private Integer entermonth;
     private Integer enterday;
     private String role;
-    private String secno;
-    private String salary;
+    private Integer secno;
+    private Integer salary;
 }
 

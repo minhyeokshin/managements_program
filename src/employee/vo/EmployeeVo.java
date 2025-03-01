@@ -14,12 +14,12 @@ public class EmployeeVo {
     private Integer entermonth;
     private Integer enterday;
     private String role;
-    private String secno;
-    private String salary;
+    private Integer secno;
+    private Integer salary;
 
     private EmployeeVo(){};
 
-    public EmployeeVo(Integer eno, String name, Integer enteryear, Integer entermonth, Integer enterday, String role, String secno, String salary) {
+    public EmployeeVo(Integer eno, String name, Integer enteryear, Integer entermonth, Integer enterday, String role, Integer secno, Integer salary) {
             this.eno = eno;
             this.name = name;
             this.enteryear = enteryear;
@@ -32,6 +32,7 @@ public class EmployeeVo {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EmployeeVo that = (EmployeeVo) o;
         return Objects.equals(eno, that.eno) && Objects.equals(name, that.name) && Objects.equals(enteryear, that.enteryear) && Objects.equals(entermonth, that.entermonth) && Objects.equals(enterday, that.enterday) && Objects.equals(role, that.role) && Objects.equals(secno, that.secno) && Objects.equals(salary, that.salary);
@@ -51,8 +52,8 @@ public class EmployeeVo {
                 ", entermonth=" + entermonth +
                 ", enterday=" + enterday +
                 ", role='" + role + '\'' +
-                ", secno='" + secno + '\'' +
-                ", salary='" + salary + '\'' +
+                ", secno=" + secno +
+                ", salary=" + salary +
                 '}';
     }
 }

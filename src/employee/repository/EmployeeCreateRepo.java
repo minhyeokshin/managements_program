@@ -1,7 +1,7 @@
 package employee.repository;
 
-import employee.dto.EmployeeDto;
+import employee.vo.EmployeeVo;
 
 public interface EmployeeCreateRepo {
-    Boolean create (EmployeeDto employeeDto);
+    Boolean create (EmployeeVo employeeVo);
 }
