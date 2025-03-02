@@ -31,19 +31,20 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE WHERE eno = ?").toString();
-            pstmt = connection.prepareStatement(sql);
+           pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, eno);
             rs = pstmt.executeQuery();
+            EmployeeDto dto = EmployeeDto.builder()
+                    .eno(rs.getInt("eno"))
+                    .name(rs.getString("name"))
+                    .enteryear(rs.getInt("enteryear"))
+                    .entermonth(rs.getInt("entermonth"))
+                    .enterday(rs.getInt("enterday"))
+                    .role(rs.getString("role"))
+                    .secno(rs.getInt("secno"))
+                    .salary(rs.getInt("salary"))
+                    .build();
 
-            EmployeeDto dto = new EmployeeDto();
-            dto.setEno(rs.getInt("eno"));
-            dto.setName(rs.getString("name"));
-            dto.setEnteryear(rs.getInt("enteryear"));
-            dto.setEntermonth(rs.getInt("entermonth"));
-            dto.setEnterday(rs.getInt("enterday"));
-            dto.setRole(rs.getString("role"));
-            dto.setSecno(rs.getInt("secno"));
-            dto.setSalary(rs.getInt("salary"));
             pstmt.close();
             return dto;
         } catch (SQLException e) {
@@ -62,21 +63,23 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE").toString();
-            pstmt = connection.prepareStatement(sql);
+           pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                EmployeeDto dto = new EmployeeDto();
-                dto.setEno(rs.getInt("eno"));
-                dto.setName(rs.getString("name"));
-                dto.setEnteryear(rs.getInt("enteryear"));
-                dto.setEntermonth(rs.getInt("entermonth"));
-                dto.setEnterday(rs.getInt("enterday"));
-                dto.setRole(rs.getString("role"));
-                dto.setSecno(rs.getInt("secno"));
-                dto.setSalary(rs.getInt("salary"));
+                EmployeeDto dto = EmployeeDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .name(rs.getString("name"))
+                        .enteryear(rs.getInt("enteryear"))
+                        .entermonth(rs.getInt("entermonth"))
+                        .enterday(rs.getInt("enterday"))
+                        .role(rs.getString("role"))
+                        .secno(rs.getInt("secno"))
+                        .salary(rs.getInt("salary"))
+                        .build();
                 list.add(dto);
             }
+            pstmt.close();
 
             return list;
         } catch (SQLException e) {
