@@ -9,14 +9,12 @@ public class EmployeeReadServiceImp implements EmployeeReadService{
 
     private final EmployeeReadRepo employeeReadRepo;
 
-
     public EmployeeReadServiceImp(EmployeeReadRepo employeeReadRepo) {
         this.employeeReadRepo = employeeReadRepo;
     }
 
-
     @Override
-    public EmployeeDto ReadOne(EmployeeDto employeeDto) {
+    public EmployeeDto ReadOne(Integer eno) {
         return null;
     }
 
