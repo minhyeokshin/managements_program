@@ -4,6 +4,10 @@ package common;
  * 직원 관련 메시지 텍스트 Enum
  */
 public enum EmployeeText {
+    MENU_HEADER("\n====================================\n[직원 관리 시스템]\n===================================="),
+    MENU_BORDER("------------------------------------"),
+    MENU_OPTIONS("1. 직원 생성\n2. 직원 삭제\n3. 직원 조회\n4. 직원 수정\n5. 종료"),
+    ENTER_EMPLOYEE_NUMBER("수정할 직원의 번호를 입력하세요: "),
     UPDATE_PROMPT("직원 정보를 업데이트합니다."),
     CHOOSE_UPDATE_OPTION("변경할 정보를 선택하세요:\n1. 이름 | 2. 직급 | 3. 급여 | 4. 입사연도 | 5. 입사월 | 6. 입사일 | 7. 부서 번호 | 8. 취소"),
     ENTER_CHOICE("선택: "),
@@ -15,7 +19,8 @@ public enum EmployeeText {
     ENTER_ENTRY_DAY("입사 일을 입력하세요: "),
     ENTER_SECTION_NUMBER("부서 번호를 입력하세요: "),
     UPDATE_CANCELLED("업데이트가 취소되었습니다."),
-    INVALID_CHOICE("잘못된 선택입니다. 업데이트가 취소되었습니다.");
+    INVALID_CHOICE("잘못된 선택입니다. 업데이트가 취소되었습니다."),
+    UPDATE_SUCCESS("직원 정보가 성공적으로 업데이트되었습니다.");
 
     private final String text;
 

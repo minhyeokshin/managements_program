@@ -1,5 +1,8 @@
 package employee.controller;
 
+import common.EmployeeText;
+import common.ErrorCode;
+
 import java.util.Scanner;
 
 /**
@@ -31,14 +34,9 @@ public class MainController {
      * 메뉴 출력
      */
     private void printMenu() {
-        System.out.println("\n====================================");
-        System.out.println("\t[직원 관리 시스템]");
-        System.out.println("====================================");
-        System.out.println("1. 직원 생성");
-        System.out.println("2. 직원 삭제");
-        System.out.println("3. 직원 조회");
-        System.out.println("4. 직원 수정");
-        System.out.println("5. 종료");
+        System.out.println(EmployeeText.MENU_HEADER.getText());
+        System.out.println(EmployeeText.MENU_BORDER.getText());
+        System.out.println(EmployeeText.MENU_OPTIONS.getText());
     }
 
     private void createEmployee() {
@@ -52,14 +50,31 @@ public class MainController {
 
     private void updateEmployee() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("수정할 직원의 번호를 입력하세요: ");
-        int eno = Integer.parseInt(scanner.nextLine());
+        int eno;
 
-        try {
-            updateController.update(eno);
-            System.out.println("직원 정보가 성공적으로 업데이트되었습니다.");
-        } catch (Exception e) {
-            System.out.println("직원 정보 업데이트 중 오류가 발생했습니다: " + e.getMessage());
+        while (true) {
+            System.out.print(EmployeeText.ENTER_EMPLOYEE_NUMBER.getText());
+            try {
+                eno = Integer.parseInt(scanner.nextLine());
+                if (eno <= 0) {
+                    System.out.println(ErrorCode.INVALID_EMPLOYEE_NUMBER.getText());
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println(ErrorCode.INVALID_EMPLOYEE_NUMBER.getText());
+            }
         }
 
-}}
+        try {
+            if (readController.ReadOne(eno) == null) {
+                System.out.println(ErrorCode.EMPLOYEE_NUMBER_NOT_FOUND.getText());
+                return;
+            }
+            updateController.update(eno);
+            System.out.println(EmployeeText.UPDATE_SUCCESS.getText());
+        } catch (Exception e) {
+            System.out.println(ErrorCode.EMPLOYEE_NOT_FOUND.getText() + ": " + e.getMessage());
+        }
+    }
+}
