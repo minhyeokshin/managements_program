@@ -2,6 +2,7 @@ package employee.controller;
 
 import common.EmployeeText;
 import common.ErrorCode;
+import common.ValidCheck;
 
 import java.util.Scanner;
 
@@ -14,13 +15,15 @@ public class MainController {
     private final EmployeeDeleteCont deleteController;
     private final EmployeeReadCont readController;
     private final EmployeeUpdateCont updateController;
+    private final ValidCheck validCheck;
 
     public MainController(EmployeeCreateCont createController, EmployeeDeleteCont deleteController,
-                          EmployeeReadCont readController, EmployeeUpdateCont updateController) {
+                          EmployeeReadCont readController, EmployeeUpdateCont updateController,  ValidCheck validCheck ) {
         this.createController = createController;
         this.deleteController = deleteController;
         this.readController = readController;
         this.updateController = updateController;
+        this.validCheck = validCheck;
     }
 
     /**
@@ -50,21 +53,7 @@ public class MainController {
 
     private void updateEmployee() {
         Scanner scanner = new Scanner(System.in);
-        int eno;
-
-        while (true) {
-            System.out.print(EmployeeText.ENTER_EMPLOYEE_NUMBER.getText());
-            try {
-                eno = Integer.parseInt(scanner.nextLine());
-                if (eno <= 0) {
-                    System.out.println(ErrorCode.INVALID_EMPLOYEE_NUMBER.getText());
-                    continue;
-                }
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println(ErrorCode.INVALID_EMPLOYEE_NUMBER.getText());
-            }
-        }
+        int eno = validCheck.getValidEmployeeNumber(scanner);
 
         try {
             if (readController.ReadOne(eno) == null) {
