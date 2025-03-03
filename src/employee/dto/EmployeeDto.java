@@ -3,6 +3,9 @@ package employee.dto;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ *  Employee 정보 DTO
+ */
 @Data
 @Builder
 public class EmployeeDto {

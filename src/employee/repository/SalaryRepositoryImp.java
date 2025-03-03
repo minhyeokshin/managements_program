@@ -8,14 +8,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-
+/**
+ * Salary 변경 이력을 DB에 저장하는 클래스 
+ */
 public class SalaryRepositoryImp implements SalaryRepository{
     Connection connection = ObjectIo.getConnection();
     ResultSet rs = null;
 
+    /**
+     * Salary 변경 반영
+     * @param employeeDto
+     * @param function
+     * @return true or false
+     * @throws SQLException
+     */
     @Override
     public Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws SQLException {
         Integer currentSalary = employeeDto.getSalary();
@@ -33,7 +43,6 @@ public class SalaryRepositoryImp implements SalaryRepository{
             pstmt1.setInt(1, newSalary);
             pstmt1.setInt(2, employeeDto.getEno());
             int check1 = pstmt1.executeUpdate();
-
 
             String sql2 = new StringBuilder()
                     .append("INSERT INTO PAY_RAISE_HISTORY (eno, oldSalary, newSalary) ")
@@ -62,8 +71,34 @@ public class SalaryRepositoryImp implements SalaryRepository{
         }
     }
 
+    /**
+     * Employee의 Salary 변경 이력 반환
+     * @param eno
+     * @return List<SalaryHistoryDto>
+     */
     @Override
     public List<SalaryHistoryDto> salaryHistory(int eno) {
-        return null;
+        List<SalaryHistoryDto> list = new ArrayList<>();
+        try {
+            String sql = new StringBuilder()
+                    .append("SELECT p.eno, e.name, p.oldSalary, p.newSalary ")
+                    .append("FROM EMPLOYEE e, PAY_RAISE_HISTORY p ")
+                    .append("WHERE e.ENO = p.ENO;").toString();
+
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                SalaryHistoryDto dto = SalaryHistoryDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .name(rs.getString("name"))
+                        .oldSalary(rs.getInt("oldSalary"))
+                        .newSalary(rs.getInt("newSalary")).build();
+                list.add(dto);
+            }
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
