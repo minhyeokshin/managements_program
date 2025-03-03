@@ -27,7 +27,7 @@ public class ValidCheck {
                 return eno;
             } catch (NumberFormatException e) {
                 System.out.println(ErrorCode.INVALID_EMPLOYEE_NUMBER.getText());
-            } catch (IllegalArgumentException e) { // ✅ 이후 유효성 검사 예외 처리
+            } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
