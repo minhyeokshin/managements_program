@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- *  DB에 저장된 Employee 정보를 가져오는 클래스
+ * DB에 저장된 Employee 정보를 가져오는 클래스
  */
 public class EmployeeReadRepoImp implements EmployeeReadRepo {
 
@@ -22,6 +22,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
 
     /**
      * Employee 1명의 정보를 가져오는 메서드
+     *
      * @param eno
      * @return Employee
      */
@@ -31,7 +32,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE WHERE eno = ?").toString();
-           pstmt = connection.prepareStatement(sql);
+            pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, eno);
             rs = pstmt.executeQuery();
             EmployeeDto dto = EmployeeDto.builder()
@@ -63,7 +64,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE").toString();
-           pstmt = connection.prepareStatement(sql);
+            pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
