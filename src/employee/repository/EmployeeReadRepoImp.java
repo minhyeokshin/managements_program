@@ -1,6 +1,8 @@
 package employee.repository;
 
+import common.ErrorCode;
 import employee.dto.EmployeeDto;
+import exception.EmployeeException;
 import object.ObjectIo;
 
 import java.sql.Connection;
@@ -27,7 +29,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
      * @return Employee
      */
     @Override
-    public EmployeeDto ReadOne(Integer eno) {
+    public EmployeeDto ReadOne(Integer eno) throws EmployeeException {
 
         try {
             String sql = new StringBuilder()
@@ -49,7 +51,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
             pstmt.close();
             return dto;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new EmployeeException(ErrorCode.DB_READ_ONE_ERROR);
         }
     }
 
@@ -58,7 +60,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
      * @return List<EmployeeDto>
      */
     @Override
-    public List<EmployeeDto> ReadAll() {
+    public List<EmployeeDto> ReadAll() throws EmployeeException {
         List<EmployeeDto> list = new ArrayList<>();
 
         try {
@@ -84,7 +86,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
 
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new EmployeeException(ErrorCode.DB_READ_ALL_ERROR);
         }
 
 

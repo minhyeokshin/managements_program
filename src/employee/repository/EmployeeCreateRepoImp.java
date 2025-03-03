@@ -2,7 +2,9 @@ package employee.repository;
 
 
 
+import common.ErrorCode;
 import employee.vo.EmployeeVo;
+import exception.EmployeeException;
 import object.ObjectIo;
 
 import java.sql.Connection;
@@ -12,7 +14,7 @@ import java.sql.SQLException;
 /**
  *  Employee 정보를 DB에 저장하는 클래스
  */
-public class EmployeeCreateRepoImp implements EmployeeCreateRepo{
+public class EmployeeCreateRepoImp implements EmployeeCreateRepo {
 
     Connection connection = ObjectIo.getConnection();
     PreparedStatement pstmt = null;
@@ -23,7 +25,7 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo{
      * @return boolean값(true)
      */
     @Override
-    public Boolean create(EmployeeVo employeeVo)  {
+    public Boolean create(EmployeeVo employeeVo) throws EmployeeException {
         String sql = new StringBuilder()
                 .append("INSERT INTO EMPLOYEE (eno, name, enteryear, entermonth, enterday, role, secno, salary) ")
                 .append("VALUES(?,?,?,?,?,?,?,?").toString();
@@ -41,7 +43,7 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo{
             check = pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new EmployeeException(ErrorCode.DB_CREATE_ERROR);
         }
         return check==1;
     }

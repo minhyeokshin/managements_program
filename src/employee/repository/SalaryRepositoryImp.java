@@ -1,7 +1,9 @@
 package employee.repository;
 
+import common.ErrorCode;
 import employee.dto.EmployeeDto;
 import employee.dto.SalaryHistoryDto;
+import exception.EmployeeException;
 import object.ObjectIo;
 
 import java.sql.Connection;
@@ -27,7 +29,7 @@ public class SalaryRepositoryImp implements SalaryRepository{
      * @throws SQLException
      */
     @Override
-    public Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws SQLException {
+    public Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws EmployeeException, SQLException {
         Integer currentSalary = employeeDto.getSalary();
         Integer newSalary = function.apply(currentSalary);
 
@@ -65,7 +67,7 @@ public class SalaryRepositoryImp implements SalaryRepository{
 
         } catch (SQLException e) {
             connection.rollback();
-            throw new RuntimeException(e);
+            throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_ERROR);
         } finally {
             connection.setAutoCommit(true);
         }
@@ -77,7 +79,7 @@ public class SalaryRepositoryImp implements SalaryRepository{
      * @return List<SalaryHistoryDto>
      */
     @Override
-    public List<SalaryHistoryDto> salaryHistory(int eno) {
+    public List<SalaryHistoryDto> salaryHistory(int eno) throws EmployeeException{
         List<SalaryHistoryDto> list = new ArrayList<>();
         try {
             String sql = new StringBuilder()
@@ -98,7 +100,7 @@ public class SalaryRepositoryImp implements SalaryRepository{
             }
             return list;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_HISTORY_ERROR);
         }
     }
 }
