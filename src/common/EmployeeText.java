@@ -20,7 +20,12 @@ public enum EmployeeText {
     ENTER_SECTION_NUMBER("부서 번호를 입력하세요: "),
     UPDATE_CANCELLED("업데이트가 취소되었습니다."),
     INVALID_CHOICE("잘못된 선택입니다. 업데이트가 취소되었습니다."),
-    UPDATE_SUCCESS("직원 정보가 성공적으로 업데이트되었습니다.");
+    UPDATE_SUCCESS("직원 정보가 성공적으로 업데이트되었습니다."),
+    READ_ALL("전체 임직원 정보를 검색 합니다."),
+    READ_ALL_NULL("저장된 직원 정보가 없습니다."),
+    READ_ONE_CHOICE("1. 전체 검색 2. 사번 검색"),
+    READ_ONE_INPUT_ENO("검색할 임직원 사번을 입력하세요");
+
 
     private final String text;
 
