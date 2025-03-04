@@ -1,7 +1,7 @@
 package employee.repository;
 
-import employee.vo.EmployeeVo;
+import employee.dto.EmployeeDto;
 
 public interface EmployeeUpdateRepo {
-    Boolean update (EmployeeVo employeeVo);
+    void update (EmployeeVo employeeVo);
 }

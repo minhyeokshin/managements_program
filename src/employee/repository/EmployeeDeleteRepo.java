@@ -1,7 +1,7 @@
 package employee.repository;
 
-import employee.vo.EmployeeVo;
+import employee.dto.EmployeeDto;
 
 public interface EmployeeDeleteRepo {
-    Boolean Delete (EmployeeVo employeeVo);
+    void Delete (EmployeeVo employeeVo);
 }

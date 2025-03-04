@@ -7,8 +7,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Employee의 Salary 변경 이력을 DB에 저장하고 반환하는 인터페이스
+ */
 public interface SalaryRepository {
-    Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws SQLException;
+    void updateSalaryHistory(int eno, int oldSalary, int newSalary);
 
     List<SalaryHistoryDto> salaryHistory(int eno);
 }
