@@ -1,28 +1,9 @@
 package employee.repository;
 
-import common.ErrorCode;
-import employee.vo.EmployeeVo;
-import exception.EmployeeException;
-import object.ObjectIo;
+import employee.dto.EmployeeDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-/**
- * Employee 정보를 DB에서 삭제하는 클래스
- */
 public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
 
-    Connection connection = ObjectIo.getConnection();
-    PreparedStatement pstmt = null;
-
-    /**
-     * 입력받은 eno에 해당하는 Employee 정보를 DB에서 삭제하는 메서드
-     * @param employeeVo
-     * @return boolean check
-     * @throws EmployeeException
-     */
     @Override
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 

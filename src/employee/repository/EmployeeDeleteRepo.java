@@ -1,6 +1,6 @@
 package employee.repository;
 
-import employee.vo.EmployeeVo;
+import employee.dto.EmployeeDto;
 
 public interface EmployeeDeleteRepo {
     void Delete (EmployeeVo employeeVo);
