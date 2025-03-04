@@ -15,7 +15,7 @@ public class EmployeeDeleteServiceImp implements EmployeeDeleteService{
 
 
     @Override
-    public EmployeeDto Delete(EmployeeDto employeeDto) {
-        return null;
+    public void Delete(EmployeeDto employeeDto) {
+        employeeDeleteRepo.Delete(employeeDto); // vo로 바꿔야함
     }
 }

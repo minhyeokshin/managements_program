@@ -3,6 +3,6 @@ package employee.service.pay;
 public class PayRateStaff implements PayRaiseRate{
     @Override
     public Integer apply(Integer salary) {
-        return 0;
+        return (int)(salary * 1.3);
     }
 }
