@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public interface SalaryRepository {
-    Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws SQLException;
+    public void updateSalaryHistory(int eno, int oldSalary, int newSalary)
 
     List<SalaryHistoryDto> salaryHistory(int eno);
 }
