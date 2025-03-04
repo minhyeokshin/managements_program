@@ -15,11 +15,11 @@ public class EmployeeReadServiceImp implements EmployeeReadService{
 
     @Override
     public EmployeeDto ReadOne(Integer eno) {
-        return null;
+        return employeeReadRepo.ReadOne(eno);
     }
 
     @Override
     public List<EmployeeDto> ReadAll() {
-        return null;
+        return employeeReadRepo.ReadAll();
     }
 }
