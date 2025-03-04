@@ -21,7 +21,8 @@ public enum ErrorCode {
     UPDATE_FAILED("직원 정보 업데이트에 실패했습니다."),
     DELETE_FAILED("직원 삭제에 실패했습니다."),
     CREATE_FAILED("직원 생성에 실패했습니다."),
-    EMPLOYEE_NUMBER_NOT_FOUND("입력한 직원 번호가 존재하지 않습니다.");
+    EMPLOYEE_NUMBER_NOT_FOUND("입력한 직원 번호가 존재하지 않습니다."),
+    ERROR_INPUT_NUM("숫자를 입력하세요.");
 
 
     private final String text;

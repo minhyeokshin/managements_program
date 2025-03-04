@@ -3,6 +3,7 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+
 Ignore.java
 
 ### Eclipse ###
@@ -30,3 +31,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 echo ".idea/compiler.xml" >> .gitignore
+
+### IntelliJ 설정 파일 무시 ###
+.idea/misc.xml
+.idea/compiler.xml
