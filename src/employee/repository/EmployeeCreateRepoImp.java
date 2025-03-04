@@ -25,11 +25,10 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo {
      * @return boolean값(true)
      */
     @Override
-    public Boolean create(EmployeeVo employeeVo) throws EmployeeException {
+    public void create(EmployeeVo employeeVo) throws EmployeeException {
         String sql = new StringBuilder()
                 .append("INSERT INTO EMPLOYEE (eno, name, enteryear, entermonth, enterday, role, secno, salary) ")
                 .append("VALUES(?,?,?,?,?,?,?,?").toString();
-        int check = 0;
         try {
             pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, employeeVo.getEno());
@@ -40,11 +39,11 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo {
             pstmt.setString(6, employeeVo.getRole());
             pstmt.setInt(7, employeeVo.getSecno());
             pstmt.setInt(8, employeeVo.getSalary());
-            check = pstmt.executeUpdate();
+            pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
             throw new EmployeeException(ErrorCode.DB_CREATE_ERROR);
         }
-        return check==1;
+
     }
 }
