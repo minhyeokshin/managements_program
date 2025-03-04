@@ -31,7 +31,10 @@ public enum EmployeeText {
     DELETE_CANCELLED("직원 정보 삭제가 취소되었습니다."),
     DELETE_EMPLOYEE_NUMBER("삭제할 직원의 번호를 입력하세요: "),
     SALARY_UPDATE_SUCCESS("직원 급여가 성공적으로 인상되었습니다."),
-    EXIT_MESSAGE("직원 관리 시스템을 종료합니다.");
+    EXIT_MESSAGE("직원 관리 시스템을 종료합니다."),
+    ENTER_INPUT_EMPLOYEE("직원 정보를 입력합니다."),
+    EMPLOYEE_CREATE_SUCCESS("직원 정보 생성 성공!"),
+    EMPLOYEE_CREATE_FAIL("직원 정보 생성 실패!");
 
 
     private final String text;
