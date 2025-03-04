@@ -49,4 +49,6 @@ public class DIConfig {
         return new StudentOutputImp(getSearchStudent(),getSortStudent(),getStudentInput());
     }
 
+
+
 }
