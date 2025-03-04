@@ -5,6 +5,10 @@ public enum ErrorCode {
     DB_CREATE_ERROR("[DB] 잘못된 직원 정보입니다."),
     DB_READ_ONE_ERROR("[DB] 해당 직원은 존재하지 않습니다."),
     DB_READ_ALL_ERROR("[DB] 직원 정보를 가져올 수 없습니다."),
+    DB_UPDATE_ERROR("[DB] 직원 정보를 수정할 수 없습니다."),
+    DB_NO_UPDATE("[DB] 수정할 직원 정보가 없습니다."),
+    DB_DELETE_ERROR("[DB] 직원 정보를 삭제할 수 없습니다."),
+    DB_NO_DELETE("[DB] 삭제할 직원 정보가 없습니다."),
     DB_UPDATE_SALARY_ERROR("[DB] 급여 변경이 제한됩니다."),
     DB_UPDATE_SALARY_HISTORY_ERROR("[DB] 급여 변경 이력을 불러올수 없습니다."),
 

@@ -24,7 +24,7 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
      * @throws EmployeeException
      */
     @Override
-    public Boolean update(EmployeeVo employeeVo) throws EmployeeException {
+    public void update(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = new StringBuilder()
                 .append("UPDATE employee")
@@ -44,10 +44,12 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
             pstmt.setInt(8, employeeVo.getEno());
 
             check = pstmt.executeUpdate();
+            if (check == 0) {
+                throw new EmployeeException(ErrorCode.DB_NO_UPDATE);
+            }
             pstmt.close();
         } catch (SQLException e) {
-            throw new EmployeeException(ErrorCode.UPDATE_FAILED);
+            throw new EmployeeException(ErrorCode.DB_UPDATE_ERROR);
         }
-        return check == 1;
     }
 }
