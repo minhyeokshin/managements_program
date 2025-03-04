@@ -1,9 +1,17 @@
 package employee.repository;
 
-import employee.dto.EmployeeDto;
+import common.ErrorCode;
+import employee.vo.EmployeeVo;
+import exception.EmployeeException;
+import object.ObjectIo;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
 
+    Connection connection = ObjectIo.getConnection();
+    PreparedStatement pstmt = null;
     @Override
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
