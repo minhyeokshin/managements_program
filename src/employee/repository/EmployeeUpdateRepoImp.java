@@ -1,30 +1,13 @@
 package employee.repository;
 
-import common.ErrorCode;
-import employee.vo.EmployeeVo;
-import exception.EmployeeException;
-import object.ObjectIo;
+import employee.dto.EmployeeDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
-/**
- *  Employee 정보를 DB에서 수정하는 클래스
- */
 public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
 
-    Connection connection = ObjectIo.getConnection();
-    PreparedStatement pstmt = null;
 
-    /**
-     * 입력받은 eno에 해당하는 Employee 정보를 DB에서 수정하는 메서드
-     * @param employeeVo
-     * @return boolean check
-     * @throws EmployeeException
-     */
     @Override
-    public Boolean update(EmployeeVo employeeVo) throws EmployeeException {
+
+    public void update(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = new StringBuilder()
                 .append("UPDATE employee")
@@ -44,10 +27,13 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
             pstmt.setInt(8, employeeVo.getEno());
 
             check = pstmt.executeUpdate();
+            if (check == 0) {
+                throw new EmployeeException(ErrorCode.DB_NO_UPDATE);
+            }
             pstmt.close();
         } catch (SQLException e) {
-            throw new EmployeeException(ErrorCode.UPDATE_FAILED);
+            throw new EmployeeException(ErrorCode.DB_UPDATE_ERROR);
         }
-        return check == 1;
+
     }
 }

@@ -1,3 +1,9 @@
+import employee.controller.EmployeeCreateCont;
+import employee.controller.EmployeeCreateContImp;
+import employee.controller.EmployeeDeleteCont;
+import employee.dto.EmployeeDto;
+import employee.service.EmployeeCreateService;
+import employee.service.EmployeeCreateServiceImp;
 import student.controller.StudentOutput;
 import student.controller.StudentOutputImp;
 import student.repository.StudentDBIOUseFileIO;
@@ -8,6 +14,14 @@ import student.service.*;
  * 전체 프로젝트 의존관계 주입 클래스
  */
 public class DIConfig {
+
+    private final EmployeeCreateService  employeeCreateService;
+
+    public DIConfig(){
+
+        this.employeeCreateService = new EmployeeCreateServiceImp();
+
+    }
 
     /**
      * StudentIO
@@ -48,6 +62,7 @@ public class DIConfig {
     public StudentOutput getStudentOutput(){
         return new StudentOutputImp(getSearchStudent(),getSortStudent(),getStudentInput());
     }
+
 
 
 

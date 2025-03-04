@@ -20,16 +20,19 @@ public enum EmployeeText {
     ENTER_SECTION_NUMBER("부서 번호를 입력하세요: "),
     UPDATE_CANCELLED("업데이트가 종료되었습니다."),
     INVALID_CHOICE("잘못된 선택입니다. 업데이트가 취소되었습니다."),
-    INVALID_CHOICE_MAIN("잘못된 선택입니다."),
     UPDATE_SUCCESS("직원 정보가 성공적으로 업데이트되었습니다."),
+    READ_ALL("전체 임직원 정보를 검색 합니다."),
+    READ_ALL_NULL("저장된 직원 정보가 없습니다."),
+    READ_ONE_CHOICE("1. 전체 검색 2. 사번 검색"),
+    READ_ONE_INPUT_ENO("검색할 임직원 사번을 입력하세요"),
+    INVALID_CHOICE_MAIN("잘못된 선택입니다."),
     DELETE_PROMPT("직원 정보를 삭제합니다."),
     DELETE_SUCCESS("직원 정보가 성공적으로 삭제되었습니다."),
     DELETE_CANCELLED("직원 정보 삭제가 취소되었습니다."),
     DELETE_EMPLOYEE_NUMBER("삭제할 직원의 번호를 입력하세요: "),
     SALARY_UPDATE_SUCCESS("직원 급여가 성공적으로 인상되었습니다."),
-    EXIT_MESSAGE("직원 관리 시스템을 종료합니다.")
+    EXIT_MESSAGE("직원 관리 시스템을 종료합니다.");
 
-    ;
 
     private final String text;
 

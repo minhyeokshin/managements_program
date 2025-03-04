@@ -15,71 +15,48 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * Salary 변경 이력을 DB에 저장하는 클래스 
+ * Employee의 Salary 변경 이력을 DB에 저장하고 반환하는 클래스
  */
-public class SalaryRepositoryImp implements SalaryRepository{
+public class SalaryRepositoryImp implements SalaryRepository {
     Connection connection = ObjectIo.getConnection();
     ResultSet rs = null;
+    PreparedStatement pstmt;
+
 
     /**
-     * Salary 변경 반영
-     * @param employeeDto
-     * @param function
-     * @return true or false
-     * @throws SQLException
+     * Employee의 Salary 변경이력을 DB에 저장합니다.
+     *
+     * @param eno
+     * @param oldSalary
+     * @param newSalary
+     * @throws EmployeeException
      */
     @Override
-    public Boolean updateSalary(EmployeeDto employeeDto, Function<Integer, Integer> function) throws EmployeeException, SQLException {
-        Integer currentSalary = employeeDto.getSalary();
-        Integer newSalary = function.apply(currentSalary);
-
+    public void updateSalaryHistory(int eno, int oldSalary, int newSalary) throws EmployeeException {
         try {
-            connection.setAutoCommit(false);
-
-            String sql1 = new StringBuilder()
-                    .append("UPDATE EMPLOYEE SET ")
-                    .append("salary = ? ")
-                    .append("WHERE eno = ?;").toString();
-
-            PreparedStatement pstmt1 = connection.prepareStatement(sql1);
-            pstmt1.setInt(1, newSalary);
-            pstmt1.setInt(2, employeeDto.getEno());
-            int check1 = pstmt1.executeUpdate();
-
-            String sql2 = new StringBuilder()
+            String sql = new StringBuilder()
                     .append("INSERT INTO PAY_RAISE_HISTORY (eno, oldSalary, newSalary) ")
                     .append("VALUES (?,?,?);").toString();
 
-            PreparedStatement pstmt2 = connection.prepareStatement(sql2);
-            pstmt2.setInt(1, employeeDto.getEno());
-            pstmt2.setInt(2, currentSalary);
-            pstmt2.setInt(3, newSalary);
-            int check2 = pstmt2.executeUpdate();
-
-            if (check1 > 0 && check2 > 0) {
-                connection.commit();
-                return true;
-            }
-            else {
-                connection.rollback();
-                return false;
-            }
-
+            pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1, eno);
+            pstmt.setInt(2, oldSalary);
+            pstmt.setInt(3, newSalary);
+            pstmt.executeUpdate();
+            pstmt.close();
         } catch (SQLException e) {
-            connection.rollback();
             throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_ERROR);
-        } finally {
-            connection.setAutoCommit(true);
         }
     }
 
     /**
      * Employee의 Salary 변경 이력 반환
+     *
      * @param eno
      * @return List<SalaryHistoryDto>
      */
     @Override
-    public List<SalaryHistoryDto> salaryHistory(int eno) throws EmployeeException{
+    public List<SalaryHistoryDto> salaryHistory(int eno) throws EmployeeException {
         List<SalaryHistoryDto> list = new ArrayList<>();
         try {
             String sql = new StringBuilder()
@@ -87,10 +64,10 @@ public class SalaryRepositoryImp implements SalaryRepository{
                     .append("FROM EMPLOYEE e, PAY_RAISE_HISTORY p ")
                     .append("WHERE e.ENO = p.ENO;").toString();
 
-            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt = connection.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 SalaryHistoryDto dto = SalaryHistoryDto.builder()
                         .eno(rs.getInt("eno"))
                         .name(rs.getString("name"))
@@ -98,6 +75,7 @@ public class SalaryRepositoryImp implements SalaryRepository{
                         .newSalary(rs.getInt("newSalary")).build();
                 list.add(dto);
             }
+            pstmt.close();
             return list;
         } catch (SQLException e) {
             throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_HISTORY_ERROR);
