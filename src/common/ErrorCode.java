@@ -22,7 +22,8 @@ public enum ErrorCode {
     DELETE_FAILED("직원 삭제에 실패했습니다."),
     CREATE_FAILED("직원 생성에 실패했습니다."),
     EMPLOYEE_NUMBER_NOT_FOUND("입력한 직원 번호가 존재하지 않습니다."),
-    ERROR_INPUT_NUM("숫자를 입력하세요.");
+    ERROR_INPUT_NUM("숫자를 입력하세요."),
+    ERROR_EMPTY_LIST("직원 리스트 조회에 실패했습니다.");
 
 
     private final String text;
