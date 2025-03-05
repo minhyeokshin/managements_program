@@ -81,14 +81,6 @@ public class DIConfig {
         return new StudentOutputImp(getSearchStudent(),getSortStudent(),getStudentInput());
     }
 
-    public PayRaiseRate payRaiseRate(String role) throws IllegalAccessException {
-        return switch (role.toLowerCase(Locale.ROOT)) {
-            case "manager" -> new PayRateManager();
-            case "secretary" -> new PayRateSecretary();
-            case "staff" -> new PayRateStaff();
-            default -> throw new IllegalAccessException("잘못된 직급" + role);
-        };
-    }
 
     public MainController mainController(){
         return new MainController(
