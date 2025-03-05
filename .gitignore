@@ -3,6 +3,9 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+.idea/dataSources.xml
+src/common/Ignore.java
+
 
 Ignore.java
 
