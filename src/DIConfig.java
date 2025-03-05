@@ -1,19 +1,45 @@
-import employee.controller.EmployeeCreateCont;
-import employee.controller.EmployeeCreateContImp;
-import employee.controller.EmployeeDeleteCont;
+import common.ValidCheck;
+import employee.controller.*;
 import employee.dto.EmployeeDto;
-import employee.service.EmployeeCreateService;
-import employee.service.EmployeeCreateServiceImp;
+import employee.repository.*;
+import employee.service.*;
+import employee.service.pay.PayRaiseRate;
+import employee.service.pay.PayRateManager;
+import employee.service.pay.PayRateSecretary;
+import employee.service.pay.PayRateStaff;
 import student.controller.StudentOutput;
 import student.controller.StudentOutputImp;
 import student.repository.StudentDBIOUseFileIO;
 import student.repository.StudentManager;
 import student.service.*;
 
+import java.util.Locale;
+
 /**
  * 전체 프로젝트 의존관계 주입 클래스
  */
 public class DIConfig {
+
+    private final ValidCheck validCheck = new ValidCheck();
+
+    private final EmployeeCreateRepo employeeCreateRepo = new EmployeeCreateRepoImp();
+    private final EmployeeDeleteRepo employeeDeleteRepo = new EmployeeDeleteRepoImp();
+    private final EmployeeReadRepo employeeReadRepo = new EmployeeReadRepoImp();
+    private final EmployeeUpdateRepo employeeUpdateRepo = new EmployeeUpdateRepoImp();
+    private final SalaryRepository salaryRepository = new SalaryRepositoryImp();
+
+    private final EmployeeCreateService employeeCreateService = new EmployeeCreateServiceImp(employeeCreateRepo, employeeReadRepo);
+    private final EmployeeDeleteService employeeDeleteService = new EmployeeDeleteServiceImp(employeeDeleteRepo);
+    private final EmployeeReadService employeeReadService = new EmployeeReadServiceImp(employeeReadRepo);
+    private final EmployeeUpdateService employeeUpdateService = new EmployeeUpdateServiceImp(employeeUpdateRepo);
+    private final EmployeeSalaryService employeeSalaryService = new EmployeeSalaryServiceImp(employeeReadRepo, employeeUpdateRepo);
+
+    private final EmployeeCreateCont employeeCreateCont = new EmployeeCreateContImp(employeeCreateService, employeeReadService);
+    private final EmployeeDeleteCont employeeDeleteCont = new EmployeeDeleteContImp(employeeDeleteService, employeeReadService, validCheck);
+    private final EmployeeReadCont employeeReadCont = new EmployeeReadContImp(employeeReadService, validCheck);
+    private final EmployeeUpdateCont employeeUpdateCont = new EmployeeUpdateContImp(employeeUpdateService, employeeReadService, validCheck);
+    private final SalaryController salaryController = new SalaryControllerImp(employeeSalaryService);
+
 
     /**
      * StudentIO
@@ -55,7 +81,22 @@ public class DIConfig {
         return new StudentOutputImp(getSearchStudent(),getSortStudent(),getStudentInput());
     }
 
+    public PayRaiseRate payRaiseRate(String role) throws IllegalAccessException {
+        return switch (role.toLowerCase(Locale.ROOT)) {
+            case "manager" -> new PayRateManager();
+            case "secretary" -> new PayRateSecretary();
+            case "staff" -> new PayRateStaff();
+            default -> throw new IllegalAccessException("잘못된 직급" + role);
+        };
+    }
 
-
-
+    public MainController mainController(){
+        return new MainController(
+                employeeCreateCont,
+                employeeDeleteCont,
+                employeeReadCont,
+                employeeUpdateCont,
+                salaryController,
+                validCheck);
+    }
 }
