@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
  *  Employee 정보 DTO
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
 public class EmployeeDto {
     private Integer eno;

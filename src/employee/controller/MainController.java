@@ -75,7 +75,7 @@ public class MainController {
     }
 
     private void createEmployee() {
-//        createController.createrun();
+        createController.createrun();
     }
 
     private void deleteEmployee() {
@@ -96,7 +96,7 @@ public class MainController {
     }
 
     private void readEmployee() {
-
+        readController.Read();
     }
 
     private void updateEmployee() {

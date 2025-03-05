@@ -27,7 +27,9 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
 
 
     @Override
-    public EmployeeDto create(EmployeeDto employeeDto) {
+    public EmployeeDto create() {
+
+        EmployeeDto employeeDto = new EmployeeDto();
 
         List<EmployeeDto> employeeDtoList = readService.ReadAll();
 
@@ -61,8 +63,9 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
     }
 
     @Override
-    public void createrun(EmployeeDto employeeDto){
-        EmployeeDto createEmployee = create(employeeDto);
+    public void createrun(){
+
+        EmployeeDto createEmployee = create();
 
         if (createEmployee.getEno() == null){
             System.out.println(EMPLOYEE_CREATE_FAIL.getText());
