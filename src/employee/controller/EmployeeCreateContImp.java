@@ -72,9 +72,9 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
             return;
         }else {
             System.out.println(EMPLOYEE_CREATE_SUCCESS.getText());
-            System.out.println("사번\t이름\t입사일\t직군\t부서번호\t임금");
-            System.out.println(MENU_BORDER.getText());
-            System.out.printf("%d\t %s \t %d-%d-%d \t %s \t %d \t %d\n",
+            System.out.println(PRINT_TITLE.getText());
+            System.out.println(PRINT_ROUND.getText());
+            System.out.printf("%-5d %-10s %2d-%02d-%02d  %-12s %8d %,14d\n",
                     createEmployee.getEno(),createEmployee.getName(),
                     createEmployee.getEnteryear(),createEmployee.getEntermonth(),createEmployee.getEnterday(),
                     createEmployee.getRole(),createEmployee.getSecno(),createEmployee.getSalary());
