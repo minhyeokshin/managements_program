@@ -51,6 +51,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
         //  Lombok의 @Builder(toBuilder = true) 기능을 활용하여 기존 객체를 기반으로 일부 값만 변경할 수 있도록 하는 역할
         EmployeeDto.EmployeeDtoBuilder updatedEmployeeBuilder = existingEmployee.toBuilder();
 
+
         switch (choice) {
             case "1":
                 System.out.print(EmployeeText.ENTER_NAME.getText());
@@ -107,6 +108,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
         }
 
         EmployeeDto updatedEmployee = updatedEmployeeBuilder.build();
+        System.out.println(updatedEmployee);
 
         employeeUpdateService.update(updatedEmployee);
         return updatedEmployee;

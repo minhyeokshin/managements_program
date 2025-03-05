@@ -19,9 +19,9 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
     public void update(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = new StringBuilder()
-                .append("UPDATE employee")
+                .append("UPDATE employee ")
                 .append("SET name = ?, enteryear = ?, entermonth = ?, enterday = ?, role = ?, secno = ?, salary = ?")
-                .append("WHERE eno = ?").toString();
+                .append(" WHERE eno = ?").toString();
         int check = 0;
 
         try {
