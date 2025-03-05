@@ -17,14 +17,12 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
 
     private final EmployeeCreateService createService;
     private final EmployeeReadService readService;
-    private final EmployeeReadCont employeeReadCont;
 
 
-    public EmployeeCreateContImp(EmployeeCreateService createService, EmployeeReadService readService, EmployeeReadCont employeeReadCont) {
+    public EmployeeCreateContImp(EmployeeCreateService createService, EmployeeReadService readService) {
         this.createService = createService;
         this.readService = readService;
 
-        this.employeeReadCont = employeeReadCont;
     }
 
 
@@ -71,8 +69,12 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
             return;
         }else {
             System.out.println(EMPLOYEE_CREATE_SUCCESS.getText());
-            int geteno = createEmployee.getEno();
-            employeeReadCont.ReadOne(geteno);
+            System.out.println("사번\t이름\t입사일\t직군\t부서번호\t임금");
+            System.out.println(MENU_BORDER.getText());
+            System.out.printf("%d\t %s \t %d-%d-%d \t %s \t %d \t %d\n",
+                    createEmployee.getEno(),createEmployee.getName(),
+                    createEmployee.getEnteryear(),createEmployee.getEntermonth(),createEmployee.getEnterday(),
+                    createEmployee.getRole(),createEmployee.getSecno(),createEmployee.getSalary());
         }
     }
 
