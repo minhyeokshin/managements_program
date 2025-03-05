@@ -1,9 +1,18 @@
 package employee.repository;
 
+import common.ErrorCode;
 import employee.dto.EmployeeDto;
+import employee.vo.EmployeeVo;
+import exception.EmployeeException;
+import object.ObjectIo;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
-
+    Connection connection = ObjectIo.getConnection();
+    PreparedStatement pstmt = null;
 
     @Override
 
