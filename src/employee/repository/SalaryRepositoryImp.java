@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -45,6 +46,7 @@ public class SalaryRepositoryImp implements SalaryRepository {
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_ERROR);
         }
     }
@@ -56,7 +58,7 @@ public class SalaryRepositoryImp implements SalaryRepository {
      * @return List<SalaryHistoryDto>
      */
     @Override
-    public List<SalaryHistoryDto> salaryHistory(int eno) throws EmployeeException {
+    public Optional<List<SalaryHistoryDto>> salaryHistory(int eno) throws EmployeeException {
         List<SalaryHistoryDto> list = new ArrayList<>();
         try {
             String sql = new StringBuilder()
@@ -76,8 +78,9 @@ public class SalaryRepositoryImp implements SalaryRepository {
                 list.add(dto);
             }
             pstmt.close();
-            return list;
+            return Optional.of(list);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_HISTORY_ERROR);
         }
     }

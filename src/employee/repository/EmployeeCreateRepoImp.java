@@ -42,6 +42,7 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo {
             pstmt.executeUpdate();
             pstmt.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_CREATE_ERROR);
         }
 

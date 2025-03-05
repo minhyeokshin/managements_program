@@ -5,6 +5,7 @@ import employee.dto.SalaryHistoryDto;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -13,5 +14,5 @@ import java.util.function.Function;
 public interface SalaryRepository {
     void updateSalaryHistory(int eno, int oldSalary, int newSalary);
 
-    List<SalaryHistoryDto> salaryHistory(int eno);
+    Optional<List<SalaryHistoryDto>> salaryHistory(int eno);
 }
