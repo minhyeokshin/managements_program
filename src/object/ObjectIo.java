@@ -11,8 +11,10 @@ public class ObjectIo { // 싱글톤
 
     private static Connection connection;
 
-    public static ObjectIo getInstance(){
-      return objectIo;
+    private ObjectIo(){}
+
+    public static ObjectIo getinstance(){
+        return objectIo;
     }
 
     public static Connection getConnection(){

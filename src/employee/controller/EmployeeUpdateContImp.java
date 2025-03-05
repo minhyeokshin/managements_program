@@ -37,6 +37,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
 
         // 기존 직원 정보 가져오기
         EmployeeDto existingEmployee = employeeReadService.ReadOne(eno);
+        System.out.println("con");
         if (existingEmployee == null) {
             throw new RuntimeException(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
         }
@@ -49,6 +50,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
         String choice = scanner.nextLine();
         //  Lombok의 @Builder(toBuilder = true) 기능을 활용하여 기존 객체를 기반으로 일부 값만 변경할 수 있도록 하는 역할
         EmployeeDto.EmployeeDtoBuilder updatedEmployeeBuilder = existingEmployee.toBuilder();
+
 
         switch (choice) {
             case "1":
@@ -106,6 +108,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
         }
 
         EmployeeDto updatedEmployee = updatedEmployeeBuilder.build();
+        System.out.println(updatedEmployee);
 
         employeeUpdateService.update(updatedEmployee);
         return updatedEmployee;

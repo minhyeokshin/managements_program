@@ -1,19 +1,14 @@
+package employee;
+
 import common.ValidCheck;
 import employee.controller.*;
-import employee.dto.EmployeeDto;
 import employee.repository.*;
 import employee.service.*;
-import employee.service.pay.PayRaiseRate;
-import employee.service.pay.PayRateManager;
-import employee.service.pay.PayRateSecretary;
-import employee.service.pay.PayRateStaff;
 import student.controller.StudentOutput;
 import student.controller.StudentOutputImp;
 import student.repository.StudentDBIOUseFileIO;
 import student.repository.StudentManager;
 import student.service.*;
-
-import java.util.Locale;
 
 /**
  * 전체 프로젝트 의존관계 주입 클래스

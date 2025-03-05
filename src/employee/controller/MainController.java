@@ -3,6 +3,7 @@ package employee.controller;
 import common.EmployeeText;
 import common.ErrorCode;
 import common.ValidCheck;
+import employee.DIConfig;
 import employee.dto.EmployeeDto;
 
 import java.util.Scanner;
@@ -74,6 +75,7 @@ public class MainController {
     }
 
     private void createEmployee() {
+//        createController.createrun();
     }
 
     private void deleteEmployee() {
@@ -128,5 +130,10 @@ public class MainController {
         } catch (Exception e) {
             System.out.println(ErrorCode.DB_UPDATE_SALARY_ERROR.getText() + ": " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        MainController mainController = new DIConfig().mainController();
+        mainController.start();
     }
 }

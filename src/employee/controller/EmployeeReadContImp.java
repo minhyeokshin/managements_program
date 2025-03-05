@@ -27,14 +27,14 @@ public class EmployeeReadContImp implements EmployeeReadCont{
 
 
     @Override
-    public void ReadOne(Integer eno) {
+    public EmployeeDto ReadOne(Integer eno) {
 
         validCheck.isValidEmployeeNumber(eno);
         EmployeeDto employeeDto = employeeReadService.ReadOne(eno);
 
         if (employeeDto == null){
             System.out.println(EMPLOYEE_NOT_FOUND.getText());
-            return;
+            return null;
         }
 
         System.out.println("사번\t이름\t입사일\t직군\t부서번호\t임금");
@@ -42,6 +42,7 @@ public class EmployeeReadContImp implements EmployeeReadCont{
                 employeeDto.getEno(),employeeDto.getName(),
                 employeeDto.getEnteryear(),employeeDto.getEntermonth(),employeeDto.getEnterday(),
                 employeeDto.getRole(),employeeDto.getSecno(),employeeDto.getSalary());
+        return employeeDto;
     }
 
     @Override
