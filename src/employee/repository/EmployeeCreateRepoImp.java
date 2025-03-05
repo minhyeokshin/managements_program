@@ -28,7 +28,7 @@ public class EmployeeCreateRepoImp implements EmployeeCreateRepo {
     public void create(EmployeeVo employeeVo) throws EmployeeException {
         String sql = new StringBuilder()
                 .append("INSERT INTO EMPLOYEE (eno, name, enteryear, entermonth, enterday, role, secno, salary) ")
-                .append("VALUES(?,?,?,?,?,?,?,?").toString();
+                .append("VALUES(?, ?, ?, ?, ?, ?, ?, ?)").toString();
         try {
             pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, employeeVo.getEno());

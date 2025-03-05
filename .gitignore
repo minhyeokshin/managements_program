@@ -38,3 +38,16 @@ echo ".idea/compiler.xml" >> .gitignore
 ### IntelliJ 설정 파일 무시 ###
 .idea/misc.xml
 .idea/compiler.xml
+
+# 특정 파일 무시
+*.meta  # .meta 파일 무시
+*.zip   # 압축 파일 무시
+*.xml   # XML 파일 무시
+
+# 데이터 소스 설정 파일 무시
+dataSources/
+dataSources.local.xml
+
+# 라이브러리 폴더 무시
+libs/
+*.jar
