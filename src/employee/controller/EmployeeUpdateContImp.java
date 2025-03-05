@@ -37,6 +37,7 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
 
         // 기존 직원 정보 가져오기
         EmployeeDto existingEmployee = employeeReadService.ReadOne(eno);
+        System.out.println("con");
         if (existingEmployee == null) {
             throw new RuntimeException(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
         }

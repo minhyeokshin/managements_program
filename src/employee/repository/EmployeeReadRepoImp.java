@@ -30,28 +30,32 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
      */
     @Override
     public EmployeeDto ReadOne(Integer eno) throws EmployeeException {
-
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE WHERE eno = ?").toString();
             pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, eno);
             rs = pstmt.executeQuery();
-            EmployeeDto dto = EmployeeDto.builder()
-                    .eno(rs.getInt("eno"))
-                    .name(rs.getString("name"))
-                    .enteryear(rs.getInt("enteryear"))
-                    .entermonth(rs.getInt("entermonth"))
-                    .enterday(rs.getInt("enterday"))
-                    .role(rs.getString("role"))
-                    .secno(rs.getInt("secno"))
-                    .salary(rs.getInt("salary"))
-                    .build();
 
-            pstmt.close();
-            return dto;
+            if(rs.next()) {
+                EmployeeDto dto = EmployeeDto.builder()
+                        .eno(rs.getInt("eno"))
+                        .name(rs.getString("name"))
+                        .enteryear(rs.getInt("enteryear"))
+                        .entermonth(rs.getInt("entermonth"))
+                        .enterday(rs.getInt("enterday"))
+                        .role(rs.getString("role"))
+                        .secno(rs.getInt("secno"))
+                        .salary(rs.getInt("salary"))
+                        .build();
+
+                pstmt.close();
+                return dto;
+            } else return null;
+
         } catch (SQLException e) {
             throw new EmployeeException(ErrorCode.DB_READ_ONE_ERROR);
+
         }
     }
 
@@ -92,4 +96,10 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
 
 
     }
+
+    public static void main(String[] args) {
+        EmployeeReadRepoImp e = new EmployeeReadRepoImp();
+        System.out.println(e.ReadOne(4));
+    }
+
 }
