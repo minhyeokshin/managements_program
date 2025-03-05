@@ -39,6 +39,7 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                 .secno(employeeDto.getSecno())
                 .salary(employeeDto.getSalary())
                 .build());
+
         return employeeReadRepo.ReadOne(eno);
     }
 }

@@ -3,6 +3,7 @@ package employee.service;
 import employee.dto.EmployeeDto;
 import employee.repository.EmployeeCreateRepo;
 import employee.repository.EmployeeDeleteRepo;
+import employee.vo.EmployeeVo;
 
 public class EmployeeDeleteServiceImp implements EmployeeDeleteService{
 
@@ -16,6 +17,15 @@ public class EmployeeDeleteServiceImp implements EmployeeDeleteService{
 
     @Override
     public void Delete(EmployeeDto employeeDto) {
-       // employeeDeleteRepo.Delete(employeeDto); // vo로 바꿔야함
+        employeeDeleteRepo.Delete(EmployeeVo.builder()
+                .eno(employeeDto.getEno())
+                .name(employeeDto.getName())
+                .enteryear(employeeDto.getEnteryear())
+                .entermonth(employeeDto.getEntermonth())
+                .enterday(employeeDto.getEnterday())
+                .role(employeeDto.getRole())
+                .secno(employeeDto.getSecno())
+                .salary(employeeDto.getSalary())
+                .build());
     }
 }
