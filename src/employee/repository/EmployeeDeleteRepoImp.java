@@ -30,6 +30,7 @@ public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
             }
             pstmt.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_DELETE_ERROR);
         }
     }

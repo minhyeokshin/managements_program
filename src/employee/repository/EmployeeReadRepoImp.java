@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -29,7 +30,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
      * @return Employee
      */
     @Override
-    public EmployeeDto ReadOne(Integer eno) throws EmployeeException {
+    public Optional<EmployeeDto> ReadOne(Integer eno) throws EmployeeException {
         try {
             String sql = new StringBuilder()
                     .append("SELECT * FROM EMPLOYEE WHERE eno = ?").toString();
@@ -37,7 +38,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
             pstmt.setInt(1, eno);
             rs = pstmt.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 EmployeeDto dto = EmployeeDto.builder()
                         .eno(rs.getInt("eno"))
                         .name(rs.getString("name"))
@@ -50,11 +51,13 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
                         .build();
 
                 pstmt.close();
-                return dto;
-            } else return null;
+                return Optional.of(dto);
+            } else return Optional.empty();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_READ_ONE_ERROR);
+
 
         }
     }
@@ -65,7 +68,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
      * @return List<EmployeeDto>
      */
     @Override
-    public List<EmployeeDto> ReadAll() throws EmployeeException {
+    public Optional<List<EmployeeDto>> ReadAll() throws EmployeeException {
         List<EmployeeDto> list = new ArrayList<>();
 
         try {
@@ -89,17 +92,12 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
             }
             pstmt.close();
 
-            return list;
+            return Optional.of(list);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_READ_ALL_ERROR);
         }
 
 
     }
-
-    public static void main(String[] args) {
-        EmployeeReadRepoImp e = new EmployeeReadRepoImp();
-        System.out.println(e.ReadOne(4));
-    }
-
 }
