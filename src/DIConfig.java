@@ -15,14 +15,6 @@ import student.service.*;
  */
 public class DIConfig {
 
-    private final EmployeeCreateService  employeeCreateService;
-
-    public DIConfig(){
-
-        this.employeeCreateService = new EmployeeCreateServiceImp();
-
-    }
-
     /**
      * StudentIO
      * @return StudentIO 구현체 반환 캐시데이터 , dbio
