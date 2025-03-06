@@ -5,10 +5,7 @@ import employee.dto.EmployeeDto;
 import exception.EmployeeException;
 import object.ObjectIo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +17,10 @@ import java.util.Optional;
 public class EmployeeReadRepoImp implements EmployeeReadRepo {
 
     Connection connection = ObjectIo.getConnection();
-    PreparedStatement pstmt = null;
+    CallableStatement cs = null;
     ResultSet rs = null;
 
+    PreparedStatement pstmt = null;
     /**
      * Employee 1명의 정보를 가져오는 메서드
      *
@@ -32,11 +30,10 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
     @Override
     public Optional<EmployeeDto> ReadOne(Integer eno) throws EmployeeException {
         try {
-            String sql = new StringBuilder()
-                    .append("SELECT * FROM EMPLOYEE WHERE eno = ?").toString();
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, eno);
-            rs = pstmt.executeQuery();
+            connection.setAutoCommit(false);
+            cs = connection.prepareCall("{call DB_EMPLOYEE_READONE(?)}");
+            cs.setInt(1, eno);
+            rs = cs.executeQuery();
 
             if (rs.next()) {
                 EmployeeDto dto = EmployeeDto.builder()
@@ -50,7 +47,7 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
                         .salary(rs.getInt("salary"))
                         .build();
 
-                pstmt.close();
+                cs.close();
                 return Optional.of(dto);
             } else return Optional.empty();
 
@@ -97,7 +94,6 @@ public class EmployeeReadRepoImp implements EmployeeReadRepo {
             e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_READ_ALL_ERROR);
         }
-
 
     }
 }
