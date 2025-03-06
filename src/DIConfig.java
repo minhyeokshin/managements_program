@@ -29,10 +29,10 @@ public class DIConfig {
     private final SalaryRepository salaryRepository = new SalaryRepositoryImp();
 
     private final EmployeeCreateService employeeCreateService = new EmployeeCreateServiceImp(employeeCreateRepo, employeeReadRepo);
-    private final EmployeeDeleteService employeeDeleteService = new EmployeeDeleteServiceImp(employeeDeleteRepo);
+    private final EmployeeDeleteService employeeDeleteService = new EmployeeDeleteServiceImp(employeeDeleteRepo, employeeReadRepo);
     private final EmployeeReadService employeeReadService = new EmployeeReadServiceImp(employeeReadRepo);
     private final EmployeeUpdateService employeeUpdateService = new EmployeeUpdateServiceImp(employeeUpdateRepo, employeeReadRepo);
-    private final EmployeeSalaryService employeeSalaryService = new EmployeeSalaryServiceImp(employeeReadRepo, employeeUpdateRepo);
+    private final EmployeeSalaryService employeeSalaryService = new EmployeeSalaryServiceImp(employeeReadRepo, employeeUpdateRepo, salaryRepository);
 
     private final EmployeeCreateCont employeeCreateCont = new EmployeeCreateContImp(employeeCreateService, employeeReadService);
     private final EmployeeDeleteCont employeeDeleteCont = new EmployeeDeleteContImp(employeeDeleteService, employeeReadService, validCheck);
