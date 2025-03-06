@@ -13,7 +13,13 @@ import static common.ErrorCode.*;
 public class EmployeeCreateContImp implements EmployeeCreateCont {
 
     Scanner in = new Scanner(System.in);
-    private final String EMPLOYEE_NUMBER_REGEX = "^[1-9][0-9]*$";
+    private final String NUMBER_REGEX = "^[1-9][0-9]*$";
+    private final String EMPLOYEE_NAME_REGEX = "^[가-힣]{2,10}$";
+    private final String ENTERYEAR_REGEX = "^[1-9][0-9]{0,3}$";
+    private final String ENTERMONTH_REGEX = "^(1[0-2]|[1-9])$";
+    private final String ENTERDAY_REGEX = "^(3[0-1]|[1-2][0-9]|[1-9])$";
+    private final String SECINPUT_REGEX = "^(1[0-4][0-9])$";
+
 
     private final EmployeeCreateService createService;
     private final EmployeeReadService readService;
@@ -42,14 +48,13 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         }
         employeeDto.setEno(inputEno + 1);
 
-        System.out.printf(ENTER_NAME.getText());
-        employeeDto.setName(in.nextLine());
+        employeeDto.setName(inputName());
         System.out.printf(ENTER_ENTRY_YEAR.getText());
-        employeeDto.setEnteryear(inputNum());
+        employeeDto.setEnteryear(inputNumRegex(ENTERYEAR_REGEX));
         System.out.printf(ENTER_ENTRY_MONTH.getText());
-        employeeDto.setEntermonth(inputNum());
+        employeeDto.setEntermonth(inputNumRegex(ENTERMONTH_REGEX));
         System.out.printf(ENTER_ENTRY_DAY.getText());
-        employeeDto.setEnterday(inputNum());
+        employeeDto.setEnterday(inputNumRegex(ENTERDAY_REGEX));
         System.out.printf(ENTER_ROLE.getText());
         System.out.println(INPUT_ROLE.getText());
         System.out.println(ENTER_CHOICE.getText());
@@ -62,11 +67,10 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         }
         employeeDto.setRole(roleinput);
         System.out.printf(ENTER_SECTION_NUMBER.getText());
-        employeeDto.setSecno(inputNum());
+        System.out.println(INPUT_SECNO.getText());
+        employeeDto.setSecno(inputNumRegex(SECINPUT_REGEX));
         System.out.printf(ENTER_SALARY.getText());
         employeeDto.setSalary(inputNum());
-
-
 
         return createService.create(employeeDto);
     }
@@ -91,17 +95,40 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
     }
 
     private int inputNum(){
-        String str = null;
+        String str;
         int input = 0;
         while (true){
             str = in.nextLine();
-            if (str.matches(EMPLOYEE_NUMBER_REGEX)){
+            if (str.matches(NUMBER_REGEX)){
                 input = Integer.parseInt(str);
                 break;
             }
-            System.out.println(ERROR_INPUT_NUM.getText());
+            System.out.println(ERROR_NUM.getText());
         }
         return input;
     }
 
+    private String inputName(){
+        String name;
+        do {
+            System.out.printf(ENTER_NAME.getText());
+            name = in.nextLine();
+        } while (!(!name.trim().isEmpty()
+                && name.matches(EMPLOYEE_NAME_REGEX)));
+        return name;
+    }
+
+    private int inputNumRegex(String regex){
+        String str;
+        int input = 0;
+        while (true){
+            str = in.nextLine();
+            if (str.matches(regex)){
+                input = Integer.parseInt(str);
+                break;
+            }
+            System.out.println(ERROR_NUM.getText());
+        }
+        return input;
+    }
 }
