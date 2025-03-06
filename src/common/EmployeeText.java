@@ -37,7 +37,10 @@ public enum EmployeeText {
     EMPLOYEE_CREATE_FAIL("직원 정보 생성 실패!"),
     UPDATE_EMPLOYEE_NUMBER("업데이트 할 직원 번호를 입력하세요."),
     PRINT_ROUND("-------------------------------------------------------------------------"),
-    PRINT_TITLE(String.format("%-5s %-10s %-12s %-14s %3s %8s","사번", "이름", "입사일", "직급", "부서번호", "임금"));
+    PRINT_TITLE(String.format("%-5s %-10s %-12s %-14s %3s %8s","사번", "이름", "입사일", "직급", "부서번호", "임금")),
+    INPUT_ROLE("1.Staff 2.Manager 3.Secretary\t\t(기본입력 : Staff)"),
+    INPUT_SECNO("부서 입력 범위 : 101 ~ 149"),
+    ERROR_NUM("올바른 숫자를 입력하세요.");
 
 
 

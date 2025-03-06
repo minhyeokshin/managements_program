@@ -11,6 +11,12 @@ public class ValidCheck {
     private static final String EMPLOYEE_NAME_REGEX = "^[a-zA-Z가-힣]{2,10}$";
     private static final String EMPLOYEE_ROLE_REGEX = "^[a-zA-Z가-힣]{2,20}$";
     private static final String EMPLOYEE_SALARY_REGEX = "^\\d{1,8}$";
+    public final String NUMBER_REGEX = "^[1-9][0-9]*$";
+    public final String NAME_INPUT_REGEX = "^[가-힣]{2,10}$";
+    public final String ENTERYEAR_REGEX = "^[1-9][0-9]{0,3}$";
+    public final String ENTERMONTH_REGEX = "^(1[0-2]|[1-9])$";
+    public final String ENTERDAY_REGEX = "^(3[0-1]|[1-2][0-9]|[1-9])$";
+    public final String SECINPUT_REGEX = "^(1[0-4][0-9])$";
 
 
     /**

@@ -51,3 +51,13 @@ dataSources.local.xml
 # 라이브러리 폴더 무시
 libs/
 *.jar
+
+# IntelliJ IDEA 설정 관련 파일 무시
+ .idea/
+ .idea/jdk.table.xml
+.idea/workspace.xml
+ .idea/compiler.xml
+.idea/modules.xml
+.idea/shelf/
+.idea/gradle.xml
+
