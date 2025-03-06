@@ -51,7 +51,16 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         System.out.printf(ENTER_ENTRY_DAY.getText());
         employeeDto.setEnterday(inputNum());
         System.out.printf(ENTER_ROLE.getText());
-        employeeDto.setRole(in.nextLine());
+        System.out.println(INPUT_ROLE.getText());
+        System.out.println(ENTER_CHOICE.getText());
+        String roleinput = null;
+        switch (inputNum()){
+            case 1 -> roleinput = "Staff";
+            case 2 -> roleinput = "Manager";
+            case 3 -> roleinput = "Secretary";
+            default -> roleinput = "Staff";
+        }
+        employeeDto.setRole(roleinput);
         System.out.printf(ENTER_SECTION_NUMBER.getText());
         employeeDto.setSecno(inputNum());
         System.out.printf(ENTER_SALARY.getText());
