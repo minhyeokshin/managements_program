@@ -6,6 +6,13 @@ out/
 .idea/dataSources.xml
 src/common/Ignore.java
 
+.idea/
+.idea/jdk.table.xml
+.idea/workspace.xml
+.idea/compiler.xml
+.idea/modules.xml
+.idea/shelf/
+.idea/gradle.xml
 
 Ignore.java
 
@@ -60,3 +67,4 @@ libs/
 .idea/modules.xml
 .idea/shelf/
 .idea/gradle.xml
+
