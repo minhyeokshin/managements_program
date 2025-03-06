@@ -41,6 +41,7 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
             }
             pstmt.close();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_UPDATE_ERROR);
         }
 

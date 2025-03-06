@@ -1,5 +1,6 @@
 package employee.service;
 
+import common.ErrorCode;
 import employee.dto.EmployeeDto;
 import employee.repository.EmployeeReadRepo;
 import employee.repository.EmployeeUpdateRepo;
@@ -8,6 +9,8 @@ import employee.service.pay.PayRateManager;
 import employee.service.pay.PayRateSecretary;
 import employee.service.pay.PayRateStaff;
 import employee.vo.EmployeeVo;
+import exception.EmployeeException;
+import exception.NotFoundException;
 
 import java.util.HashMap;
 
@@ -20,8 +23,11 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
         this.employeeUpdateRepo = employeeUpdateRepo;
     }
     @Override
-    public EmployeeDto updateSalary(Integer eno) {
-        EmployeeDto employeeDto = employeeReadRepo.ReadOne(eno); // 해당 사원 dto
+    public EmployeeDto updateSalary(Integer eno) throws EmployeeException {
+        try {
+            EmployeeDto employeeDto = employeeReadRepo.ReadOne(eno).orElseThrow(() -> new NotFoundException(ErrorCode.EMPLOYEE_NOT_FOUND
+                    + " eno : " + eno)); // 해당 사원 dto
+
         HashMap<String, PayRaiseRate> payRaiseRateHashMap = new HashMap<>();
         payRaiseRateHashMap.put("Staff",new PayRateStaff());
         payRaiseRateHashMap.put("Secretary",new PayRateSecretary());
@@ -39,7 +45,10 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                 .secno(employeeDto.getSecno())
                 .salary(employeeDto.getSalary())
                 .build());
-
-        return employeeReadRepo.ReadOne(eno);
+            return employeeReadRepo.ReadOne(eno).orElseThrow(() -> new NotFoundException(ErrorCode.EMPLOYEE_NOT_FOUND
+                    + " eno : " + eno));
+        }catch (EmployeeException e){
+            throw new EmployeeException(ErrorCode.DB_READ_ONE_ERROR);
+        }
     }
 }

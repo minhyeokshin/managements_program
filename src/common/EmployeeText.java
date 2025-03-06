@@ -34,7 +34,10 @@ public enum EmployeeText {
     EXIT_MESSAGE("직원 관리 시스템을 종료합니다."),
     ENTER_INPUT_EMPLOYEE("직원 정보를 입력합니다."),
     EMPLOYEE_CREATE_SUCCESS("직원 정보 생성 성공!"),
-    EMPLOYEE_CREATE_FAIL("직원 정보 생성 실패!");
+    EMPLOYEE_CREATE_FAIL("직원 정보 생성 실패!"),
+    PRINT_ROUND("-------------------------------------------------------------------------"),
+    PRINT_TITLE(String.format("%-5s %-10s %-12s %-14s %3s %8s","사번", "이름", "입사일", "직급", "부서번호", "임금"));
+
 
 
     private final String text;

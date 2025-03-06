@@ -37,8 +37,9 @@ public class EmployeeReadContImp implements EmployeeReadCont{
             return null;
         }
 
-        System.out.println("사번\t이름\t입사일\t직군\t부서번호\t임금");
-        System.out.printf("%d\t %s \t %d-%d-%d \t %s \t %d \t %d\n",
+        System.out.println(PRINT_TITLE.getText());
+        System.out.println(PRINT_ROUND.getText());
+        System.out.printf("%-5d %-10s %2d-%02d-%02d  %-12s %8d %,14d\n",
                 employeeDto.getEno(),employeeDto.getName(),
                 employeeDto.getEnteryear(),employeeDto.getEntermonth(),employeeDto.getEnterday(),
                 employeeDto.getRole(),employeeDto.getSecno(),employeeDto.getSalary());
@@ -55,14 +56,15 @@ public class EmployeeReadContImp implements EmployeeReadCont{
         }
 
         System.out.println(READ_ALL.getText());
-        System.out.println("사번\t이름\t입사일\t직군\t부서번호\t임금");
-        System.out.println(MENU_BORDER.getText());
+        System.out.println(PRINT_TITLE.getText());
+        System.out.println(PRINT_ROUND.getText());
 
-        for (int i = 0; i < employeeDtoList.size(); i++) {
-            System.out.printf("%d\t %s \t %d-%d-%d \t %s \t %d \t %d\n",
-                    employeeDtoList.get(i).getEno(),employeeDtoList.get(i).getName(),
-                    employeeDtoList.get(i).getEnteryear(),employeeDtoList.get(i).getEntermonth(),employeeDtoList.get(i).getEnterday(),
-                    employeeDtoList.get(i).getRole(),employeeDtoList.get(i).getSecno(),employeeDtoList.get(i).getSalary());
+        for (EmployeeDto employee : employeeDtoList) {
+            System.out.printf("%-5d %-10s %2d-%02d-%02d  %-12s %8d %,14d\n",
+                    employee.getEno(), employee.getName(),
+                    employee.getEnteryear(), employee.getEntermonth(), employee.getEnterday(),
+                    employee.getRole(),  // 직군 길이 맞춤
+                    employee.getSecno(), employee.getSalary());
         }
      }
 
