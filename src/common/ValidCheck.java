@@ -19,7 +19,6 @@ public class ValidCheck {
     public int getValidEmployeeNumber(Scanner scanner) {
         int eno;
         while (true) {
-            System.out.print(EmployeeText.ENTER_EMPLOYEE_NUMBER.getText());
             try {
                 String input = scanner.nextLine();
                 eno = Integer.parseInt(input);
@@ -33,6 +32,21 @@ public class ValidCheck {
         }
     }
 
+    /**
+     * 직원 삭제용 번호 입력 및 유효성 검사
+     */
+    public int getValidEmployeeNumberForDelete(Scanner scanner) {
+        System.out.print(EmployeeText.DELETE_EMPLOYEE_NUMBER.getText()); // 삭제 메시지 출력
+        return getValidEmployeeNumber(scanner);
+    }
+
+    /**
+     * 직원 업데이트용 번호 입력 및 유효성 검사
+     */
+    public int getValidEmployeeNumberForUpdate(Scanner scanner) {
+        System.out.print(EmployeeText.UPDATE_EMPLOYEE_NUMBER.getText()); // 업데이트 메시지 출력
+        return getValidEmployeeNumber(scanner);
+    }
     /**
      * 직원 번호 유효성 검사
      */

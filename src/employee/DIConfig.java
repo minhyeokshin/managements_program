@@ -33,7 +33,7 @@ public class DIConfig {
     private final EmployeeDeleteCont employeeDeleteCont = new EmployeeDeleteContImp(employeeDeleteService, employeeReadService, validCheck);
     private final EmployeeReadCont employeeReadCont = new EmployeeReadContImp(employeeReadService, validCheck);
     private final EmployeeUpdateCont employeeUpdateCont = new EmployeeUpdateContImp(employeeUpdateService, employeeReadService, validCheck);
-    private final SalaryController salaryController = new SalaryControllerImp(employeeSalaryService);
+    private final SalaryController salaryController = new SalaryControllerImp(employeeSalaryService,employeeReadService,validCheck);
 
 
     /**

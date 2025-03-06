@@ -86,7 +86,7 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         int input = 0;
         while (true){
             str = in.nextLine();
-            if (str.matches(EMPLOYEE_NUMBER_REGEX)){
+            if (str.matches(EMPLOYEE_NUMBER_REGEX)) {
                 input = Integer.parseInt(str);
                 break;
             }

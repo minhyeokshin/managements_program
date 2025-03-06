@@ -26,13 +26,11 @@ public class EmployeeDeleteContImp implements EmployeeDeleteCont {
 
     /**
      * 직원 삭제 기능
-     * @param eno 직원 번호
      * @return 삭제된 직원 정보 또는 null
      */
     @Override
-    public void delete(Integer eno) {
+    public void delete() {
         Scanner scanner  = new Scanner(System.in);
-        System.out.print(EmployeeText.DELETE_EMPLOYEE_NUMBER.getText());
 
         // 유효한 직원 번호인지 검사
         int employeeNumber = validCheck.getValidEmployeeNumber(scanner);
@@ -41,7 +39,7 @@ public class EmployeeDeleteContImp implements EmployeeDeleteCont {
         EmployeeDto existingEmployee = employeeReadService.ReadOne(employeeNumber);
         if (existingEmployee == null) {
             System.out.println(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
-
+            return;
         }
 
         // 직원 삭제 요청

@@ -16,10 +16,9 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
     private final EmployeeUpdateService employeeUpdateService;
     private final EmployeeReadService employeeReadService;
     private final ValidCheck validCheck;
+    private final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * 생성자: 서비스 및 유효성 검사 객체 초기화
-     */
+
     public EmployeeUpdateContImp( EmployeeUpdateService employeeUpdateService,EmployeeReadService employeeReadService, ValidCheck validCheck) {
         this.employeeReadService = employeeReadService;
         this.employeeUpdateService = employeeUpdateService;
@@ -27,30 +26,26 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
     }
 
     /**
-     * 직원 정보를 업데이트하는 메서드
-     * @param eno 직원 번호
-     * @return 업데이트된 직원 정보
+     * 직원 정보 업데이트 실행
      */
     @Override
-    public EmployeeDto update(Integer eno) {
-        validCheck.isValidEmployeeNumber(eno);
+    public void update() {
+        System.out.print(EmployeeText.UPDATE_EMPLOYEE_NUMBER.getText());
 
-        // 기존 직원 정보 가져오기
-        EmployeeDto existingEmployee = employeeReadService.ReadOne(eno);
-        System.out.println("con");
+        int employeeNumber = validCheck.getValidEmployeeNumber(scanner);
+        EmployeeDto existingEmployee = employeeReadService.ReadOne(employeeNumber);
+
         if (existingEmployee == null) {
-            throw new RuntimeException(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
+            System.out.println(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
+            return;
         }
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println(EmployeeText.UPDATE_PROMPT.getText());
-
         System.out.println(EmployeeText.CHOOSE_UPDATE_OPTION.getText());
         System.out.print(EmployeeText.ENTER_CHOICE.getText());
-        String choice = scanner.nextLine();
-        //  Lombok의 @Builder(toBuilder = true) 기능을 활용하여 기존 객체를 기반으로 일부 값만 변경할 수 있도록 하는 역할
-        EmployeeDto.EmployeeDtoBuilder updatedEmployeeBuilder = existingEmployee.toBuilder();
 
+        String choice = scanner.nextLine();
+        EmployeeDto.EmployeeDtoBuilder updatedEmployeeBuilder = existingEmployee.toBuilder();
 
         switch (choice) {
             case "1":
@@ -59,60 +54,61 @@ public class EmployeeUpdateContImp implements EmployeeUpdateCont {
                 validCheck.isValidEmployeeName(name);
                 updatedEmployeeBuilder.name(name);
                 break;
-
             case "2":
                 System.out.print(EmployeeText.ENTER_ROLE.getText());
                 String role = scanner.nextLine();
                 validCheck.isValidEmployeeRole(role);
                 updatedEmployeeBuilder.role(role);
                 break;
-
             case "3":
                 System.out.print(EmployeeText.ENTER_SALARY.getText());
                 String salaryInput = scanner.nextLine();
                 validCheck.isValidEmployeeSalary(salaryInput);
                 updatedEmployeeBuilder.salary(Integer.parseInt(salaryInput));
                 break;
-
             case "4":
                 System.out.print(EmployeeText.ENTER_ENTRY_YEAR.getText());
-                int enteryear = Integer.parseInt(scanner.nextLine());
-                updatedEmployeeBuilder.enteryear(enteryear);
+                updatedEmployeeBuilder.enteryear(scanner.nextInt());
                 break;
-
             case "5":
                 System.out.print(EmployeeText.ENTER_ENTRY_MONTH.getText());
-                int entermonth = Integer.parseInt(scanner.nextLine());
-                updatedEmployeeBuilder.entermonth(entermonth);
+                updatedEmployeeBuilder.entermonth(scanner.nextInt());
                 break;
-
             case "6":
                 System.out.print(EmployeeText.ENTER_ENTRY_DAY.getText());
-                int enterday = Integer.parseInt(scanner.nextLine());
-                updatedEmployeeBuilder.enterday(enterday);
+                updatedEmployeeBuilder.enterday(scanner.nextInt());
                 break;
-
             case "7":
                 System.out.print(EmployeeText.ENTER_SECTION_NUMBER.getText());
-                int secno = Integer.parseInt(scanner.nextLine());
-                updatedEmployeeBuilder.secno(secno);
+                updatedEmployeeBuilder.secno(scanner.nextInt());
                 break;
-
             case "8":
                 System.out.println(EmployeeText.UPDATE_CANCELLED.getText());
-                return existingEmployee;
-
+                return;
             default:
                 System.out.println(EmployeeText.INVALID_CHOICE.getText());
-                return existingEmployee;
+                return;
         }
 
         EmployeeDto updatedEmployee = updatedEmployeeBuilder.build();
-        System.out.println(updatedEmployee);
 
-        employeeUpdateService.update(updatedEmployee);
-        return updatedEmployee;
+        printEmployeeInfo(employeeUpdateService.update(updatedEmployee));
+        System.out.println(EmployeeText.UPDATE_SUCCESS.getText());
     }
+
+    /**
+     * 직원 정보를 보기 좋은 테이블 형식으로 출력하는 메서드
+     */
+    private void printEmployeeInfo(EmployeeDto employee) {
+        System.out.println(EmployeeText.PRINT_TITLE.getText());
+        System.out.println(EmployeeText.PRINT_ROUND.getText());
+        System.out.printf("%-5d %-10s %2d-%02d-%02d  %-12s %8d %,14d\n",
+                employee.getEno(), employee.getName(),
+                employee.getEnteryear(), employee.getEntermonth(), employee.getEnterday(),
+                employee.getRole(), employee.getSecno(), employee.getSalary());
+        System.out.println("============================================================\n");
+    }
+
 }
 
 

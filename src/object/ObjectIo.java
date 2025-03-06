@@ -21,7 +21,7 @@ public class ObjectIo { // 싱글톤
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(Ignore.URL.getMsg(),"ssg", Ignore.PASSWORD.getMsg());
+            connection = DriverManager.getConnection(Ignore.URL.getMsg(),"employee", Ignore.PASSWORD.getMsg());
         }  catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

@@ -79,20 +79,7 @@ public class MainController {
     }
 
     private void deleteEmployee() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print(EmployeeText.DELETE_EMPLOYEE_NUMBER.getText());
-        int eno = validCheck.getValidEmployeeNumber(scanner);
-
-        try {
-            if (readController.ReadOne(eno) == null) {
-                System.out.println(ErrorCode.EMPLOYEE_NUMBER_NOT_FOUND.getText());
-                return;
-            }
-            deleteController.delete(eno);
-            System.out.println(EmployeeText.DELETE_SUCCESS.getText());
-        } catch (Exception e) {
-            System.out.println(ErrorCode.DELETE_FAILED.getText() + ": " + e.getMessage());
-        }
+        deleteController.delete(); // 삭제할 직원 번호를 컨트롤러 내부에서 처리
     }
 
     private void readEmployee() {
@@ -100,36 +87,11 @@ public class MainController {
     }
 
     private void updateEmployee() {
-        Scanner scanner = new Scanner(System.in);
-        int eno = validCheck.getValidEmployeeNumber(scanner);
-
-        try {
-            if (readController.ReadOne(eno) == null) {
-                System.out.println(ErrorCode.EMPLOYEE_NUMBER_NOT_FOUND.getText());
-                return;
-            }
-            updateController.update(eno);
-            System.out.println(EmployeeText.UPDATE_SUCCESS.getText());
-        } catch (Exception e) {
-            System.out.println(ErrorCode.EMPLOYEE_NOT_FOUND.getText() + ": " + e.getMessage());
-        }
+        updateController.update(); // 직원 번호를 컨트롤러에서 입력받음
     }
 
     private void salaryEmployee() {
-        Scanner scanner = new Scanner(System.in);
-        int eno = validCheck.getValidEmployeeNumber(scanner);
-
-        try {
-            if (readController.ReadOne(eno) == null) {
-                System.out.println(ErrorCode.EMPLOYEE_NUMBER_NOT_FOUND.getText());
-                return;
-            }
-            EmployeeDto updatedEmployee = salaryController.payRaise(eno);
-            System.out.println(EmployeeText.SALARY_UPDATE_SUCCESS.getText());
-            System.out.println(updatedEmployee); // 인상된 정보
-        } catch (Exception e) {
-            System.out.println(ErrorCode.DB_UPDATE_SALARY_ERROR.getText() + ": " + e.getMessage());
-        }
+        salaryController.payRaise(); // 직원 번호를 컨트롤러에서 입력받음
     }
 
     public static void main(String[] args) {
