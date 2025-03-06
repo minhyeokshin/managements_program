@@ -16,7 +16,7 @@ public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = new StringBuilder()
-                .append("DELETE FROM employee")
+                .append("DELETE FROM employee ")
                 .append("WHERE eno = ?").toString();
         int check = 0;
 

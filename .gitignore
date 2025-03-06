@@ -56,11 +56,8 @@ libs/
  .idea/
  .idea/jdk.table.xml
 .idea/workspace.xml
+ .idea/compiler.xml
 .idea/modules.xml
 .idea/shelf/
 .idea/gradle.xml
 
-
--.idea/dataSources.xml
--src/common/Ignore.java
-.gitignore
