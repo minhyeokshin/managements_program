@@ -1,9 +1,9 @@
 package common;
 
 public enum Ignore {
-    URL("jdbc:mysql://127.0.0.1:3306/ssgdb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"),
+    URL("jdbc:mysql://127.0.0.1:3306/employeedb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"),
     //PASSWORD("ssg6Employee");
-    PASSWORD("ssg1234");
+    PASSWORD("ssg6Employee");
 
     private String msg;
 

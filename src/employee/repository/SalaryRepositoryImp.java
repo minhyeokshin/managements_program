@@ -6,10 +6,7 @@ import employee.dto.SalaryHistoryDto;
 import exception.EmployeeException;
 import object.ObjectIo;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +18,7 @@ import java.util.function.Function;
 public class SalaryRepositoryImp implements SalaryRepository {
     Connection connection = ObjectIo.getConnection();
     ResultSet rs = null;
-    PreparedStatement pstmt;
+    CallableStatement cs = null;
 
 
     /**
@@ -35,16 +32,14 @@ public class SalaryRepositoryImp implements SalaryRepository {
     @Override
     public void updateSalaryHistory(int eno, int oldSalary, int newSalary) throws EmployeeException {
         try {
-            String sql = new StringBuilder()
-                    .append("INSERT INTO PAY_RAISE_HISTORY (eno, oldSalary, newSalary) ")
-                    .append("VALUES (?,?,?);").toString();
-
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, eno);
-            pstmt.setInt(2, oldSalary);
-            pstmt.setInt(3, newSalary);
-            pstmt.executeUpdate();
-            pstmt.close();
+            connection.setAutoCommit(false);
+            cs = connection.prepareCall("{call DB_HISTORY_INSERT(?,?,?)}");
+            cs.setInt(1, eno);
+            cs.setInt(2, oldSalary);
+            cs.setInt(3, newSalary);
+            cs.executeUpdate();
+            connection.commit();
+            cs.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_UPDATE_SALARY_ERROR);
@@ -61,13 +56,10 @@ public class SalaryRepositoryImp implements SalaryRepository {
     public Optional<List<SalaryHistoryDto>> salaryHistory(int eno) throws EmployeeException {
         List<SalaryHistoryDto> list = new ArrayList<>();
         try {
-            String sql = new StringBuilder()
-                    .append("SELECT p.eno, e.name, p.oldSalary, p.newSalary ")
-                    .append("FROM EMPLOYEE e, PAY_RAISE_HISTORY p ")
-                    .append("WHERE e.ENO = p.ENO;").toString();
-
-            pstmt = connection.prepareStatement(sql);
-            rs = pstmt.executeQuery();
+            connection.setAutoCommit(false);
+            cs = connection.prepareCall("{call DB_HISTORY_SELECT(?)}");
+            cs.setInt(1, eno);
+            rs = cs.executeQuery();
 
             while (rs.next()) {
                 SalaryHistoryDto dto = SalaryHistoryDto.builder()
@@ -77,7 +69,8 @@ public class SalaryRepositoryImp implements SalaryRepository {
                         .newSalary(rs.getInt("newSalary")).build();
                 list.add(dto);
             }
-            pstmt.close();
+            rs.close();
+            cs.close();
             return Optional.of(list);
         } catch (SQLException e) {
             e.printStackTrace();
