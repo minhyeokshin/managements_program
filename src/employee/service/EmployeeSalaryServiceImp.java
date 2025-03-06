@@ -2,9 +2,8 @@ package employee.service;
 
 import common.ErrorCode;
 import employee.dto.EmployeeDto;
-import employee.repository.EmployeeReadRepo;
-import employee.repository.EmployeeUpdateRepo;
-import employee.repository.SalaryRepository;
+import employee.dto.SalaryHistoryDto;
+import employee.repository.*;
 import employee.service.pay.PayRaiseRate;
 import employee.service.pay.PayRateManager;
 import employee.service.pay.PayRateSecretary;
@@ -14,6 +13,7 @@ import exception.EmployeeException;
 import exception.NotFoundException;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
     EmployeeReadRepo employeeReadRepo;
@@ -28,13 +28,15 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
         this.salaryRepository = salaryRepository;
     }
     @Override
-    public EmployeeDto updateSalary(Integer eno) throws EmployeeException {
+    public EmployeeSalaryService updateSalary(Integer eno) throws EmployeeException {
         try {
             EmployeeDto employeeDto = employeeReadRepo.ReadOne(eno).orElseThrow(() -> new NotFoundException(ErrorCode.EMPLOYEE_NOT_FOUND
                     + " eno : " + eno)); // 해당 사원 dto
             setPayRaiseRateMap(new PayRateStaff(),new PayRateSecretary(), new PayRateManager());
 
-            logSalaryHistory(employeeDto);
+            Integer beforeSalary = returnSalary(employeeDto.getSalary());
+            Integer afterSalary = makeSalaryUpdateDto(employeeDto).returnSalary(employeeDto.getSalary());
+            salaryRepository.updateSalaryHistory(employeeDto.getEno(), beforeSalary, afterSalary);
 
             employeeUpdateRepo.update(EmployeeVo.builder()
                     .eno(employeeDto.getEno())
@@ -46,11 +48,15 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                     .secno(employeeDto.getSecno())
                     .salary(employeeDto.getSalary())
                     .build());
-            return employeeReadRepo.ReadOne(eno).orElseThrow(() -> new NotFoundException(ErrorCode.EMPLOYEE_NOT_FOUND
-                    + " eno : " + eno));
+            return this;
         }catch (EmployeeException e){
             throw new EmployeeException(ErrorCode.DB_READ_ONE_ERROR);
         }
+    }
+
+    @Override
+    public List<SalaryHistoryDto> getSalaryHistory(Integer eno) throws EmployeeException {
+        return salaryRepository.salaryHistory(eno).orElseThrow(() -> new NotFoundException(ErrorCode.ERROR_EMPTY_HISTORY_LIST + " eno : " + eno));
     }
 
     private void setPayRaiseRateMap(PayRaiseRate payRaiseRateStaff, PayRaiseRate payRaiseRateSecretary, PayRaiseRate payRaiseRateManager) {
@@ -65,10 +71,8 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                 .getSalary();
     }
 
-    private void logSalaryHistory(EmployeeDto employeeDto) throws EmployeeException {
-        Integer beforeSalary = returnSalary(employeeDto.getEno());
+    private EmployeeSalaryServiceImp makeSalaryUpdateDto(EmployeeDto employeeDto) throws EmployeeException {
         employeeDto.setSalary(payRaiseRateHashMap.get(employeeDto.getRole()).apply(employeeDto.getSalary())); // 롤에따라 다른 인상정책 적용
-        Integer afterSalary = returnSalary(employeeDto.getEno());
-        salaryRepository.updateSalaryHistory(employeeDto.getEno(), beforeSalary, afterSalary);
+        return this;
     }
 }
