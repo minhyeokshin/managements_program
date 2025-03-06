@@ -20,8 +20,8 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
 
         String sql = new StringBuilder()
                 .append("UPDATE employee ")
-                .append("SET name = ?, enteryear = ?, entermonth = ?, enterday = ?, role = ?, secno = ?, salary = ?")
-                .append(" WHERE eno = ?").toString();
+                .append("SET name = ?, enteryear = ?, entermonth = ?, enterday = ?, role = ?, secno = ?, salary = ? ")
+                .append("WHERE eno = ?").toString();
         int check = 0;
 
         try {
