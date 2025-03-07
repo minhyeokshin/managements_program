@@ -1,30 +1,33 @@
+import employee.controller.MainController;
 import student.controller.StudentOutput;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
-        DIConfig diConfig = new DIConfig();
-        StudentOutput test = diConfig.getStudentOutput();
-        test.initialize();
+        Scanner in = new Scanner(System.in);
 
-        while(true) {
-            test.welcome();
-            String number = test.numberInput();
-            switch (number) {
-                case "1":
-                    test.studentInfoInput();
-                    break;
-                case "2":
-                    test.studentInfoSearch();
-                    break;
-                case "3":
-                    test.studentInfoSort();
-                    break;
-                case "4":
-                    test.studentExit();
-                    break;
-            }
-            if(number.equals("4")) break;
+        DIConfig diConfig = new DIConfig();
+        MainController employee = diConfig.mainController();
+        StudentOutput student = diConfig.getStudentOutput();
+
+        System.out.println("1.직원관리 2.학생관리");
+        System.out.printf("입력 : ");
+        int choice = in.nextInt();
+        in.nextLine();
+        switch (choice){
+            case 1:
+                employee.start();
+                break;
+            case 2:
+                student.start();
+                break;
+            default:
+                System.out.println("오류 , 시스템종료");
+                break;
         }
 
     }
+
 }
