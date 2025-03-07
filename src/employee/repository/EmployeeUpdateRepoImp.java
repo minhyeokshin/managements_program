@@ -18,7 +18,6 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
     public void update(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = "{ CALL EmployeeUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
-        int check = 0;
 
         try {
             cs = connection.prepareCall(sql);
@@ -32,10 +31,8 @@ public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
             cs.setInt(8, employeeVo.getSalary());
             cs.setInt(9, employeeVo.getEno());
 
-            check = cs.executeUpdate();
-            if (check == 0) {
-                throw new EmployeeException(ErrorCode.DB_NO_UPDATE);
-            }
+            cs.execute();
+
         } catch (SQLException e) {
             e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_UPDATE_ERROR);
