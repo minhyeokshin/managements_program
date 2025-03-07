@@ -8,6 +8,8 @@ import employee.dto.EmployeeDto;
 
 import java.util.Scanner;
 
+import static common.ErrorCode.ERROR_INPUT_NUM;
+
 /**
  * 직원 관리 시스템 메인 컨트롤러
  */
@@ -41,25 +43,20 @@ public class MainController {
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1":
+                case "1" ->
                     createEmployee();
-                    break;
-                case "2":
+
+                case "2" ->
                     deleteEmployee();
-                    break;
-                case "3":
+                case "3" ->
                     readEmployee();
-                    break;
-                case "4":
+                case "4" ->
                     updateEmployee();
-                    break;
-                case "5":
+                case "5" ->
                     salaryEmployee();
-                    break;
-                case "6":
+                case "6" ->
                     System.out.println(EmployeeText.EXIT_MESSAGE.getText());
-                    return;
-                default:
+                default ->
                     System.out.println(EmployeeText.INVALID_CHOICE_MAIN.getText());
             }
         }
@@ -79,20 +76,37 @@ public class MainController {
     }
 
     private void deleteEmployee() {
-        deleteController.delete(); // 삭제할 직원 번호를 컨트롤러 내부에서 처리
+        deleteController.delete();
     }
 
     private void readEmployee() {
+
         readController.Read();
     }
 
     private void updateEmployee() {
-        updateController.update(); // 직원 번호를 컨트롤러에서 입력받음
-    }
 
-    private void salaryEmployee() {
-        salaryController.payRaise(); // 직원 번호를 컨트롤러에서 입력받음
+        updateController.update();
     }
+    private void salaryEmployee() {
+        salaryController.handleSalaryMenu(); // 급여 관련 처리를 SalaryControllerImp에서 수행
+    }
+//    private void salaryEmployee() {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println(EmployeeText.SALARY_MENU.getText());
+//        int choice = validCheck.getValidEmployeeNumber(scanner);
+//        switch (choice){
+//            case 1:
+//                salaryController.payRaise();
+//                break;
+//            case 2:
+//                salaryController.salaryHistory();
+//                break;
+//            default:
+//                System.out.println(ERROR_INPUT_NUM.getText());
+//                break;
+//        }
+//    }
 
     public static void main(String[] args) {
         MainController mainController = new DIConfig().mainController();
