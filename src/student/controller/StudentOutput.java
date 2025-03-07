@@ -54,4 +54,6 @@ public interface StudentOutput {
      * StudentIO 초기화
      */
     void initialize();
+
+    void start();
 }

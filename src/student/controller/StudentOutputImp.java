@@ -1,5 +1,6 @@
 package student.controller;
 
+import employee.DIConfig;
 import student.dto.StudentDto;
 import java.util.List;
 import java.util.Map;
@@ -363,5 +364,32 @@ public class StudentOutputImp implements StudentOutput {
     @Override
     public void initialize() {
         searchStudent.initialize();
+    }
+
+    @Override
+    public void start(){
+        DIConfig diConfig = new DIConfig();
+        StudentOutput test = diConfig.getStudentOutput();
+        test.initialize();
+
+        while(true) {
+            test.welcome();
+            String number = test.numberInput();
+            switch (number) {
+                case "1":
+                    test.studentInfoInput();
+                    break;
+                case "2":
+                    test.studentInfoSearch();
+                    break;
+                case "3":
+                    test.studentInfoSort();
+                    break;
+                case "4":
+                    test.studentExit();
+                    break;
+            }
+            if(number.equals("4")) break;
+        }
     }
 }
