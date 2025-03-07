@@ -17,17 +17,13 @@ public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = "{ CALL EmployeeDelete(?, ?) }";
-        int check = 0;
 
         try {
             cs = connection.prepareCall(sql);
             cs.setString(1, "employee");
             cs.setInt(2, employeeVo.getEno());
 
-            check = cs.executeUpdate();
-            if (check == 0) {
-                throw new EmployeeException(ErrorCode.DB_NO_DELETE);
-            }
+            cs.execute();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_DELETE_ERROR);
