@@ -34,8 +34,8 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                     + " eno : " + eno)); // 해당 사원 dto
             setPayRaiseRateMap(new PayRateStaff(),new PayRateSecretary(), new PayRateManager());
 
-            Integer beforeSalary = returnSalary(employeeDto.getSalary());
-            Integer afterSalary = makeSalaryUpdateDto(employeeDto).returnSalary(employeeDto.getSalary());
+            Integer beforeSalary = returnSalary(eno);
+            Integer afterSalary = makeSalaryUpdateDto(employeeDto).returnSalary(eno);
             salaryRepository.updateSalaryHistory(employeeDto.getEno(), beforeSalary, afterSalary);
 
             employeeUpdateRepo.update(EmployeeVo.builder()
@@ -71,7 +71,7 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
                 .getSalary();
     }
 
-    private EmployeeSalaryServiceImp makeSalaryUpdateDto(EmployeeDto employeeDto) throws EmployeeException {
+    private EmployeeSalaryServiceImp makeSalaryUpdateDto (EmployeeDto employeeDto) throws EmployeeException {
         employeeDto.setSalary(payRaiseRateHashMap.get(employeeDto.getRole()).apply(employeeDto.getSalary())); // 롤에따라 다른 인상정책 적용
         return this;
     }

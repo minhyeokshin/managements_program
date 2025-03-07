@@ -26,27 +26,18 @@ public class EmployeeDeleteContImp implements EmployeeDeleteCont {
 
     /**
      * 직원 삭제 기능
-     * @param eno 직원 번호
      * @return 삭제된 직원 정보 또는 null
      */
     @Override
-    public void delete(Integer eno) {
+    public void delete() {
         Scanner scanner  = new Scanner(System.in);
         System.out.print(EmployeeText.DELETE_EMPLOYEE_NUMBER.getText());
-
         // 유효한 직원 번호인지 검사
         int employeeNumber = validCheck.getValidEmployeeNumber(scanner);
 
-        // 직원 존재 여부 확인
-        EmployeeDto existingEmployee = employeeReadService.ReadOne(employeeNumber);
-        if (existingEmployee == null) {
-            System.out.println(ErrorCode.EMPLOYEE_NOT_FOUND.getText());
-
-        }
-
         // 직원 삭제 요청
         try {
-            employeeDeleteService.Delete(existingEmployee);
+            employeeDeleteService.Delete(employeeNumber);
             System.out.println(EmployeeText.DELETE_SUCCESS.getText());
         } catch (Exception e) {
             System.out.println(ErrorCode.DELETE_FAILED.getText() + ": " + e.getMessage());

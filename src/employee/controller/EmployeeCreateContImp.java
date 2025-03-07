@@ -14,6 +14,7 @@ import static common.ErrorCode.*;
 public class EmployeeCreateContImp implements EmployeeCreateCont {
 
     Scanner in = new Scanner(System.in);
+    private final String EMPLOYEE_NUMBER_REGEX = "^[1-9][0-9]*$";
 
     private final EmployeeCreateService createService;
     private final EmployeeReadService readService;
@@ -22,12 +23,15 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
     public EmployeeCreateContImp(EmployeeCreateService createService, EmployeeReadService readService) {
         this.createService = createService;
         this.readService = readService;
+
     }
+
 
     @Override
     public EmployeeDto create() {
 
         EmployeeDto employeeDto = new EmployeeDto();
+
         List<EmployeeDto> employeeDtoList = readService.ReadAll();
 
         System.out.println(ENTER_INPUT_EMPLOYEE.getText());
@@ -61,6 +65,8 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         employeeDto.setSecno(inputNumRegex(validCheck.SECINPUT_REGEX));
         System.out.printf(ENTER_SALARY.getText());
         employeeDto.setSalary(inputNum());
+
+
 
         return createService.create(employeeDto);
     }
@@ -120,4 +126,5 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         }
         return input;
     }
+
 }
