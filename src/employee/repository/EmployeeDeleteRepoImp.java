@@ -4,34 +4,38 @@ import common.ErrorCode;
 import employee.vo.EmployeeVo;
 import exception.EmployeeException;
 import object.ObjectIo;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
 
     Connection connection = ObjectIo.getConnection();
-    PreparedStatement pstmt = null;
+    CallableStatement cs = null;
     @Override
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
-        String sql = new StringBuilder()
-                .append("DELETE FROM employee ")
-                .append("WHERE eno = ?").toString();
+        String sql = "{ CALL EmployeeDelete(?) }";
         int check = 0;
 
         try {
-            pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, employeeVo.getEno());
+            cs = connection.prepareCall(sql);
+            cs.setInt(1, employeeVo.getEno());
 
-            check = pstmt.executeUpdate();
+            check = cs.executeUpdate();
             if (check == 0) {
                 throw new EmployeeException(ErrorCode.DB_NO_DELETE);
             }
-            pstmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new EmployeeException(ErrorCode.DB_DELETE_ERROR);
+        } finally {
+            try {
+                if (cs != null) cs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
