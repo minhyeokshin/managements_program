@@ -16,12 +16,13 @@ public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
     @Override
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
-        String sql = "{ CALL EmployeeDelete(?) }";
+        String sql = "{ CALL EmployeeDelete(?, ?) }";
         int check = 0;
 
         try {
             cs = connection.prepareCall(sql);
-            cs.setInt(1, employeeVo.getEno());
+            cs.setString(1, "employee");
+            cs.setInt(2, employeeVo.getEno());
 
             check = cs.executeUpdate();
             if (check == 0) {
