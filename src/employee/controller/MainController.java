@@ -89,24 +89,9 @@ public class MainController {
         updateController.update();
     }
     private void salaryEmployee() {
-        salaryController.handleSalaryMenu(); // 급여 관련 처리를 SalaryControllerImp에서 수행
+        salaryController.handleSalaryMenu();
     }
-//    private void salaryEmployee() {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println(EmployeeText.SALARY_MENU.getText());
-//        int choice = validCheck.getValidEmployeeNumber(scanner);
-//        switch (choice){
-//            case 1:
-//                salaryController.payRaise();
-//                break;
-//            case 2:
-//                salaryController.salaryHistory();
-//                break;
-//            default:
-//                System.out.println(ERROR_INPUT_NUM.getText());
-//                break;
-//        }
-//    }
+
 
     public static void main(String[] args) {
         MainController mainController = new DIConfig().mainController();
