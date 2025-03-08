@@ -41,7 +41,7 @@ public enum EmployeeText {
     PRINT_TITLE(String.format("%-5s %-10s %-12s %-14s %3s %8s","사번", "이름", "입사일", "직급", "부서번호", "임금")),
     INPUT_ROLE("1.Staff 2.Manager 3.Secretary\t\t(기본입력 : Staff)"),
     INPUT_SECNO("부서 입력 범위 : 101 ~ 149"),
-    PRINT_SALARY_HISTORY(String.format("%-5s %-10s %-12s %-12s%n", "사번", "이름", "이전 급여", "변경 후 급여")),
+    PRINT_SALARY_HISTORY(String.format("%-5s %-10s %10s %13s%n", "사번", "이름", "이전 급여", "변경 후 급여")),
 
     SALARY_MENU("1. 급여 인상\n2. 급여 내역 조회"),
     CHECK_SALARY_HISTORY("급여 인상 내역을 조회 할 직원 번호를 입력하세요 : "),
