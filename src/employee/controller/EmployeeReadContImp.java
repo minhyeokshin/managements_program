@@ -26,6 +26,11 @@ public class EmployeeReadContImp implements EmployeeReadCont{
     }
 
 
+    /**
+     * 특정 직원 검색 메소드
+     * @param eno
+     * @return 출력
+     */
     @Override
     public EmployeeDto ReadOne(Integer eno) {
 
@@ -46,6 +51,9 @@ public class EmployeeReadContImp implements EmployeeReadCont{
         return employeeDto;
     }
 
+    /**
+     * 전체 직원 검색 메소드
+     */
     @Override
     public void ReadAll() {
         List<EmployeeDto> employeeDtoList = employeeReadService.ReadAll();

@@ -27,6 +27,10 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
     }
 
 
+    /**
+     * 직원 생성 기능
+     * @return employeedto
+     */
     @Override
     public EmployeeDto create() {
 
@@ -71,6 +75,9 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         return createService.create(employeeDto);
     }
 
+    /**
+     * 직원 생성 후 출력 기능
+     */
     @Override
     public void createrun(){
 
@@ -90,6 +97,10 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         }
     }
 
+    /**
+     * 숫자 입력 메소드
+     * @return int input
+     */
     private int inputNum(){
         String str;
         int input = 0;
@@ -104,6 +115,10 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         return input;
     }
 
+    /**
+     * 이름 입력 메소드
+     * @return String name
+     */
     private String inputName(){
         String name;
         do {
@@ -113,6 +128,11 @@ public class EmployeeCreateContImp implements EmployeeCreateCont {
         return name;
     }
 
+    /**
+     * 벨리드체크하여 숫자 입력 메소드
+     * @param regex
+     * @return int input
+     */
     private int inputNumRegex(String regex){
         String str;
         int input = 0;

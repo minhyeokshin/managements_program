@@ -82,6 +82,10 @@ public class DIConfig {
     }
 
 
+    /**
+     * EmployeeController
+     * @return MainController
+     */
     public MainController mainController(){
         return new MainController(
                 employeeCreateCont,
