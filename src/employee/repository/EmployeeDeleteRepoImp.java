@@ -10,7 +10,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * 사원 정보를 삭제하는 메서드
+ * 사원 정보를 삭제하는 클래스
  */
 public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
 
