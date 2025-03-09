@@ -8,6 +8,9 @@ import employee.vo.EmployeeVo;
 import exception.EmployeeException;
 import exception.NotFoundException;
 
+/**
+ * 직원 정보 업데이트 서비스 구현체
+ */
 public class EmployeeUpdateServiceImp implements EmployeeUpdateService{
 
     private final EmployeeUpdateRepo employeeUpdateRepo;
@@ -19,6 +22,12 @@ public class EmployeeUpdateServiceImp implements EmployeeUpdateService{
     }
 
 
+    /**
+     * 직원 정보 업데이트
+     * @param employeeDto 업데이트 할 직원 dto
+     * @return 업데이트 된 직원 dto
+     * @throws EmployeeException 직원 정보 업데이트 실패
+     */
     @Override
     public EmployeeDto update(EmployeeDto employeeDto) throws EmployeeException {
         try {
