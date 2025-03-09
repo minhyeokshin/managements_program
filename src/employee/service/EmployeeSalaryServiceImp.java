@@ -14,6 +14,7 @@ import exception.NotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * 직원 급여 업데이트 서비스 구현체
@@ -23,14 +24,15 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
     EmployeeUpdateRepo employeeUpdateRepo;
     SalaryRepository salaryRepository;
 
-    HashMap<String, PayRaiseRate> payRaiseRateHashMap = new HashMap<>();
+    HashMap<String, PayRaiseRate<Integer,Integer>> payRaiseRateHashMap = new HashMap<>();
 
     public EmployeeSalaryServiceImp(EmployeeReadRepo employeeReadRepo, EmployeeUpdateRepo employeeUpdateRepo, SalaryRepository salaryRepository) {
         this.employeeReadRepo = employeeReadRepo;
         this.employeeUpdateRepo = employeeUpdateRepo;
         this.salaryRepository = salaryRepository;
-        setPayRaiseRateMap(new PayRateStaff(),new PayRateSecretary(), new PayRateManager());
+        setPayRaiseRateMap();
     }
+
 
     /**
      * 직원 급여 업데이트 및 내역 저장
@@ -83,14 +85,11 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
 
     /**
      * 급여 갱신 전략 map
-     * @param payRaiseRateStaff 스테프 급여 업데이트
-     * @param payRaiseRateSecretary 안전요원 급여 업데이트
-     * @param payRaiseRateManager 매니저 급여 업데이트
      */
-    private void setPayRaiseRateMap(PayRaiseRate payRaiseRateStaff, PayRaiseRate payRaiseRateSecretary, PayRaiseRate payRaiseRateManager) {
-        payRaiseRateHashMap.put("Staff",payRaiseRateStaff);
-        payRaiseRateHashMap.put("Secretary", payRaiseRateSecretary);
-        payRaiseRateHashMap.put("Manager", payRaiseRateManager);
+    private void setPayRaiseRateMap() {
+        payRaiseRateHashMap.put("Staff",new PayRateStaff()::apply);
+        payRaiseRateHashMap.put("Secretary", new PayRateSecretary()::apply);
+        payRaiseRateHashMap.put("Manager", new PayRateManager()::apply);
     }
 
     /**

@@ -3,7 +3,7 @@ package employee.service.pay;
 /**
  * 매니저 급여 인상 정책
  */
-public class PayRateManager implements PayRaiseRate{
+public class PayRateManager implements PayRaiseRate<Integer,Integer>{
     /**
      * 매니저 급여 인상 메소드
      * @param salary the function argument
