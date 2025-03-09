@@ -4,7 +4,7 @@ package employee.service.pay;
 /**
  * 안전요완 급여 인상 정책
  */
-public class PayRateSecretary implements PayRaiseRate{
+public class PayRateSecretary implements PayRaiseRate<Integer,Integer>{
     /**
      * 안전요원 급여 인상 메소드
      * @param salary the function argument
