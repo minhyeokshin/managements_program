@@ -43,19 +43,15 @@ public class MainController {
             String choice = scanner.nextLine();
 
             switch (choice) {
-                case "1" ->
-                    createEmployee();
+                case "1" -> createEmployee();
 
-                case "2" ->
-                    deleteEmployee();
-                case "3" ->
-                    readEmployee();
-                case "4" ->
-                    updateEmployee();
-                case "5" ->
-                    salaryEmployee();
-                case "6" ->
-                    System.out.println(EmployeeText.EXIT_MESSAGE.getText());
+                case "2" -> deleteEmployee();
+                case "3" -> readEmployee();
+                case "4" -> updateEmployee();
+                case "5" -> salaryEmployee();
+                case "6" -> {
+                System.out.println(EmployeeText.EXIT_MESSAGE.getText());
+                return;}
                 default ->
                     System.out.println(EmployeeText.INVALID_CHOICE_MAIN.getText());
             }
