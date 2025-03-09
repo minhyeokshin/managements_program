@@ -9,12 +9,19 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * 사원정보를 수정하는 클래스
+ */
 public class EmployeeUpdateRepoImp implements EmployeeUpdateRepo{
     Connection connection = ObjectIo.getConnection();
     CallableStatement cs = null;
 
+    /**
+     * 사원 정보를 수정하는 메서드
+     * @param employeeVo 수정할 사원 정보 객체
+     * @throws EmployeeException 사원 정보 수정 중 오류 발생시 예외처리
+     */
     @Override
-
     public void update(EmployeeVo employeeVo) throws EmployeeException {
 
         String sql = "{ CALL EmployeeUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?) }";
