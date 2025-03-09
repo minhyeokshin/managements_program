@@ -9,10 +9,19 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * 사원 정보를 삭제하는 클래스
+ */
 public class EmployeeDeleteRepoImp implements EmployeeDeleteRepo{
 
     Connection connection = ObjectIo.getConnection();
     CallableStatement cs = null;
+
+    /**
+     * 사원 정보를 삭제하는 메서드
+     * @param employeeVo 삭제할 사원 정보 객체
+     * @throws EmployeeException 사원 정보 삭제 중 오류 발생시 예외처리
+     */
     @Override
     public void Delete(EmployeeVo employeeVo) throws EmployeeException {
 
