@@ -8,6 +8,9 @@ import employee.repository.EmployeeReadRepo;
 import employee.vo.EmployeeVo;
 import exception.EmployeeException;
 
+/**
+ * 직원 삭제 서비스 구현체
+ */
 public class EmployeeDeleteServiceImp implements EmployeeDeleteService{
 
     private final EmployeeDeleteRepo employeeDeleteRepo;
@@ -20,6 +23,11 @@ public class EmployeeDeleteServiceImp implements EmployeeDeleteService{
     }
 
 
+    /**
+     * 직원 삭제 메서드
+     * @param eno 삭제할 사원 번호
+     * @throws EmployeeException 직원 삭제 실패 예외
+     */
     @Override
     public void Delete(Integer eno) throws EmployeeException {
         EmployeeDto employeeDto = employeeReadRepo.ReadOne(eno).orElseThrow(()->new EmployeeException(ErrorCode.DB_READ_ONE_ERROR));

@@ -15,6 +15,9 @@ import exception.NotFoundException;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * 직원 급여 업데이트 서비스 구현체
+ */
 public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
     EmployeeReadRepo employeeReadRepo;
     EmployeeUpdateRepo employeeUpdateRepo;
@@ -28,6 +31,13 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
         this.salaryRepository = salaryRepository;
         setPayRaiseRateMap(new PayRateStaff(),new PayRateSecretary(), new PayRateManager());
     }
+
+    /**
+     * 직원 급여 업데이트 및 내역 저장
+     * @param eno 직원 번호
+     * @return 직원 업데이트 구현체(체이닝을 위한 return this)
+     * @throws EmployeeException 직원 업데이트 예외처리
+     */
     @Override
     public EmployeeSalaryService updateSalary(Integer eno) throws EmployeeException {
         try {
@@ -56,6 +66,12 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
         }
     }
 
+    /**
+     * 측정 직원 급여 업데이트 내역
+     * @param eno 특정 직원 번호
+     * @return 직원 급여 내역 리스트
+     * @throws EmployeeException 급여내역 조회 실패 예외처리
+     */
     @Override
     public List<SalaryHistoryDto> getSalaryHistory(Integer eno) throws EmployeeException {
         return salaryRepository
@@ -65,12 +81,24 @@ public class EmployeeSalaryServiceImp implements EmployeeSalaryService {
     }
 
 
+    /**
+     * 급여 갱신 전략 map
+     * @param payRaiseRateStaff 스테프 급여 업데이트
+     * @param payRaiseRateSecretary 안전요원 급여 업데이트
+     * @param payRaiseRateManager 매니저 급여 업데이트
+     */
     private void setPayRaiseRateMap(PayRaiseRate payRaiseRateStaff, PayRaiseRate payRaiseRateSecretary, PayRaiseRate payRaiseRateManager) {
         payRaiseRateHashMap.put("Staff",payRaiseRateStaff);
         payRaiseRateHashMap.put("Secretary", payRaiseRateSecretary);
         payRaiseRateHashMap.put("Manager", payRaiseRateManager);
     }
 
+    /**
+     * 전략에 따른 급여내역 업데이트
+     * @param employeeDto 직원 dto
+     * @return 급여 업데이트 된 직원 dto
+     * @throws EmployeeException 급여 업데이트 실패 예외처리
+     */
     private EmployeeDto calculateUpdatedSalary(EmployeeDto employeeDto) throws EmployeeException {
         employeeDto.setSalary(payRaiseRateHashMap
                 .get(employeeDto.getRole())
