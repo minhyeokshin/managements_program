@@ -1,12 +1,14 @@
 package employee.vo;
 
 import employee.dto.EmployeeDto;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
 import java.util.Objects;
 
 @Getter
+@Builder
 public class EmployeeVo {
     private Integer eno;
     private String name;

@@ -3,6 +3,19 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+.idea/dataSources.xml
+src/common/Ignore.java
+
+.idea/
+.idea/jdk.table.xml
+.idea/workspace.xml
+.idea/compiler.xml
+.idea/modules.xml
+.idea/shelf/
+.idea/gradle.xml
+
+Ignore.java
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -28,3 +41,30 @@ bin/
 ### Mac OS ###
 .DS_Store
 echo ".idea/compiler.xml" >> .gitignore
+
+### IntelliJ 설정 파일 무시 ###
+.idea/misc.xml
+.idea/compiler.xml
+
+# 특정 파일 무시
+*.meta  # .meta 파일 무시
+*.zip   # 압축 파일 무시
+*.xml   # XML 파일 무시
+
+# 데이터 소스 설정 파일 무시
+dataSources/
+dataSources.local.xml
+
+# 라이브러리 폴더 무시
+libs/
+*.jar
+
+# IntelliJ IDEA 설정 관련 파일 무시
+ .idea/
+ .idea/jdk.table.xml
+.idea/workspace.xml
+ .idea/compiler.xml
+.idea/modules.xml
+.idea/shelf/
+.idea/gradle.xml
+
