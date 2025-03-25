@@ -48,13 +48,15 @@ Java 기반 CLI 프로젝트로, 학사관리 시스템과 직원관리 시스�
 
 ## 📁 프로젝트 구조
 
-src/
-├── Main.java                 👉 프로그램 진입점
-├── DIConfig.java            👉 의존성 주입 설정 클래스
-├── common/                  👉 공통 유틸 (검증, 출력 등)
-├── employee/                👉 직원관리 도메인 (Controller, Service 등)
-├── student/                 👉 학사관리 도메인
-├── databases/, exception/, object/ 등 기타
+📁 src/<br>
+├── 📄 Main.java             👉 프로그램 진입점<br>
+├── 📄 DIConfig.java         👉 의존성 주입 설정 클래스<br>
+├── 📁 common/              👉 공통 유틸 (검증, 출력 등)<br>
+├── 📁 employee/            👉 직원관리 도메인 (Controller, Service 등)<br>
+├── 📁 student/             👉 학사관리 도메인<br>
+├── 📁 databases/           👉 DB 초기화 SQL 파일 등<br>
+├── 📁 exception/           👉 예외 처리 관련 클래스<br>
+├── 📁 object/              👉 공통 VO, DTO 등 객체 정의<br>
 
 ---
 
